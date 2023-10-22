@@ -9,7 +9,7 @@ cd UI
 再
 npm install
 运行项目
-npm run dev
+npm run dev 
 
 后端：
 刷新Maven，重新构建项目，再运行
