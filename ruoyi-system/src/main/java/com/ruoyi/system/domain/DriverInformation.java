@@ -1,7 +1,5 @@
 package com.ruoyi.system.domain;
 
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -49,9 +47,8 @@ public class DriverInformation extends BaseEntity
     private String vehicleLoad;
 
     /** 车辆使用时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "车辆使用时间", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date vehicleUsageTime;
+    @Excel(name = "车辆使用时间")
+    private String vehicleUsageTime;
 
     public void setId(Integer id) 
     {
@@ -125,12 +122,12 @@ public class DriverInformation extends BaseEntity
     {
         return vehicleLoad;
     }
-    public void setVehicleUsageTime(Date vehicleUsageTime) 
+    public void setVehicleUsageTime(String vehicleUsageTime) 
     {
         this.vehicleUsageTime = vehicleUsageTime;
     }
 
-    public Date getVehicleUsageTime() 
+    public String getVehicleUsageTime() 
     {
         return vehicleUsageTime;
     }

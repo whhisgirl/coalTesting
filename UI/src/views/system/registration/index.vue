@@ -66,12 +66,12 @@
         />
       </el-form-item>
       <el-form-item label="报告生成时间" prop="reportTime">
-        <el-input
+        <el-date-picker clearable
           v-model="queryParams.reportTime"
-          placeholder="请输入报告生成时间"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="请选择报告生成时间">
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="检测标准号" prop="testStandardNumber">
         <el-input
@@ -148,7 +148,11 @@
       <el-table-column label="采样人" align="center" prop="sampler" />
       <el-table-column label="采样照片" align="center" prop="pictureBefore" />
       <el-table-column label="采样照片" align="center" prop="pictureAfter" />
-      <el-table-column label="报告生成时间" align="center" prop="reportTime" />
+      <el-table-column label="报告生成时间" align="center" prop="reportTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.reportTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="检测标准号" align="center" prop="testStandardNumber" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -178,7 +182,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改指标结果记录对话框 -->
+    <!-- 添加或修改【请填写功能名称】对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="煤采样时间" prop="sampleTime">
@@ -211,7 +215,12 @@
           <el-input v-model="form.pictureAfter" placeholder="请输入采样照片" />
         </el-form-item>
         <el-form-item label="报告生成时间" prop="reportTime">
-          <el-input v-model="form.reportTime" placeholder="请输入报告生成时间" />
+          <el-date-picker clearable
+            v-model="form.reportTime"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择报告生成时间">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="检测标准号" prop="testStandardNumber">
           <el-input v-model="form.testStandardNumber" placeholder="请输入检测标准号" />
@@ -244,7 +253,7 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 指标结果记录表格数据
+      // 【请填写功能名称】表格数据
       registrationList: [],
       // 弹出层标题
       title: "",
@@ -276,7 +285,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询指标结果记录列表 */
+    /** 查询【请填写功能名称】列表 */
     getList() {
       this.loading = true;
       listRegistration(this.queryParams).then(response => {
@@ -327,7 +336,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加指标结果记录";
+      this.title = "添加【请填写功能名称】";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -336,7 +345,7 @@ export default {
       getRegistration(coalNumber).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改指标结果记录";
+        this.title = "修改【请填写功能名称】";
       });
     },
     /** 提交按钮 */
@@ -362,7 +371,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const coalNumbers = row.coalNumber || this.ids;
-      this.$modal.confirm('是否确认删除指标结果记录编号为"' + coalNumbers + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除【请填写功能名称】编号为"' + coalNumbers + '"的数据项？').then(function() {
         return delRegistration(coalNumbers);
       }).then(() => {
         this.getList();

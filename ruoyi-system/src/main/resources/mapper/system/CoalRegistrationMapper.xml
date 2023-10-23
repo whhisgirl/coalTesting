@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sampler != null  and sampler != ''"> and sampler = #{sampler}</if>
             <if test="pictureBefore != null  and pictureBefore != ''"> and picture_before = #{pictureBefore}</if>
             <if test="pictureAfter != null  and pictureAfter != ''"> and picture_after = #{pictureAfter}</if>
-            <if test="reportTime != null  and reportTime != ''"> and report_time = #{reportTime}</if>
+            <if test="reportTime != null "> and report_time = #{reportTime}</if>
             <if test="testStandardNumber != null  and testStandardNumber != ''"> and test_standard_number = #{testStandardNumber}</if>
         </where>
     </select>

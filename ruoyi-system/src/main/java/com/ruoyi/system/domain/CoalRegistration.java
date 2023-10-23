@@ -8,7 +8,7 @@ import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 指标结果记录对象 coal_registration
+ * 【请填写功能名称】对象 coal_registration
  * 
  * @author ruoyi
  * @date 2023-10-23
@@ -54,8 +54,9 @@ public class CoalRegistration extends BaseEntity
     private String pictureAfter;
 
     /** 报告生成时间 */
-    @Excel(name = "报告生成时间")
-    private String reportTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "报告生成时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date reportTime;
 
     /** 检测标准号 */
     @Excel(name = "检测标准号")
@@ -142,12 +143,12 @@ public class CoalRegistration extends BaseEntity
     {
         return pictureAfter;
     }
-    public void setReportTime(String reportTime) 
+    public void setReportTime(Date reportTime) 
     {
         this.reportTime = reportTime;
     }
 
-    public String getReportTime() 
+    public Date getReportTime() 
     {
         return reportTime;
     }

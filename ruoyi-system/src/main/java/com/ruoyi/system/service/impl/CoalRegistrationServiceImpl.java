@@ -8,7 +8,7 @@ import com.ruoyi.system.domain.CoalRegistration;
 import com.ruoyi.system.service.ICoalRegistrationService;
 
 /**
- * 指标结果记录Service业务层处理
+ * 【请填写功能名称】Service业务层处理
  * 
  * @author ruoyi
  * @date 2023-10-23
@@ -20,10 +20,10 @@ public class CoalRegistrationServiceImpl implements ICoalRegistrationService
     private CoalRegistrationMapper coalRegistrationMapper;
 
     /**
-     * 查询指标结果记录
+     * 查询【请填写功能名称】
      * 
-     * @param coalNumber 指标结果记录主键
-     * @return 指标结果记录
+     * @param coalNumber 【请填写功能名称】主键
+     * @return 【请填写功能名称】
      */
     @Override
     public CoalRegistration selectCoalRegistrationByCoalNumber(String coalNumber)
@@ -32,10 +32,10 @@ public class CoalRegistrationServiceImpl implements ICoalRegistrationService
     }
 
     /**
-     * 查询指标结果记录列表
+     * 查询【请填写功能名称】列表
      * 
-     * @param coalRegistration 指标结果记录
-     * @return 指标结果记录
+     * @param coalRegistration 【请填写功能名称】
+     * @return 【请填写功能名称】
      */
     @Override
     public List<CoalRegistration> selectCoalRegistrationList(CoalRegistration coalRegistration)
@@ -44,9 +44,9 @@ public class CoalRegistrationServiceImpl implements ICoalRegistrationService
     }
 
     /**
-     * 新增指标结果记录
+     * 新增【请填写功能名称】
      * 
-     * @param coalRegistration 指标结果记录
+     * @param coalRegistration 【请填写功能名称】
      * @return 结果
      */
     @Override
@@ -56,9 +56,9 @@ public class CoalRegistrationServiceImpl implements ICoalRegistrationService
     }
 
     /**
-     * 修改指标结果记录
+     * 修改【请填写功能名称】
      * 
-     * @param coalRegistration 指标结果记录
+     * @param coalRegistration 【请填写功能名称】
      * @return 结果
      */
     @Override
@@ -68,9 +68,9 @@ public class CoalRegistrationServiceImpl implements ICoalRegistrationService
     }
 
     /**
-     * 批量删除指标结果记录
+     * 批量删除【请填写功能名称】
      * 
-     * @param coalNumbers 需要删除的指标结果记录主键
+     * @param coalNumbers 需要删除的【请填写功能名称】主键
      * @return 结果
      */
     @Override
@@ -80,9 +80,9 @@ public class CoalRegistrationServiceImpl implements ICoalRegistrationService
     }
 
     /**
-     * 删除指标结果记录信息
+     * 删除【请填写功能名称】信息
      * 
-     * @param coalNumber 指标结果记录主键
+     * @param coalNumber 【请填写功能名称】主键
      * @return 结果
      */
     @Override

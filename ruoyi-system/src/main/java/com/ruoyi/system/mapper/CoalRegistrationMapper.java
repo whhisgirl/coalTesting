@@ -5,7 +5,7 @@ import com.ruoyi.system.domain.CoalRegistration;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 指标结果记录Mapper接口
+ * 【请填写功能名称】Mapper接口
  *
  * @author ruoyi
  * @date 2023-10-23
@@ -14,47 +14,47 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CoalRegistrationMapper
 {
     /**
-     * 查询指标结果记录
+     * 查询【请填写功能名称】
      *
-     * @param coalNumber 指标结果记录主键
-     * @return 指标结果记录
+     * @param coalNumber 【请填写功能名称】主键
+     * @return 【请填写功能名称】
      */
     public CoalRegistration selectCoalRegistrationByCoalNumber(String coalNumber);
 
     /**
-     * 查询指标结果记录列表
+     * 查询【请填写功能名称】列表
      *
-     * @param coalRegistration 指标结果记录
-     * @return 指标结果记录集合
+     * @param coalRegistration 【请填写功能名称】
+     * @return 【请填写功能名称】集合
      */
     public List<CoalRegistration> selectCoalRegistrationList(CoalRegistration coalRegistration);
 
     /**
-     * 新增指标结果记录
+     * 新增【请填写功能名称】
      *
-     * @param coalRegistration 指标结果记录
+     * @param coalRegistration 【请填写功能名称】
      * @return 结果
      */
     public int insertCoalRegistration(CoalRegistration coalRegistration);
 
     /**
-     * 修改指标结果记录
+     * 修改【请填写功能名称】
      *
-     * @param coalRegistration 指标结果记录
+     * @param coalRegistration 【请填写功能名称】
      * @return 结果
      */
     public int updateCoalRegistration(CoalRegistration coalRegistration);
 
     /**
-     * 删除指标结果记录
+     * 删除【请填写功能名称】
      *
-     * @param coalNumber 指标结果记录主键
+     * @param coalNumber 【请填写功能名称】主键
      * @return 结果
      */
     public int deleteCoalRegistrationByCoalNumber(String coalNumber);
 
     /**
-     * 批量删除指标结果记录
+     * 批量删除【请填写功能名称】
      *
      * @param coalNumbers 需要删除的数据主键集合
      * @return 结果

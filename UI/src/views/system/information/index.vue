@@ -58,12 +58,12 @@
         />
       </el-form-item>
       <el-form-item label="车辆使用时间" prop="vehicleUsageTime">
-        <el-date-picker clearable
+        <el-input
           v-model="queryParams.vehicleUsageTime"
-          type="date"
-          value-format="yyyy-MM-dd"
-          placeholder="请选择车辆使用时间">
-        </el-date-picker>
+          placeholder="请输入车辆使用时间"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -127,11 +127,7 @@
       <el-table-column label="司机信用" align="center" prop="driverCredit" />
       <el-table-column label="车型" align="center" prop="vehicleModel" />
       <el-table-column label="荷载" align="center" prop="vehicleLoad" />
-      <el-table-column label="车辆使用时间" align="center" prop="vehicleUsageTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.vehicleUsageTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="车辆使用时间" align="center" prop="vehicleUsageTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -151,7 +147,7 @@
         </template>
       </el-table-column>
     </el-table>
-
+    
     <pagination
       v-show="total>0"
       :total="total"
@@ -185,12 +181,7 @@
           <el-input v-model="form.vehicleLoad" placeholder="请输入荷载" />
         </el-form-item>
         <el-form-item label="车辆使用时间" prop="vehicleUsageTime">
-          <el-date-picker clearable
-            v-model="form.vehicleUsageTime"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="请选择车辆使用时间">
-          </el-date-picker>
+          <el-input v-model="form.vehicleUsageTime" placeholder="请输入车辆使用时间" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

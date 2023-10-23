@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="driverCredit != null  and driverCredit != ''"> and driver_credit = #{driverCredit}</if>
             <if test="vehicleModel != null  and vehicleModel != ''"> and vehicle_model = #{vehicleModel}</if>
             <if test="vehicleLoad != null  and vehicleLoad != ''"> and vehicle_load = #{vehicleLoad}</if>
-            <if test="vehicleUsageTime != null "> and vehicle_usage_time = #{vehicleUsageTime}</if>
+            <if test="vehicleUsageTime != null  and vehicleUsageTime != ''"> and vehicle_usage_time = #{vehicleUsageTime}</if>
         </where>
     </select>
     
