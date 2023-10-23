@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CoalIndicatorsMapper">
+    
+    <resultMap type="CoalIndicators" id="CoalIndicatorsResult">
+        <result property="coalNumber"    column="coal_number"    />
+        <result property="waterContent"    column="water_content"    />
+        <result property="ashContent"    column="ash_content"    />
+        <result property="volatile"    column="volatile"    />
+        <result property="density"    column="density"    />
+        <result property="resistivity"    column="resistivity"    />
+        <result property="baseLowCalorific"    column="base_low_calorific"    />
+    </resultMap>
+
+    <sql id="selectCoalIndicatorsVo">
+        select coal_number, water_content, ash_content, volatile, density, resistivity, base_low_calorific from coal_indicators
+    </sql>
+
+    <select id="selectCoalIndicatorsList" parameterType="CoalIndicators" resultMap="CoalIndicatorsResult">
+        <include refid="selectCoalIndicatorsVo"/>
+        <where>  
+            <if test="waterContent != null  and waterContent != ''"> and water_content = #{waterContent}</if>
+            <if test="ashContent != null  and ashContent != ''"> and ash_content = #{ashContent}</if>
+            <if test="volatile != null  and volatile != ''"> and volatile = #{volatile}</if>
+            <if test="density != null  and density != ''"> and density = #{density}</if>
+            <if test="resistivity != null  and resistivity != ''"> and resistivity = #{resistivity}</if>
+            <if test="baseLowCalorific != null  and baseLowCalorific != ''"> and base_low_calorific = #{baseLowCalorific}</if>
+        </where>
+    </select>
+    
+    <select id="selectCoalIndicatorsByCoalNumber" parameterType="String" resultMap="CoalIndicatorsResult">
+        <include refid="selectCoalIndicatorsVo"/>
+        where coal_number = #{coalNumber}
+    </select>
+        
+    <insert id="insertCoalIndicators" parameterType="CoalIndicators">
+        insert into coal_indicators
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="coalNumber != null">coal_number,</if>
+            <if test="waterContent != null">water_content,</if>
+            <if test="ashContent != null">ash_content,</if>
+            <if test="volatile != null">volatile,</if>
+            <if test="density != null">density,</if>
+            <if test="resistivity != null">resistivity,</if>
+            <if test="baseLowCalorific != null">base_low_calorific,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="coalNumber != null">#{coalNumber},</if>
+            <if test="waterContent != null">#{waterContent},</if>
+            <if test="ashContent != null">#{ashContent},</if>
+            <if test="volatile != null">#{volatile},</if>
+            <if test="density != null">#{density},</if>
+            <if test="resistivity != null">#{resistivity},</if>
+            <if test="baseLowCalorific != null">#{baseLowCalorific},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCoalIndicators" parameterType="CoalIndicators">
+        update coal_indicators
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="waterContent != null">water_content = #{waterContent},</if>
+            <if test="ashContent != null">ash_content = #{ashContent},</if>
+            <if test="volatile != null">volatile = #{volatile},</if>
+            <if test="density != null">density = #{density},</if>
+            <if test="resistivity != null">resistivity = #{resistivity},</if>
+            <if test="baseLowCalorific != null">base_low_calorific = #{baseLowCalorific},</if>
+        </trim>
+        where coal_number = #{coalNumber}
+    </update>
+
+    <delete id="deleteCoalIndicatorsByCoalNumber" parameterType="String">
+        delete from coal_indicators where coal_number = #{coalNumber}
+    </delete>
+
+    <delete id="deleteCoalIndicatorsByCoalNumbers" parameterType="String">
+        delete from coal_indicators where coal_number in 
+        <foreach item="coalNumber" collection="array" open="(" separator="," close=")">
+            #{coalNumber}
+        </foreach>
+    </delete>
+</mapper>

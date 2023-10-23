@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CoalRegistrationMapper">
+    
+    <resultMap type="CoalRegistration" id="CoalRegistrationResult">
+        <result property="coalNumber"    column="coal_number"    />
+        <result property="sampleTime"    column="sample_time"    />
+        <result property="standardNumber"    column="standard_number"    />
+        <result property="sampleStrength"    column="sample_strength"    />
+        <result property="samplingMethod"    column="sampling_method"    />
+        <result property="miningAreaName"    column="mining_area_name"    />
+        <result property="sampler"    column="sampler"    />
+        <result property="pictureBefore"    column="picture_before"    />
+        <result property="pictureAfter"    column="picture_after"    />
+        <result property="reportTime"    column="report_time"    />
+        <result property="testStandardNumber"    column="test_standard_number"    />
+    </resultMap>
+
+    <sql id="selectCoalRegistrationVo">
+        select coal_number, sample_time, standard_number, sample_strength, sampling_method, mining_area_name, sampler, picture_before, picture_after, report_time, test_standard_number from coal_registration
+    </sql>
+
+    <select id="selectCoalRegistrationList" parameterType="CoalRegistration" resultMap="CoalRegistrationResult">
+        <include refid="selectCoalRegistrationVo"/>
+        <where>  
+            <if test="sampleTime != null "> and sample_time = #{sampleTime}</if>
+            <if test="standardNumber != null  and standardNumber != ''"> and standard_number = #{standardNumber}</if>
+            <if test="sampleStrength != null  and sampleStrength != ''"> and sample_strength = #{sampleStrength}</if>
+            <if test="samplingMethod != null  and samplingMethod != ''"> and sampling_method = #{samplingMethod}</if>
+            <if test="miningAreaName != null  and miningAreaName != ''"> and mining_area_name like concat('%', #{miningAreaName}, '%')</if>
+            <if test="sampler != null  and sampler != ''"> and sampler = #{sampler}</if>
+            <if test="pictureBefore != null  and pictureBefore != ''"> and picture_before = #{pictureBefore}</if>
+            <if test="pictureAfter != null  and pictureAfter != ''"> and picture_after = #{pictureAfter}</if>
+            <if test="reportTime != null  and reportTime != ''"> and report_time = #{reportTime}</if>
+            <if test="testStandardNumber != null  and testStandardNumber != ''"> and test_standard_number = #{testStandardNumber}</if>
+        </where>
+    </select>
+    
+    <select id="selectCoalRegistrationByCoalNumber" parameterType="String" resultMap="CoalRegistrationResult">
+        <include refid="selectCoalRegistrationVo"/>
+        where coal_number = #{coalNumber}
+    </select>
+        
+    <insert id="insertCoalRegistration" parameterType="CoalRegistration">
+        insert into coal_registration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="coalNumber != null">coal_number,</if>
+            <if test="sampleTime != null">sample_time,</if>
+            <if test="standardNumber != null">standard_number,</if>
+            <if test="sampleStrength != null">sample_strength,</if>
+            <if test="samplingMethod != null">sampling_method,</if>
+            <if test="miningAreaName != null">mining_area_name,</if>
+            <if test="sampler != null">sampler,</if>
+            <if test="pictureBefore != null">picture_before,</if>
+            <if test="pictureAfter != null">picture_after,</if>
+            <if test="reportTime != null">report_time,</if>
+            <if test="testStandardNumber != null">test_standard_number,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="coalNumber != null">#{coalNumber},</if>
+            <if test="sampleTime != null">#{sampleTime},</if>
+            <if test="standardNumber != null">#{standardNumber},</if>
+            <if test="sampleStrength != null">#{sampleStrength},</if>
+            <if test="samplingMethod != null">#{samplingMethod},</if>
+            <if test="miningAreaName != null">#{miningAreaName},</if>
+            <if test="sampler != null">#{sampler},</if>
+            <if test="pictureBefore != null">#{pictureBefore},</if>
+            <if test="pictureAfter != null">#{pictureAfter},</if>
+            <if test="reportTime != null">#{reportTime},</if>
+            <if test="testStandardNumber != null">#{testStandardNumber},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCoalRegistration" parameterType="CoalRegistration">
+        update coal_registration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sampleTime != null">sample_time = #{sampleTime},</if>
+            <if test="standardNumber != null">standard_number = #{standardNumber},</if>
+            <if test="sampleStrength != null">sample_strength = #{sampleStrength},</if>
+            <if test="samplingMethod != null">sampling_method = #{samplingMethod},</if>
+            <if test="miningAreaName != null">mining_area_name = #{miningAreaName},</if>
+            <if test="sampler != null">sampler = #{sampler},</if>
+            <if test="pictureBefore != null">picture_before = #{pictureBefore},</if>
+            <if test="pictureAfter != null">picture_after = #{pictureAfter},</if>
+            <if test="reportTime != null">report_time = #{reportTime},</if>
+            <if test="testStandardNumber != null">test_standard_number = #{testStandardNumber},</if>
+        </trim>
+        where coal_number = #{coalNumber}
+    </update>
+
+    <delete id="deleteCoalRegistrationByCoalNumber" parameterType="String">
+        delete from coal_registration where coal_number = #{coalNumber}
+    </delete>
+
+    <delete id="deleteCoalRegistrationByCoalNumbers" parameterType="String">
+        delete from coal_registration where coal_number in 
+        <foreach item="coalNumber" collection="array" open="(" separator="," close=")">
+            #{coalNumber}
+        </foreach>
+    </delete>
+</mapper>

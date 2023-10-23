@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BatchMapper">
+    
+    <resultMap type="Batch" id="BatchResult">
+        <result property="batchNumber"    column="batch_number"    />
+        <result property="batchCoalWeight"    column="batch_coal_weight"    />
+        <result property="miningAreaName"    column="mining_area_name"    />
+        <result property="licensePlate"    column="license_plate"    />
+        <result property="locationMiningArea"    column="location_mining_area"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="arrivalTime"    column="arrival_time"    />
+        <result property="registrationNumber"    column="registration_number"    />
+        <result property="coalNumber"    column="coal_number"    />
+        <result property="destination"    column="destination"    />
+        <result property="arrivalStatus"    column="arrival_status"    />
+    </resultMap>
+
+    <sql id="selectBatchVo">
+        select batch_number, batch_coal_weight, mining_area_name, license_plate, location_mining_area, start_time, arrival_time, registration_number, coal_number, destination, arrival_status from batch
+    </sql>
+
+    <select id="selectBatchList" parameterType="Batch" resultMap="BatchResult">
+        <include refid="selectBatchVo"/>
+        <where>  
+            <if test="batchCoalWeight != null  and batchCoalWeight != ''"> and batch_coal_weight = #{batchCoalWeight}</if>
+            <if test="miningAreaName != null  and miningAreaName != ''"> and mining_area_name like concat('%', #{miningAreaName}, '%')</if>
+            <if test="licensePlate != null  and licensePlate != ''"> and license_plate = #{licensePlate}</if>
+            <if test="locationMiningArea != null  and locationMiningArea != ''"> and location_mining_area = #{locationMiningArea}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="arrivalTime != null "> and arrival_time = #{arrivalTime}</if>
+            <if test="registrationNumber != null  and registrationNumber != ''"> and registration_number = #{registrationNumber}</if>
+            <if test="coalNumber != null  and coalNumber != ''"> and coal_number = #{coalNumber}</if>
+            <if test="destination != null  and destination != ''"> and destination = #{destination}</if>
+            <if test="arrivalStatus != null  and arrivalStatus != ''"> and arrival_status = #{arrivalStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectBatchByBatchNumber" parameterType="String" resultMap="BatchResult">
+        <include refid="selectBatchVo"/>
+        where batch_number = #{batchNumber}
+    </select>
+        
+    <insert id="insertBatch" parameterType="Batch">
+        insert into batch
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="batchNumber != null">batch_number,</if>
+            <if test="batchCoalWeight != null">batch_coal_weight,</if>
+            <if test="miningAreaName != null">mining_area_name,</if>
+            <if test="licensePlate != null">license_plate,</if>
+            <if test="locationMiningArea != null">location_mining_area,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="arrivalTime != null">arrival_time,</if>
+            <if test="registrationNumber != null">registration_number,</if>
+            <if test="coalNumber != null">coal_number,</if>
+            <if test="destination != null">destination,</if>
+            <if test="arrivalStatus != null">arrival_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="batchNumber != null">#{batchNumber},</if>
+            <if test="batchCoalWeight != null">#{batchCoalWeight},</if>
+            <if test="miningAreaName != null">#{miningAreaName},</if>
+            <if test="licensePlate != null">#{licensePlate},</if>
+            <if test="locationMiningArea != null">#{locationMiningArea},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="arrivalTime != null">#{arrivalTime},</if>
+            <if test="registrationNumber != null">#{registrationNumber},</if>
+            <if test="coalNumber != null">#{coalNumber},</if>
+            <if test="destination != null">#{destination},</if>
+            <if test="arrivalStatus != null">#{arrivalStatus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBatch" parameterType="Batch">
+        update batch
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="batchCoalWeight != null">batch_coal_weight = #{batchCoalWeight},</if>
+            <if test="miningAreaName != null">mining_area_name = #{miningAreaName},</if>
+            <if test="licensePlate != null">license_plate = #{licensePlate},</if>
+            <if test="locationMiningArea != null">location_mining_area = #{locationMiningArea},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="arrivalTime != null">arrival_time = #{arrivalTime},</if>
+            <if test="registrationNumber != null">registration_number = #{registrationNumber},</if>
+            <if test="coalNumber != null">coal_number = #{coalNumber},</if>
+            <if test="destination != null">destination = #{destination},</if>
+            <if test="arrivalStatus != null">arrival_status = #{arrivalStatus},</if>
+        </trim>
+        where batch_number = #{batchNumber}
+    </update>
+
+    <delete id="deleteBatchByBatchNumber" parameterType="String">
+        delete from batch where batch_number = #{batchNumber}
+    </delete>
+
+    <delete id="deleteBatchByBatchNumbers" parameterType="String">
+        delete from batch where batch_number in 
+        <foreach item="batchNumber" collection="array" open="(" separator="," close=")">
+            #{batchNumber}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.DriverInformationMapper">
+    
+    <resultMap type="DriverInformation" id="DriverInformationResult">
+        <result property="id"    column="id"    />
+        <result property="driverName"    column="driver_name"    />
+        <result property="driverLicensePlate"    column="driver_license_plate"    />
+        <result property="driverAge"    column="driver_age"    />
+        <result property="driver experience"    column="driver_ experience"    />
+        <result property="driverCredit"    column="driver_credit"    />
+        <result property="vehicleModel"    column="vehicle_model"    />
+        <result property="vehicleLoad"    column="vehicle_load"    />
+        <result property="vehicleUsageTime"    column="vehicle_usage_time"    />
+    </resultMap>
+
+    <sql id="selectDriverInformationVo">
+        select id, driver_name, driver_license_plate, driver_age, driver_ experience, driver_credit, vehicle_model, vehicle_load, vehicle_usage_time from driver_information
+    </sql>
+
+    <select id="selectDriverInformationList" parameterType="DriverInformation" resultMap="DriverInformationResult">
+        <include refid="selectDriverInformationVo"/>
+        <where>  
+            <if test="driverName != null  and driverName != ''"> and driver_name like concat('%', #{driverName}, '%')</if>
+            <if test="driverLicensePlate != null  and driverLicensePlate != ''"> and driver_license_plate = #{driverLicensePlate}</if>
+            <if test="driverAge != null  and driverAge != ''"> and driver_age = #{driverAge}</if>
+            <if test="driver experience != null  and driver experience != ''"> and driver_ experience = #{driver experience}</if>
+            <if test="driverCredit != null  and driverCredit != ''"> and driver_credit = #{driverCredit}</if>
+            <if test="vehicleModel != null  and vehicleModel != ''"> and vehicle_model = #{vehicleModel}</if>
+            <if test="vehicleLoad != null  and vehicleLoad != ''"> and vehicle_load = #{vehicleLoad}</if>
+            <if test="vehicleUsageTime != null "> and vehicle_usage_time = #{vehicleUsageTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectDriverInformationById" parameterType="Integer" resultMap="DriverInformationResult">
+        <include refid="selectDriverInformationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDriverInformation" parameterType="DriverInformation">
+        insert into driver_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="driverName != null">driver_name,</if>
+            <if test="driverLicensePlate != null">driver_license_plate,</if>
+            <if test="driverAge != null">driver_age,</if>
+            <if test="driver experience != null">driver_ experience,</if>
+            <if test="driverCredit != null">driver_credit,</if>
+            <if test="vehicleModel != null">vehicle_model,</if>
+            <if test="vehicleLoad != null">vehicle_load,</if>
+            <if test="vehicleUsageTime != null">vehicle_usage_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="driverName != null">#{driverName},</if>
+            <if test="driverLicensePlate != null">#{driverLicensePlate},</if>
+            <if test="driverAge != null">#{driverAge},</if>
+            <if test="driver experience != null">#{driver experience},</if>
+            <if test="driverCredit != null">#{driverCredit},</if>
+            <if test="vehicleModel != null">#{vehicleModel},</if>
+            <if test="vehicleLoad != null">#{vehicleLoad},</if>
+            <if test="vehicleUsageTime != null">#{vehicleUsageTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDriverInformation" parameterType="DriverInformation">
+        update driver_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="driverName != null">driver_name = #{driverName},</if>
+            <if test="driverLicensePlate != null">driver_license_plate = #{driverLicensePlate},</if>
+            <if test="driverAge != null">driver_age = #{driverAge},</if>
+            <if test="driver experience != null">driver_ experience = #{driver experience},</if>
+            <if test="driverCredit != null">driver_credit = #{driverCredit},</if>
+            <if test="vehicleModel != null">vehicle_model = #{vehicleModel},</if>
+            <if test="vehicleLoad != null">vehicle_load = #{vehicleLoad},</if>
+            <if test="vehicleUsageTime != null">vehicle_usage_time = #{vehicleUsageTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDriverInformationById" parameterType="Integer">
+        delete from driver_information where id = #{id}
+    </delete>
+
+    <delete id="deleteDriverInformationByIds" parameterType="String">
+        delete from driver_information where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
