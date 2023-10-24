@@ -17,6 +17,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="运输车辆车牌" prop="licensePlate">
+        <el-input
+          v-model="queryParams.licensePlate"
+          placeholder="请输入运输车辆车牌"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="矿区所在地" prop="locationMiningArea">
         <el-input
           v-model="queryParams.locationMiningArea"
@@ -174,6 +182,9 @@
         </el-form-item>
         <el-form-item label="矿区名称" prop="miningAreaName">
           <el-input v-model="form.miningAreaName" placeholder="请输入矿区名称" />
+        </el-form-item>
+        <el-form-item label="运输车辆车牌" prop="licensePlate">
+          <el-input v-model="form.licensePlate" placeholder="请输入运输车辆车牌" />
         </el-form-item>
         <el-form-item label="矿区所在地" prop="locationMiningArea">
           <el-input v-model="form.locationMiningArea" placeholder="请输入矿区所在地" />

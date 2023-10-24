@@ -22,7 +22,7 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
- * 指标结果记录Controller
+ * 【请填写功能名称】Controller
  * 
  * @author ruoyi
  * @date 2023-10-23
@@ -35,7 +35,7 @@ public class CoalRegistrationController extends BaseController
     private ICoalRegistrationService coalRegistrationService;
 
     /**
-     * 查询指标结果记录列表
+     * 查询【请填写功能名称】列表
      */
     @PreAuthorize("@ss.hasPermi('system:registration:list')")
     @GetMapping("/list")
@@ -47,20 +47,20 @@ public class CoalRegistrationController extends BaseController
     }
 
     /**
-     * 导出指标结果记录列表
+     * 导出【请填写功能名称】列表
      */
     @PreAuthorize("@ss.hasPermi('system:registration:export')")
-    @Log(title = "指标结果记录", businessType = BusinessType.EXPORT)
+    @Log(title = "【请填写功能名称】", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, CoalRegistration coalRegistration)
     {
         List<CoalRegistration> list = coalRegistrationService.selectCoalRegistrationList(coalRegistration);
         ExcelUtil<CoalRegistration> util = new ExcelUtil<CoalRegistration>(CoalRegistration.class);
-        util.exportExcel(response, list, "指标结果记录数据");
+        util.exportExcel(response, list, "【请填写功能名称】数据");
     }
 
     /**
-     * 获取指标结果记录详细信息
+     * 获取【请填写功能名称】详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:registration:query')")
     @GetMapping(value = "/{coalNumber}")
@@ -70,10 +70,10 @@ public class CoalRegistrationController extends BaseController
     }
 
     /**
-     * 新增指标结果记录
+     * 新增【请填写功能名称】
      */
     @PreAuthorize("@ss.hasPermi('system:registration:add')")
-    @Log(title = "指标结果记录", businessType = BusinessType.INSERT)
+    @Log(title = "【请填写功能名称】", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody CoalRegistration coalRegistration)
     {
@@ -81,10 +81,10 @@ public class CoalRegistrationController extends BaseController
     }
 
     /**
-     * 修改指标结果记录
+     * 修改【请填写功能名称】
      */
     @PreAuthorize("@ss.hasPermi('system:registration:edit')")
-    @Log(title = "指标结果记录", businessType = BusinessType.UPDATE)
+    @Log(title = "【请填写功能名称】", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody CoalRegistration coalRegistration)
     {
@@ -92,10 +92,10 @@ public class CoalRegistrationController extends BaseController
     }
 
     /**
-     * 删除指标结果记录
+     * 删除【请填写功能名称】
      */
     @PreAuthorize("@ss.hasPermi('system:registration:remove')")
-    @Log(title = "指标结果记录", businessType = BusinessType.DELETE)
+    @Log(title = "【请填写功能名称】", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{coalNumbers}")
     public AjaxResult remove(@PathVariable String[] coalNumbers)
     {

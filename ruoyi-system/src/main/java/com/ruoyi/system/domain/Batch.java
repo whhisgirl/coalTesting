@@ -28,8 +28,8 @@ public class Batch extends BaseEntity
     @Excel(name = "矿区名称")
     private String miningAreaName;
 
-    /** 运输车辆车牌（集合） */
-    @Excel(name = "运输车辆车牌", readConverterExp = "集=合")
+    /** 运输车辆车牌（多个车辆用斜线划分） */
+    @Excel(name = "运输车辆车牌", readConverterExp = "多=个车辆用斜线划分")
     private String licensePlate;
 
     /** 矿区所在地（省/市/县） */
