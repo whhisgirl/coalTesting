@@ -34,8 +34,20 @@
           <el-button>重置</el-button>
         </el-form-item>
       </el-form>
-      <el-divider></el-divider>
-      今日异常批次
+      <!-- <el-divider></el-divider> -->
+      <div>
+        <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
+          <p style="
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 20px;
+          ">
+            异常批次
+          </p>
+        </div>
+      </div>
       <el-table v-loading="loading" :data="exceptionList" @selection-change="handleSelectionChange">
         <el-table-column label="批次编号" align="center" prop="batchNumber" />
         <el-table-column label="矿区名称" align="center" prop="miningAreaName" />
@@ -97,7 +109,28 @@
         </div>
       </el-dialog>
       <el-divider></el-divider>
-      煤质异常情况
+      <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
+          <p style="
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 20px;
+          ">
+            煤质异常情况
+          </p>
+          <el-tooltip placement="top">
+            <div slot="content">
+              <p>水分(0~1%)</p>
+              <p>灰分(0~1%)</p>
+              <p>密度(0~0.5%)</p>
+              <p>挥发分(0~1%)</p>
+              <p>电阻率(0~1%)</p>
+              <p>发热量(0~1.5%)</p>
+            </div>
+            <i class="el-icon-question" style="float: right; margin-right: 20px; margin-top: 12px; font-size: 30px;"></i>
+          </el-tooltip>
+        </div>
       <div style="width: 100%;height: 300px;" ref="exceptionBarChart"></div>
     </el-card>
   </div>
@@ -159,7 +192,6 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        batchCoalWeight: null,
         miningAreaName: null,
         licensePlate: null,
         locationMiningArea: null,
@@ -200,7 +232,8 @@ export default {
           }
         }
       ],
-      exceptionBarChart:null
+      exceptionBarChart: null,
+      chartOption: {},
     };
   },
   methods: {
@@ -215,13 +248,66 @@ export default {
     getList() { },
     handleInfo(row) {
       console.log(row);
-
+      /**
+       * TODO 静态代码，需改为前端通过批次编号获取后端数据，然后刷新echart图
+       */
+      if (row.batchNumber === "C2023102402") {
+        this.chartOption = {
+          //笛卡尔坐标系的底板
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
+          },
+          yAxis: {
+            type: 'value',
+            name: '变化%'
+          },
+          series: [
+            {
+              data: this.chartData2,
+              type: 'bar'
+            }
+          ]
+        }
+        this.exceptionBarChart.setOption(this.chartOption)
+      } else if(row.batchNumber === "C2023102401"){
+        this.chartOption = {
+          //笛卡尔坐标系的底板
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
+          },
+          yAxis: {
+            type: 'value',
+            name: '变化%'
+          },
+          series: [
+            {
+              data: this.chartData1,
+              type: 'bar'
+            }
+          ]
+        }
+        this.exceptionBarChart.setOption(this.chartOption)
+      }
     },
   },
   mounted() {
     this.exceptionBarChart = echarts.init(this.$refs.exceptionBarChart);
     // 配置图表
-    var option = {
+    this.chartOption = {
       //笛卡尔坐标系的底板
       grid: {
         left: '3%',
@@ -244,7 +330,7 @@ export default {
         }
       ]
     }
-    this.exceptionBarChart.setOption(option)
+    this.exceptionBarChart.setOption(this.chartOption)
   }
 };
 </script>

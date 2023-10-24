@@ -8,35 +8,35 @@
         </p>
       </div>
       <el-row>
-<!--        <el-col :span="6">-->
-<!--          <el-card style="height: 800px">-->
-<!--            <p style="font-family: Arial">SSA-CNN-LSTM算法</p>-->
-<!--          </el-card>-->
-<!--        </el-col>-->
-
         <el-col :span="24">
-<!--          <div style="width: 98%; margin-left: 10px;margin-top: 10px; background: #d2e9ff; border-radius: 10px">-->
-<!--            <p style="font-family: Arial; font-size: 20px; font-weight: 600; display: inline-block; margin-left: 20px;"-->
-<!--            >-->
-<!--              SSA-CNN-LSTM-->
-<!--            </p>-->
-<!--          </div>-->
+
           <el-row>
             <el-col :span="8" :offset="1">
               <p style="font-size: 24px;font-weight: bold">算法流程</p>
+
             </el-col>
             <el-col :span="15">
               <p style="font-size: 24px;font-weight: bold">算法简介</p>
+
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8" :offset="1">
+              <img :span="8"  src="../../assets/algotithm/algorithm.png" style="width: 450px;height: 300px" fit="fill">
             </el-col>
             <el-col :span="15">
+              <p style="font-family: Arial; font-size: 16px; font-weight: 600; "
+              >
+                SSA-CNN-LSTM算法是一种综合利用频域分析、卷积神经网络和长短时记忆网络的深度学习模型，旨在解决静态数据中的特征提取和预测问题，如本煤炭质检问题中的水分、密度和导电率等自变量与目标变量煤炭属性，如灰分、挥发分、热值等的关系建模。
+                麻雀搜索算法(SSA)：
+                Convolutional Neural Network (CNN)：CNN是第二部分，用于提取自变量的空域特征。通过卷积和池化操作，CNN能够有效地捕获数据中的空间相关性，对于煤炭质检，这可以帮助模型理解各自变量之间的复杂关系。
+                Long Short-Term Memory (LSTM)：LSTM构成了算法的最后一部分，它用于整合来自SSA和CNN的特征，并进行预测。在这里，LSTM可以用来处理水分、密度和导电率的变化对灰分、挥发分和热值的影响，即模型的建模和预测。
+                SSA-CNN-LSTM算法的关键创新在于引入了频域分析和空域特征提取，同时具备LSTM的长短时记忆能力。这使得它能够有效地建模非平稳时间序列数据，也能用于静态数据分析。在煤炭质检中，它有潜力提供更准确和可靠的煤炭属性预测，有助于提高质检的精度和效率。
+              </p>
             </el-col>
           </el-row>
           <el-divider></el-divider>
-          <el-form ref="form" :model="form" label-width="80px" style="margin-top: 10px;">
+          <el-form ref="form" :model="form" :rules="rules" label-width="80px" style="margin-top: 10px;">
             <el-row>
               <el-col :span="6">
                 <el-form-item label="水分">
@@ -118,7 +118,17 @@ export default {
         param3:""
       },
       algorithData:[],
-
+      rules: {
+        param1: [
+          {required: true, message: "水分值不能为空", trigger: "blur"}
+        ],
+        param2: [
+          {required: true, message: "密度值不能为空", trigger: "blur"}
+        ],
+        param3: [
+          {required: true, message: "电阻率值不能为空", trigger: "blur"}
+        ],
+      }
     }
   },
   methods:{
@@ -131,7 +141,7 @@ export default {
         resistivity:this.form.param3,
         ashContent:this.form.param1*2,
         coalVolatile:this.form.param2*2,
-        baseLowCalorific:this.form.param3*2+this.form.param2*2+this.form.param1*2,
+        baseLowCalorific:this.form.param3*2+this.form.param2*2+this.form.param1*2+"KJ",
       })
     },
   }
