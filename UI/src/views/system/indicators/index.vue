@@ -1,6 +1,30 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="100px">
+      <el-form-item label="煤采样编号" prop="coalNumber">
+        <el-input
+          v-model="queryParams.coalNumber"
+          placeholder="请输入煤采样编号"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="水分" prop="waterContent">
+        <el-input
+          v-model="queryParams.waterContent"
+          placeholder="请输入水分"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="灰分" prop="ashContent">
+        <el-input
+          v-model="queryParams.ashContent"
+          placeholder="请输入灰分"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="挥发分" prop="coalVolatile">
         <el-input
           v-model="queryParams.coalVolatile"
@@ -38,28 +62,67 @@
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-
+    <el-dialog :title="title" :visible.sync="open1" width="1200px" append-to-body>
+      <div style="width: 500px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+        <el-form-item label="煤采样编号" prop="coalNumber">
+          <el-input v-model="form.coalNumber" style="width: 400px" disabled="true"/>
+        </el-form-item>
+        <el-form-item label="水分" prop="waterContent">
+          <el-input v-model="form.waterContent" style="width: 400px" disabled="true"/>
+        </el-form-item>
+        <el-form-item label="灰分" prop="ashContent">
+          <el-input v-model="form.ashContent" style="width: 400px" disabled="true"/>
+        </el-form-item>
+        <el-form-item label="挥发分" prop="coalVolatile">
+          <el-input v-model="form.coalVolatile" style="width: 400px" disabled="true" />
+        </el-form-item>
+        <el-form-item label="密度" prop="density">
+          <el-input v-model="form.density" style="width: 400px" disabled="true" />
+        </el-form-item>
+        <el-form-item label="电阻率" prop="resistivity">
+          <el-input v-model="form.resistivity" style="width: 400px" disabled="true" />
+        </el-form-item>
+        <el-form-item label="基低位发热量" prop="baseLowCalorific">
+          <el-input v-model="form.baseLowCalorific" style="width: 400px" disabled="true" />
+        </el-form-item>
+      </el-form>
+      </div>
+      <el-card class="box-card">
+      <div style="width: 100%; height: 300px;" ref="exceptionBarChart" ></div>
+      </el-card>
+    </el-dialog>
     <el-row :gutter="10" class="mb8">
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="el-icon-plus"-->
+<!--          size="mini"-->
+<!--          @click="handleAdd"-->
+<!--          v-hasPermi="['system:indicators:add']"-->
+<!--        >新增</el-button>-->
+<!--      </el-col>-->
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="success"-->
+<!--          plain-->
+<!--          icon="el-icon-edit"-->
+<!--          size="mini"-->
+<!--          :disabled="single"-->
+<!--          @click="handleUpdate"-->
+<!--          v-hasPermi="['system:indicators:edit']"-->
+<!--        >修改</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
-          type="primary"
+          type="warning"
           plain
-          icon="el-icon-plus"
+          icon="el-icon-download"
           size="mini"
-          @click="handleAdd"
-          v-hasPermi="['system:indicators:add']"
-        >新增</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['system:indicators:edit']"
-        >修改</el-button>
+          @click="handleExport"
+          v-hasPermi="['system:indicators:export']"
+        >导出</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -72,16 +135,7 @@
           v-hasPermi="['system:indicators:remove']"
         >删除</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['system:indicators:export']"
-        >导出</el-button>
-      </el-col>
+
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -106,6 +160,12 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-info"
+            @click="getDetail(scope.row)"
+          >详情</el-button>
+          <el-button
+            size="mini"
+            type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:indicators:remove']"
@@ -123,13 +183,16 @@
     />
 
     <!-- 添加或修改【请填写功能名称】对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" :visible.sync="open" width="800px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+        <el-form-item label="煤采样编号">
+          <el-input v-model="form.coalNumber" placeholder="请输入煤采样编号"/>
+        </el-form-item>
         <el-form-item label="水分">
-          <editor v-model="form.waterContent" :min-height="192"/>
+          <el-input v-model="form.waterContent" placeholder="请输入水分"/>
         </el-form-item>
         <el-form-item label="灰分">
-          <editor v-model="form.ashContent" :min-height="192"/>
+          <el-input v-model="form.ashContent" placeholder="请输入灰分"/>
         </el-form-item>
         <el-form-item label="挥发分" prop="coalVolatile">
           <el-input v-model="form.coalVolatile" placeholder="请输入挥发分" />
@@ -154,11 +217,17 @@
 
 <script>
 import { listIndicators, getIndicators, delIndicators, addIndicators, updateIndicators } from "@/api/system/indicators";
+import * as echarts from 'echarts/core';
+import { TitleComponent, LegendComponent } from 'echarts/components';
+import { RadarChart } from 'echarts/charts';
+import { CanvasRenderer } from 'echarts/renderers';
 
+echarts.use([TitleComponent, LegendComponent, RadarChart, CanvasRenderer]);
 export default {
   name: "Indicators",
   data() {
     return {
+      a:'',
       // 遮罩层
       loading: true,
       // 选中数组
@@ -177,6 +246,7 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      open1: false,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -191,15 +261,18 @@ export default {
       // 表单参数
       form: {},
       // 表单校验
-      rules: {
-      }
+      rules: {},
+
     };
   },
+
+
   created() {
     this.getList();
+
   },
   methods: {
-    /** 查询【请填写功能名称】列表 */
+    /** 查询指标记录列表 */
     getList() {
       this.loading = true;
       listIndicators(this.queryParams).then(response => {
@@ -246,29 +319,69 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加【请填写功能名称】";
+      this.title = "添加指标记录";
+      this.a='1'
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
+      this.a='2'
       const coalNumber = row.coalNumber || this.ids
       getIndicators(coalNumber).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改【请填写功能名称】";
+        this.title = "修改指标记录";
       });
+    },
+    printchart(){
+      var chartDom = document.getElementById('main');
+      var myChart = echarts.init(chartDom);
+      var option;
+      option = {
+        title: {
+          text: '指标数据图'
+        },
+        legend: {
+          data: ['Allocated Budget', 'Actual Spending']
+        },
+        radar: {
+          // shape: 'circle',
+          indicator: [
+            { name: '水分', max: 10 },
+            { name: '灰分', max: 25 },
+            { name: '挥发分', max: 30 },
+            { name: '密度', max: 5 },
+            { name: '电阻率', max: 450 },
+            { name: '基低位发热量', max: 5500 }
+          ]
+        },
+        series: [
+          {
+            name: 'Budget vs spending',
+            type: 'radar',
+            data: [
+              {
+                value: [8.82, 23.28, 28.3, 3.97, 377, 4999],
+                name: '指标数据'
+              }
+            ]
+          }
+        ]
+      };
+
+      option && myChart.setOption(option);
     },
     /** 提交按钮 */
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.coalNumber != null) {
+          if (this.a === '2') {
             updateIndicators(this.form).then(response => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
-          } else {
+          } else if(this.a === '1') {
             addIndicators(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
@@ -281,12 +394,28 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const coalNumbers = row.coalNumber || this.ids;
-      this.$modal.confirm('是否确认删除【请填写功能名称】编号为"' + coalNumbers + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除煤采样编号为"' + coalNumbers + '"的数据项？').then(function() {
         return delIndicators(coalNumbers);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
       }).catch(() => {});
+    },
+    getDetail(row) {
+
+         // this.indicatorScore.capabilityId = response.rows[i].capabilityId
+    //   //     this.indicatorScore.indicatorId = response.rows[i].indicatorId
+    //   //     this.indicatorScore.score = response.rows[i].score
+    //   //     this.indicatorScore.scoreId = response.rows[i].scoreId
+    //   //     this.indicatorScore.taskId = response.rows[i].taskId
+    //   //     this.indicatorList[i] = this.indicatorScore
+    //   //   }
+      const coalNumber = row.coalNumber || this.ids
+      getIndicators(coalNumber).then(response => {
+          this.form = response.data;
+     this.open1 = true;
+     this.title = "指标详情";
+    });
     },
     /** 导出按钮操作 */
     handleExport() {
@@ -297,3 +426,9 @@ export default {
   }
 };
 </script>
+<style scoped lang="scss">
+.box-card {
+  margin: 1% 1%;
+  width: 50%;
+}
+</style>
