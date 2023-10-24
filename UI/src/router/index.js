@@ -31,17 +31,6 @@ import Layout from '@/layout'
 // 公共路由
 export const constantRoutes = [
   {
-    path: '/test',
-    component: Layout,
-    children: [{
-    path: '/coal-abc',
-    component: () => import('@/views/test/coal/abc'),
-    permission:'test:coal:abc',
-    name: 'coal-abc',
-      meta: { title: '登记详情' }
-  },]
-  },
-  {
     path: '/redirect',
     component: Layout,
     hidden: true,

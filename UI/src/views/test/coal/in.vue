@@ -185,8 +185,10 @@ export default {
 
     },
     cl(){
-    this.$router.push({name: 'coal-abc'});
+    // this.$router.push({name: 'coal-abc'});
+      this.$router.push({ path: "coal-abc" })
   },
+
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
