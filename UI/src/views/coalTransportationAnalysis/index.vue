@@ -34,7 +34,7 @@
           <el-button>重置</el-button>
         </el-form-item>
       </el-form>
-      <el-divider></el-divider>
+      <!-- <el-divider></el-divider> -->
       <div>
         <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
           <p style="
@@ -46,11 +46,6 @@
           ">
             异常批次
           </p>
-          <el-tooltip placement="top">
-            <div slot="content">质量问题涉及到的故障件维修班组对应的质量问题数
-            </div>
-            <i class="el-icon-question" style="float: right; margin-right: 20px; margin-top: 12px; font-size: 30px;"></i>
-          </el-tooltip>
         </div>
       </div>
       <el-table v-loading="loading" :data="exceptionList" @selection-change="handleSelectionChange">
@@ -125,7 +120,13 @@
             煤质异常情况
           </p>
           <el-tooltip placement="top">
-            <div slot="content">质量问题涉及到的故障件维修班组对应的质量问题数
+            <div slot="content">
+              <p>水分(0~1%)</p>
+              <p>灰分(0~1%)</p>
+              <p>密度(0~0.5%)</p>
+              <p>挥发分(0~1%)</p>
+              <p>电阻率(0~1%)</p>
+              <p>发热量(0~1.5%)</p>
             </div>
             <i class="el-icon-question" style="float: right; margin-right: 20px; margin-top: 12px; font-size: 30px;"></i>
           </el-tooltip>
@@ -191,7 +192,6 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        batchCoalWeight: null,
         miningAreaName: null,
         licensePlate: null,
         locationMiningArea: null,
