@@ -1,109 +1,207 @@
 <template>
-  <div class="container">
-    <h2>当前煤炭批次指标结果</h2>
-    <hr>
+  <div class="coal-batch-wrapper">
 
-    <div class="form-grid">
-      <div class="form-item">
-        <label for="water">水</label>
-        <input type="text" id="water" v-model="water" readonly/>
+    <el-card class="coal-batch-card">
+      <div slot="header" class="coal-batch-card-header">当前煤炭批次指标结果</div>
+      <div class="coal-batch-card-content">
+        <div class="coal-batch-card-column">
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">水：</div>
+            <div class="coal-batch-card-input"><el-input v-model="water"></el-input></div>
+          </div>
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">电阻率：</div>
+            <div class="coal-batch-card-input"><el-input v-model="resistivity"></el-input></div>
+          </div>
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">挥发分：</div>
+            <div class="coal-batch-card-input"><el-input v-model="volatile"></el-input></div>
+          </div>
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">检测时间：</div>
+            <div class="coal-batch-card-input"><el-input v-model="detectionTime"></el-input></div>
+          </div>
+        </div>
+        <div class="coal-batch-card-column">
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">密度：</div>
+            <div class="coal-batch-card-input"><el-input v-model="density"></el-input></div>
+          </div>
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">基低位发热量：</div>
+            <div class="coal-batch-card-input"><el-input v-model="heatingValue"></el-input></div>
+          </div>
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">灰分：</div>
+            <div class="coal-batch-card-input"><el-input v-model="ashContent"></el-input></div>
+          </div>
+          <div class="coal-batch-card-row">
+            <div class="coal-batch-card-label">检测地：</div>
+            <div class="coal-batch-card-input"><el-input v-model="detectionPlace"></el-input></div>
+          </div>
+        </div>
       </div>
-      <div class="form-item">
-        <label for="density">密度</label>
-        <input type="text" id="density" v-model="density" readonly/>
+      <div class="coal-batch-card-footer">
+        <el-button type="primary" @click="showClassificationResult">查看分类结果</el-button>
       </div>
-      <div class="form-item">
-        <label for="calorificValue">基低位发热量</label>
-        <input type="text" id="calorificValue" v-model="calorificValue" readonly/>
-      </div>
-      <div class="form-item">
-        <label for="volatileMatter">挥发分</label>
-        <input type="text" id="volatileMatter" v-model="volatileMatter" readonly/>
-      </div>
-      <div class="form-item">
-        <label for="ashContent">灰分</label>
-        <input type="text" id="ashContent" v-model="ashContent" readonly/>
-      </div>
-      <div class="form-item">
-        <label for="resistivity">电阻率</label>
-        <input type="text" id="resistivity" v-model="resistivity" readonly/>
-      </div>
-      <div class="form-item">
-        <label for="testingTime">检测时间</label>
-        <input type="text" id="testingTime" v-model="testingTime" readonly/>
-      </div>
-      <div class="form-item">
-        <label for="testingLocation">检测地</label>
-        <input type="text" id="testingLocation" v-model="testingLocation" readonly/>
-      </div>
-      <div class="form-item">
-        <label for="tester">检测人</label>
-        <input type="text" id="tester" v-model="tester" readonly/>
-      </div>
-    </div>
 
-    <hr>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    <div class="category-buttons">
-      <button @click="toggleSubCategory" :class="{ active: showSubCategoryButtons }">分类</button>
-    </div>
-
-    <div v-if="showSubCategoryButtons">
-      <div class="category-buttons">
-        <button @click="changeSubCategory('低热量煤')" :class="{ active: subCategory === '低热量煤', blue: subCategory === '低热量煤' }">低热量煤</button>
-        <button @click="changeSubCategory('中热量煤')" :class="{ active: subCategory === '中热量煤', blue: subCategory === '中热量煤' }">中热量煤</button>
-        <button @click="changeSubCategory('高热量煤')" :class="{ active: subCategory === '高热量煤', blue: subCategory === '高热量煤' }">高热量煤</button>
+    </el-card>
+    <el-card v-if="showClassificationDialog" class="classification-result-card">
+      <div slot="header" class="classification-result-card-header">
+        <span>分类结果</span>
+        <el-button type="text" icon="el-icon-arrow-left" class="back-btn" @click="closeClassificationDialog">
+          <span slot="default">返回</span>
+        </el-button>
       </div>
-    </div>
-
-    <div class="bottom-buttons">
-      <button class="update-button" @click="updateBatch">批次更新</button>
-      <button class="reset-button" @click="resetForm">重置</button>
-    </div>
+      <div class="classification-result-card-content">
+        <div class="classification-result-card-row">
+          <div class="classification-result-card-label">按灰分划分，是：</div>
+          <div class="classification-result-card-input"><el-input v-model="resultByAshContent"></el-input></div>
+        </div>
+        <div class="classification-result-card-row">
+          <div class="classification-result-card-label">按挥发分划分，是：</div>
+          <div class="classification-result-card-input"><el-input v-model="resultByVolatile"></el-input></div>
+        </div>
+        <div class="classification-result-card-row">
+          <div class="classification-result-card-label">按基低位发热量划分，是：</div>
+          <div class="classification-result-card-input"><el-input v-model="resultByHeatingValue"></el-input></div>
+        </div>
+      </div>
+    </el-card>
   </div>
 </template>
+
+<style scoped>
+.coal-batch-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.coal-batch-card {
+  width: 50%;
+  margin: 1% 1%;
+}
+.coal-batch-card-header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+.coal-batch-card-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.classification-result-card-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.classification-result-card-label {
+  width: 200px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.classification-result-card-input {
+  flex: 1;
+}
+
+.coal-batch-card-column {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.coal-batch-card-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.coal-batch-card-label {
+  width: 100px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+.coal-batch-card-input {
+  flex: 1;
+}
+.el-input {
+  margin-bottom: 10px;
+}
+
+.coal-batch-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.classification-result-card {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin: 1% 1%;
+}
+
+.classification-result-card-header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.classification-result-card-content {
+  padding: 20px;
+}
+
+.back-btn {
+  float: right;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #409EFF;
+  color: #fff;
+}
+.box-card {
+  margin: 1% 1%;
+  width: 98%;
+}
+</style>
 
 <script>
 export default {
   data() {
     return {
-      category: '',
-      subCategory: '',
       water: '',
-      density: '',
-      calorificValue: '',
-      volatileMatter: '',
-      ashContent: '',
       resistivity: '',
-      testingTime: '',
-      testingLocation: '',
-      tester: '',
-      showSubCategoryButtons: false,
-    };
+      volatile: '',
+      detectionTime: '',
+      density: '',
+      heatingValue: '',
+      ashContent: '',
+      detectionPlace: '',
+      resultByAshContent: '',
+      resultByVolatile: '',
+      resultByHeatingValue: '',
+      showClassificationDialog: false
+    }
   },
   methods: {
-    toggleSubCategory() {
-      this.showSubCategoryButtons = !this.showSubCategoryButtons;
+    showClassificationResult() {
+      this.showClassificationDialog = true;
     },
-    changeSubCategory(subCategory) {
-      this.subCategory = subCategory;
-    },
-    updateBatch() {
-// 执行批次更新逻辑
-      console.log('Batch Updated');
-    },
-    resetForm() {
-// 执行重置表单逻辑
-      console.log('Form Reset');
+    closeClassificationDialog() {
+      this.showClassificationDialog = false;
     }
   }
-};
+}
 </script>
 
 <style scoped>
