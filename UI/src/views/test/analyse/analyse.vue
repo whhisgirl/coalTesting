@@ -6,7 +6,7 @@
   </header>
   <div>
     <div class="divBox">
-      <div class="left">
+      <div class="top">
         <el-table
           :data="tableData"
           stripe
@@ -14,7 +14,7 @@
           <el-table-column
             prop="number"
             label="序号"
-            width="70">
+            width="100">
           </el-table-column>
           <el-table-column
             prop="id"
@@ -22,42 +22,72 @@
             width="100">
           </el-table-column>
           <el-table-column
-            prop="shuifen"
-            label="水分"
-            width="70">
-          </el-table-column>
-          <el-table-column
-            prop="huifen"
-            label="灰分"
-            width="70">
-          </el-table-column>
-          <el-table-column
-            prop="midu"
-            label="密度"
-            width="70">
-          </el-table-column>
-          <el-table-column
-            prop="huifafen"
-            label="挥发分"
-            width="70">
-          </el-table-column>
-          <el-table-column
-            prop="dianzulv"
-            label="电阻率"
-            width="70">
-          </el-table-column>
-          <el-table-column
-            prop="jidi"
-            label="基地位发热量"
+            prop="shuifen1"
+            label="第一次检测水分"
             width="120">
           </el-table-column>
+          <el-table-column
+            prop="shuifen2"
+            label="第二次检测水分"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="huifen1"
+            label="第一次检测灰分"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="huifen2"
+            label="第二次检测灰分"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="midu1"
+            label="第一次检测密度"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="midu2"
+            label="第二次检测密度"
+            width="120">
+          </el-table-column>
+          <el-table-column
+            prop="huifafen1"
+            label="第一次检测挥发分"
+            width="130">
+          </el-table-column>
+          <el-table-column
+            prop="huifafen2"
+            label="第二次检测挥发分"
+            width="130">
+          </el-table-column>
+          <el-table-column
+            prop="dianzulv1"
+            label="第一次检测电阻率"
+            width="130">
+          </el-table-column>
+          <el-table-column
+            prop="dianzulv2"
+            label="第二次检测电阻率"
+            width="130">
+          </el-table-column>
+          <el-table-column
+            prop="jidi1"
+            label="第一次检测基地位发热量"
+            width="190">
+          </el-table-column><el-table-column
+          prop="jidi2"
+          label="第二次检测基地位发热量"
+          width="190">
+        </el-table-column>
         </el-table></div>
-      <div class="right">
-        <div  class="right" ref="chart" style="width: 1000px;height:500px">
+      <div class="bottom">
+        <div  ref="chart" style="width: 1000px;height:500px">
         </div>
       </div>
     </div>
   </div>
+
   </body>
 </template>
 
@@ -71,102 +101,108 @@ export default {
       tableData: [{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },{
         number: '1',
         id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
-      },{
-        number: '1',
-        id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
-      },{
-        number: '1',
-        id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
-      },{
-        number: '1',
-        id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
-      },{
-        number: '1',
-        id: '2023',
-        shuifen: '8.84',
-        huifen: '22.61',
-        midu: '1.4',
-        huifafen: '28.31',
-        dianzulv: '4',
-        jidi: '29.27'
+        shuifen1: '8.84',
+        shuifen2: '8.84',
+        huifen1: '22.61',
+        huifen2: '22.61',
+        midu1: '1.4',
+        midu2: '1.4',
+        huifafen1: '28.31',
+        huifafen2: '28.31',
+        dianzulv1: '4',
+        dianzulv2: '4',
+        jidi1: '29.27',
+        jidi2: '29.27',
       },]
     }
   },
@@ -178,18 +214,63 @@ export default {
       const chart = this.$refs.chart
       if(chart){
         const myChart = echarts.init(chart)
-        const option = { legend: {},
+        const option = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+              crossStyle: {
+                color: '#999'
+              }
+            }
+          },
+          legend: {
+            data:['第一次检测','第二次检测']
+          },
+          dataZoom: [
+            {
+              type: 'inside'
+            },
+            {
+              type: 'slider'
+            }
+          ],
           xAxis:{
             type:'category',
-            data:['水分','灰分','密度','挥发分','电阻率','基低位发热量']
+            axisPointer: {
+              type: 'shadow'
+            },
+            axisTick:{
+              alignWithLabel: true
+            },
+            data:['2023水分','2023灰分','2023密度','2023挥发分','2023电阻率','2023基低位发热量','2024水分','2024灰分','2024密度','2024挥发分','2024电阻率','2024基低位发热量']
           },
-          yAxis:{
-            type:'value'
+          yAxis:[{
+            type:'value',
+            position:'left',
+            alignTicks:true,
+            axisLine:{
+              show:false,
+            }
           },
+            {
+              type:'value',
+              position:'right',
+              alignTicks:true,
+              axisLine:{
+                show:false,
+              }
+            }],
           series:[
             {
-              data:[8.84,22.61,1.4,38.31,4,29.27],
-              type:'bar'
+              name:'第一次检测',
+              type:'bar',
+              data:[8.84,22.61,1.4,38.31,4,29.27,8.84,22.61,1.4,38.31,4,29.27],
+            },
+            {
+              name:'第二次检测',
+              type:'bar',
+              data:[8.84,22.61,1.4,38.31,4,29.27,8.84,22.61,1.4,38.31,4,29.27],
             }
           ]
         };
@@ -217,16 +298,18 @@ header h1 {
   padding: 0;
 }
 .divBox{
-  height: 500px;
+  height: 2000px;
 }
-.left{
+.top{
+  position: absolute;
   float:left;
-  width:640px;
+  width:2000px;
   height: 100%;
 }
-.right{
-  margin-left:290px;
+.bottom{
+  position: absolute;
+  top:600px;
   height: 100%;
-  width: 900px;
+  width: 2000px;
 }
 </style>
