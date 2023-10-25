@@ -182,7 +182,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 table {
   border-collapse: collapse;
   margin-left: 64px; /* 假设每个单元格的宽度为8px */
