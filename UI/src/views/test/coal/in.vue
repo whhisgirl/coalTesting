@@ -75,7 +75,7 @@
 </template>
 <script>
 import {addUser, getAuthRole, getUser, updateAuthRole, updateUser} from "@/api/system/user";
-import {listCoal, getList,updateList} from "@/api/test/in"
+import {listCoal, getList,updateList} from "@/api/test/CoalList"
   ;
 
 export default {
