@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.CoalIndicatorsMapper">
-    
+
     <resultMap type="CoalIndicators" id="CoalIndicatorsResult">
         <result property="coalNumber"    column="coal_number"    />
         <result property="waterContent"    column="water_content"    />
@@ -14,13 +14,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="baseLowCalorific"    column="base_low_calorific"    />
     </resultMap>
 
+    <resultMap type="BatchAndIndicators" id="BatchAndIndicatorsResult">
+        <result property="coalNumber"    column="coal_number"    />
+        <result property="waterContent"    column="water_content"    />
+        <result property="ashContent"    column="ash_content"    />
+        <result property="coalVolatile"    column="coal_volatile"    />
+        <result property="density"    column="density"    />
+        <result property="resistivity"    column="resistivity"    />
+        <result property="baseLowCalorific"    column="base_low_calorific"    />
+        <result property="batchNumber"    column="batch_number"    />
+        <result property="miningAreaName"    column="mining_area_name"    />
+        <result property="licensePlate"    column="license_plate"    />
+        <result property="locationMiningArea"    column="location_mining_area"    />
+        <result property="sampleTime"    column="sample_time"    />
+    </resultMap>
+
     <sql id="selectCoalIndicatorsVo">
         select coal_number, water_content, ash_content, coal_volatile, density, resistivity, base_low_calorific from coal_indicators
     </sql>
 
     <select id="selectCoalIndicatorsList" parameterType="CoalIndicators" resultMap="CoalIndicatorsResult">
         <include refid="selectCoalIndicatorsVo"/>
-        <where>  
+        <where>
             <if test="waterContent != null  and waterContent != ''"> and water_content = #{waterContent}</if>
             <if test="ashContent != null  and ashContent != ''"> and ash_content = #{ashContent}</if>
             <if test="coalVolatile != null  and coalVolatile != ''"> and coal_volatile = #{coalVolatile}</if>
@@ -29,12 +44,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="baseLowCalorific != null  and baseLowCalorific != ''"> and base_low_calorific = #{baseLowCalorific}</if>
         </where>
     </select>
-    
+
     <select id="selectCoalIndicatorsByCoalNumber" parameterType="String" resultMap="CoalIndicatorsResult">
         <include refid="selectCoalIndicatorsVo"/>
         where coal_number = #{coalNumber}
     </select>
-        
+
+    <select id="selectBatchAndIndicatorsList" parameterType="BatchAndIndicators" resultMap="BatchAndIndicatorsResult">
+        select a.coal_number,
+               a.water_content,
+               a.ash_content,
+               a.coal_volatile,
+               a.density,
+               a.resistivity,
+               a.base_low_calorific,
+               b.batch_number,
+               b.mining_area_name,
+               b.license_plate,
+               b.location_mining_area,
+               c.sample_time
+        from coal_indicators a
+        left join batch b on a.coal_number = b.coal_number
+        left join coal_registration c on a.coal_number = c.coal_number
+        <where>
+            b.exception_flag='1'
+            <if test="batchNumber != null  and batchNumber != ''"> and b.batch_number = #{batchNumber}</if>
+            <if test="sampleTime != null  and sampleTime != ''"> and sample_time = #{sampleTime}</if>
+            <if test="licensePlate != null  and licensePlate != ''"> and license_plate like "%"#{licensePlate}"%"</if>
+            <if test="miningAreaName != null  and miningAreaName != ''"> and mining_area_name = #{miningAreaName}</if>
+            <if test="sampleTimeBegin != null and sampleTimeBegin != ''"><!-- 开始时间检索 -->
+                and date_format(sample_time,'%y%m%d') &gt;= date_format(#{sampleTimeBegin},'%y%m%d')
+            </if>
+            <if test="sampleTimeAfter != null and sampleTimeAfter != ''"><!-- 结束时间检索 -->
+                and date_format(sample_time,'%y%m%d') &lt;= date_format(#{sampleTimeAfter},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
     <insert id="insertCoalIndicators" parameterType="CoalIndicators">
         insert into coal_indicators
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -75,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteCoalIndicatorsByCoalNumbers" parameterType="String">
-        delete from coal_indicators where coal_number in 
+        delete from coal_indicators where coal_number in
         <foreach item="coalNumber" collection="array" open="(" separator="," close=")">
             #{coalNumber}
         </foreach>

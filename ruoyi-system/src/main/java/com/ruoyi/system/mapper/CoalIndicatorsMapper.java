@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.CoalIndicators;
+import com.ruoyi.system.domain.DO.BatchAndIndicators;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -20,6 +21,14 @@ public interface CoalIndicatorsMapper
      * @return 【请填写功能名称】
      */
     public CoalIndicators selectCoalIndicatorsByCoalNumber(String coalNumber);
+
+    /**
+     * 查询【请填写功能名称】
+     *
+     * @param batchAndIndicators 【请填写功能名称】主键
+     * @return 【请填写功能名称】
+     */
+    public List<BatchAndIndicators> selectBatchAndIndicatorsList(BatchAndIndicators batchAndIndicators);
 
     /**
      * 查询【请填写功能名称】列表

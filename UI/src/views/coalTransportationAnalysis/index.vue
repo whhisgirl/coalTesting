@@ -5,24 +5,24 @@
         <el-row>
           <el-col :span="4">
             <el-form-item label="批次编号">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.batchNumber"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="7">
             <el-form-item label="检测时间">
-              <el-date-picker v-model="form.value1" type="daterange" range-separator="至" start-placeholder="开始日期"
-                end-placeholder="结束日期">
+              <el-date-picker v-model="form.sampleTimeList" type="daterange" range-separator="至" start-placeholder="开始日期"
+                end-placeholder="结束日期" value-format="yyyy-MM-dd">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="4">
             <el-form-item label="车牌号">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.licensePlate"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="所在矿区">
-              <el-select v-model="form.region" placeholder="请选择矿区">
+              <el-select v-model="form.miningAreaName" placeholder="请选择矿区">
                 <el-option label="A矿区" value="A"></el-option>
                 <el-option label="B矿区" value="B"></el-option>
               </el-select>
@@ -30,11 +30,10 @@
           </el-col>
         </el-row>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">搜索</el-button>
-          <el-button>重置</el-button>
+          <el-button type="primary" @click="search">搜索</el-button>
+          <el-button @click="reset">重置</el-button>
         </el-form-item>
       </el-form>
-      <!-- <el-divider></el-divider> -->
       <div>
         <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
           <p style="
@@ -53,9 +52,9 @@
         <el-table-column label="矿区名称" align="center" prop="miningAreaName" />
         <el-table-column label="运输车辆车牌" align="center" prop="licensePlate" />
         <el-table-column label="矿区所在地" align="center" prop="locationMiningArea" />
-        <el-table-column label="检测时间" align="center" prop="testTime" width="180">
+        <el-table-column label="检测时间" align="center" prop="sampleTime" width="180">
           <template slot-scope="scope">
-            <span>{{ parseTime(scope.row.testTime, '{y}-{m}-{d}') }}</span>
+            <span>{{ parseTime(scope.row.sampleTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -68,91 +67,80 @@
       <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize"
         @pagination="getList" />
 
-      <!-- 添加或修改【请填写功能名称】对话框 -->
-      <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+      <!-- 对话框 -->
+      <el-dialog :title="title" :visible.sync="open" width="80%" append-to-body>
         <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-          <el-form-item label="批次煤的重量" prop="batchCoalWeight">
-            <el-input v-model="form.batchCoalWeight" placeholder="请输入批次煤的重量" />
-          </el-form-item>
-          <el-form-item label="矿区名称" prop="miningAreaName">
-            <el-input v-model="form.miningAreaName" placeholder="请输入矿区名称" />
-          </el-form-item>
-          <el-form-item label="运输车辆车牌" prop="licensePlate">
-            <el-input v-model="form.licensePlate" placeholder="请输入运输车辆车牌" />
-          </el-form-item>
-          <el-form-item label="矿区所在地" prop="locationMiningArea">
-            <el-input v-model="form.locationMiningArea" placeholder="请输入矿区所在地" />
-          </el-form-item>
-          <el-form-item label="出发时间" prop="startTime">
-            <el-date-picker clearable v-model="form.startTime" type="date" value-format="yyyy-MM-dd"
-              placeholder="请选择出发时间">
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item label="到达时间" prop="arrivalTime">
-            <el-date-picker clearable v-model="form.arrivalTime" type="date" value-format="yyyy-MM-dd"
-              placeholder="请选择到达时间">
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item label="登记表编号" prop="registrationNumber">
-            <el-input v-model="form.registrationNumber" placeholder="请输入登记表编号" />
-          </el-form-item>
-          <el-form-item label="煤采样编号" prop="coalNumber">
-            <el-input v-model="form.coalNumber" placeholder="请输入煤采样编号" />
-          </el-form-item>
-          <el-form-item label="汽运目的地" prop="destination">
-            <el-input v-model="form.destination" placeholder="请输入汽运目的地" />
-          </el-form-item>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="批次编号" prop="registrationNumber">
+                {{ 1 }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="矿区名称" prop="miningAreaName">
+                {{ 'a' }}
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="运输车辆车牌" prop="licensePlate">
+                {{ 'ASA' }}
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="矿区所在地" prop="locationMiningArea">
+                {{ 'AADD' }}
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form>
+        <div ref="exceptionCompareChart" style="width: 100%;height: 300px;"></div>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
+          <el-button @click="cancel">退 出</el-button>
         </div>
       </el-dialog>
       <el-divider></el-divider>
       <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
-          <p style="
+        <p style="
             font-family: Arial;
             font-size: 16px;
             font-weight: 600;
             display: inline-block;
             margin-left: 20px;
           ">
-            煤质异常情况
-          </p>
-          <el-tooltip placement="top">
-            <div slot="content">
-              <p>水分(0~1%)</p>
-              <p>灰分(0~1%)</p>
-              <p>密度(0~0.5%)</p>
-              <p>挥发分(0~1%)</p>
-              <p>电阻率(0~1%)</p>
-              <p>发热量(0~1.5%)</p>
-            </div>
-            <i class="el-icon-question" style="float: right; margin-right: 20px; margin-top: 12px; font-size: 30px;"></i>
-          </el-tooltip>
-        </div>
-      <div style="width: 100%;height: 300px;" ref="exceptionBarChart"></div>
+          煤质异常次数
+        </p>
+        <el-tooltip placement="top">
+          <div slot="content">
+            <p>水分(0~1%)</p>
+            <p>灰分(0~1%)</p>
+            <p>密度(0~0.5%)</p>
+            <p>挥发分(0~1%)</p>
+            <p>电阻率(0~1%)</p>
+            <p>发热量(0~1.5%)</p>
+          </div>
+          <i class="el-icon-question" style="float: right; margin-right: 20px; margin-top: 12px; font-size: 30px;"></i>
+        </el-tooltip>
+      </div>
+      <div style="width: 100%;height: 200px;" ref="exceptionBarChart"></div>
     </el-card>
   </div>
 </template>
   
 <script>
 import * as echarts from 'echarts';
+import { listBatchAndIndicators } from "@/api/system/indicators";
+
 
 export default {
   name: "coalTransportationAnalysis",
   data() {
     return {
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
-        value1: ''
+        pageNum: 1,
+        pageSize: 10,
+        sampleTimelist:[],
       },
       // 遮罩层
       loading: false,
@@ -167,22 +155,7 @@ export default {
       // 总条数
       total: 0,
       // 【请填写功能名称】表格数据
-      exceptionList: [
-        {
-          batchNumber: 'C2023102401',
-          miningAreaName: '忻州矿区',
-          licensePlate: '晋C83752',
-          locationMiningArea: '忻州',
-          testTime: '2023-10-24'
-        },
-        {
-          batchNumber: 'C2023102402',
-          miningAreaName: '大同矿区',
-          licensePlate: '晋C83752',
-          locationMiningArea: '大同',
-          testTime: '2023-10-24'
-        }
-      ],
+      exceptionList: [],
 
       // 弹出层标题
       title: "",
@@ -192,15 +165,6 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        miningAreaName: null,
-        licensePlate: null,
-        locationMiningArea: null,
-        startTime: null,
-        arrivalTime: null,
-        registrationNumber: null,
-        coalNumber: null,
-        destination: null,
-        arrivalStatus: null
       },
       //表单校验
       rules: {},
@@ -232,105 +196,112 @@ export default {
           }
         }
       ],
+      chartData3: [
+        0.7, 0.4, 3.6, 0.6, 0.4, 2.3
+      ],
+      chartData4: [
+        0.7, 0.4, 3.6, 0.6, 0.4, -2.3
+      ],
       exceptionBarChart: null,
       chartOption: {},
     };
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
+    search() {
+      console.log(this.form);
+      this.form.sampleTimeBegin = this.form.sampleTimeList[0]
+      this.form.sampleTimeAfter = this.form.sampleTimeList[1]
+      listBatchAndIndicators(this.form).then(response => {
+        console.log(response);
+        this.exceptionList = response.data.batchAndIndicatorsList
+        this.total = response.data.total
+      });
     },
     cancel() {
-
+      this.open = false
+    },
+    reset(){
+      listBatchAndIndicators({pageNum: 1, pageSize: 10,}).then(response => {
+        console.log(response);
+        this.exceptionList = response.data.batchAndIndicatorsList
+        this.total = response.data.total
+      });
     },
     handleSelectionChange() { },
     submitForm() { },
-    getList() { },
+    getList() {
+      listBatchAndIndicators(this.queryParams).then(response => {
+        console.log(response);
+        this.exceptionList = response.data.batchAndIndicatorsList
+        this.total = response.data.total
+      });
+    },
     handleInfo(row) {
-      console.log(row);
-      /**
-       * TODO 静态代码，需改为前端通过批次编号获取后端数据，然后刷新echart图
-       */
-      if (row.batchNumber === "C2023102402") {
-        this.chartOption = {
-          //笛卡尔坐标系的底板
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
-          },
-          yAxis: {
-            type: 'value',
-            name: '变化%'
-          },
-          series: [
-            {
-              data: this.chartData2,
-              type: 'bar'
-            }
-          ]
-        }
-        this.exceptionBarChart.setOption(this.chartOption)
-      } else if(row.batchNumber === "C2023102401"){
-        this.chartOption = {
-          //笛卡尔坐标系的底板
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
-          },
-          yAxis: {
-            type: 'value',
-            name: '变化%'
-          },
-          series: [
-            {
-              data: this.chartData1,
-              type: 'bar'
-            }
-          ]
-        }
-        this.exceptionBarChart.setOption(this.chartOption)
+      this.open = true
+      this.$nextTick(()=>{
+        this.initExceptionCompareChart()
+      })
+    },
+    initExceptionNumBarChart() {
+      this.exceptionBarChart = echarts.init(this.$refs.exceptionBarChart);
+      // 配置图表
+      this.chartOption = {
+        //笛卡尔坐标系的底板
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
+        },
+        yAxis: {
+          type: 'value',
+          name: '次数'
+        },
+        series: [
+          {
+            data: this.chartData3,
+            type: 'bar'
+          }
+        ]
       }
+      this.exceptionBarChart.setOption(this.chartOption)
+    },
+    initExceptionCompareChart() {
+      this.exceptionBarChart = echarts.init(this.$refs.exceptionCompareChart);
+      // 配置图表
+      this.chartOption = {
+        //笛卡尔坐标系的底板
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
+        },
+        yAxis: {
+          type: 'value',
+          name: '变化%'
+        },
+        series: [
+          {
+            data: this.chartData1,
+            type: 'bar'
+          },
+        ]
+      }
+      this.exceptionBarChart.setOption(this.chartOption)
     },
   },
   mounted() {
-    this.exceptionBarChart = echarts.init(this.$refs.exceptionBarChart);
-    // 配置图表
-    this.chartOption = {
-      //笛卡尔坐标系的底板
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        data: ['水分', '灰分', '密度', '挥发分', '电阻率', '基低位发热量']
-      },
-      yAxis: {
-        type: 'value',
-        name: '变化%'
-      },
-      series: [
-        {
-          data: this.chartData1,
-          type: 'bar'
-        }
-      ]
-    }
-    this.exceptionBarChart.setOption(this.chartOption)
+    this.getList()
+    this.initExceptionNumBarChart()
   }
 };
 </script>

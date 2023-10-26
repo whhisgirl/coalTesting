@@ -9,6 +9,15 @@ export function listIndicators(query) {
   })
 }
 
+// 查询【请填写功能名称】列表
+export function listBatchAndIndicators(query) {
+  return request({
+    url: '/system/indicators/listBatchAndIndicators',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询【请填写功能名称】详细
 export function getIndicators(coalNumber) {
   return request({

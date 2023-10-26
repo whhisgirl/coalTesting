@@ -2,6 +2,12 @@ package com.ruoyi.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.hutool.json.JSONObject;
+import com.ruoyi.common.core.domain.R;
+import com.ruoyi.common.core.page.PageDomain;
+import com.ruoyi.common.core.page.TableSupport;
+import com.ruoyi.system.domain.DO.BatchAndIndicators;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +50,24 @@ public class CoalIndicatorsController extends BaseController
         startPage();
         List<CoalIndicators> list = coalIndicatorsService.selectCoalIndicatorsList(coalIndicators);
         return getDataTable(list);
+    }
+
+    /**
+     * 查询指标结果记录和批次
+     */
+    @GetMapping("/listBatchAndIndicators")
+    public R listBatchAndIndicators(BatchAndIndicators batchAndIndicators)
+    {
+        PageDomain pageDomain = TableSupport.buildPageRequest();
+        List<BatchAndIndicators> list = coalIndicatorsService.selectBatchAndIndicators(batchAndIndicators);
+        List<BatchAndIndicators> batchAndIndicatorsList = list.subList(
+                pageDomain.getPageSize() * (pageDomain.getPageNum() - 1),
+                (pageDomain.getPageNum() * pageDomain.getPageSize()) > list.size() ? list.size() : (pageDomain.getPageSize() * pageDomain.getPageNum())
+        );
+        JSONObject resObj = new JSONObject();
+        resObj.set("total", list.size());
+        resObj.set("batchAndIndicatorsList", batchAndIndicatorsList);
+        return R.ok(resObj);
     }
 
     /**
