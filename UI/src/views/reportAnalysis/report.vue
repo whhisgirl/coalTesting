@@ -235,7 +235,7 @@ export default {
         return {
             name:"report",
             active: 0,
-            show: false,
+            show: true,
             formInline: {
                 user: '',
                 region: ''
