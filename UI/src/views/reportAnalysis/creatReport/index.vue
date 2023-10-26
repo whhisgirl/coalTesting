@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <h2>检测报告生成记录</h2>
       <br>
-      <el-tabs v-model="activeTab" @tab-click="handleClick">
+      <el-tabs v-model="activeTab" ref="tabs" @tab-click="handleClick">
         <el-tab-pane label="按基低位发热量划分" name="first">
           <div ref="chart1"  style="height: 400px;"></div>
 
@@ -107,7 +107,7 @@ import * as echarts from 'echarts';
 export default {
   data() {
     return {
-      activeTab: 'second',
+      activeTab: 'first',
       chart:{},
       form: {
         batchNumber: '',
@@ -165,14 +165,11 @@ export default {
   },
   methods: {
     handleClick(tab) {
-      console.log('点击了标签页:',tab.name);
-      /* if (tab.name === 'first') {
-         this.showChart('chart1');
-       } else if (tab.name === 'second') {
-         this.showChart('chart2');
-       } else if (tab.name === 'third') {
-         this.showChart('chart3');
-       }*/
+      this.$nextTick(()=>{
+           echarts.getInstanceByDom(this.$refs.chart1).resize()
+           echarts.getInstanceByDom(this.$refs.chart2).resize()
+           echarts.getInstanceByDom(this.$refs.chart3).resize()
+      })
 
     },
 
@@ -200,7 +197,7 @@ export default {
           }
         },
         legend: {
-          data: ['低热量煤', '中热量煤', '高热量煤'],
+          data: ['低热值煤','中低热值煤','中热值煤','中高热值煤','高热值煤','超高热值煤'],
           bottom: 0
         },
         xAxis: [
@@ -225,33 +222,63 @@ export default {
         ],
         series: [
           {
-            name: '低热量煤',
+            name: '低热值煤',
             type: 'bar',
             tooltip: {
-              formatter: '{c} ml'
+              formatter: '{c} '
             },
             data: [
-              2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+              23.5,27.3,30.5,13.2,28.9,16.2
             ]
           },
           {
-            name: '中热量煤',
+            name: '中低热值煤',
             type: 'bar',
             tooltip: {
-              formatter: '{c} ml'
+              formatter: '{c} '
             },
             data: [
-              2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+              78.6,63.2,47.6,32.1,56.3,48.2
             ]
           },
           {
-            name: '高热量煤',
+            name: '中热值煤',
             type: 'bar',
             tooltip: {
-              formatter: '{c} ml'
+              formatter: '{c} '
             },
             data: [
-              2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+              59.6,62.3,24.5,58.6,45.6,23.6
+            ]
+          },
+          {
+            name: '中高热值煤',
+            type: 'bar',
+            tooltip: {
+              formatter: '{c} '
+            },
+            data: [
+              35.6,24.2,36.3,12.5,24.1,36.9
+            ]
+          },
+          {
+            name: '高热值煤',
+            type: 'bar',
+            tooltip: {
+              formatter: '{c} '
+            },
+            data: [
+              25.6,15.8,24.3,14.3,23.2,11.3
+            ]
+          },
+          {
+            name: '超高热值煤',
+            type: 'bar',
+            tooltip: {
+              formatter: '{c}'
+            },
+            data: [
+              2.1,1.5,3.3,5.4,1.2,3.4
             ]
           }
         ],
@@ -282,7 +309,7 @@ export default {
           }
         },
         legend: {
-          data: ['低热量煤', '中热量煤', '高热量煤'],
+          data: ['特低灰煤', '低灰煤', '中灰煤','高灰煤','特高灰煤'],
           bottom: 0
         },
         xAxis: [
@@ -307,33 +334,53 @@ export default {
         ],
         series: [
           {
-            name: '低热量煤',
+            name: '特低灰煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} ml'
             },
             data: [
-              2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+              2.0,1.2,0.9,4.3,3.6,2.2
             ]
           },
           {
-            name: '中热量煤',
+            name: '低灰煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} ml'
             },
             data: [
-              2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+              22.1,25.6,24.3,33.0,26.8,29.6
             ]
           },
           {
-            name: '高热量煤',
+            name: '中灰煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} ml'
             },
             data: [
-              2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+              55.6,78.2,54.5,65.6,56.5,49.5
+            ]
+          },
+          {
+            name: '高灰煤',
+            type: 'bar',
+            tooltip: {
+              formatter: '{c} ml'
+            },
+            data: [
+             13.4,25.3,24.6,19.6,32.1,17.6
+            ]
+          },
+          {
+            name: '特高灰煤',
+            type: 'bar',
+            tooltip: {
+              formatter: '{c} ml'
+            },
+            data: [
+              2.1,3.3,5.4,6.3,2.1,2.3
             ]
           }
         ],
@@ -362,7 +409,7 @@ export default {
           }
         },
         legend: {
-          data: ['低热量煤', '中热量煤', '高热量煤'],
+          data: ['无烟煤', '烟煤', '褐煤','泥煤'],
           bottom: 0
         },
         xAxis: [
@@ -387,33 +434,43 @@ export default {
         ],
         series: [
           {
-            name: '低热量煤',
+            name: '无烟煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} ml'
             },
             data: [
-              2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+              34.8,56.9,43.2,26.3,45.6,59.3
             ]
           },
           {
-            name: '中热量煤',
+            name: '烟煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} ml'
             },
             data: [
-              2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+              23.6,21.3,36.5,42.3,21.3,22.6
             ]
           },
           {
-            name: '高热量煤',
+            name: '褐煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} ml'
             },
             data: [
-              2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+              2.0, 4.9, 7.0,2.3,5.4,3.3
+            ]
+          },
+          {
+            name: '泥煤',
+            type: 'bar',
+            tooltip: {
+              formatter: '{c} ml'
+            },
+            data: [
+             32.1,23.5,34.2,15.6,24.3,16.8
             ]
           }
         ],
