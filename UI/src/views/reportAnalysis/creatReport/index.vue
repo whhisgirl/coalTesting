@@ -9,7 +9,7 @@
             display: inline-block;
             margin-left: 20px;
           ">
-          检测报告生成记录
+          煤种发运情况记录
         </p>
       </div>
       <br>
@@ -39,7 +39,10 @@
                 <el-input v-model="form.batchNumber"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="9">
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            <el-col :span="7">
               <el-form-item label="检测时间">
                 <el-date-picker v-model="form.dateRange" type="daterange" range-separator="至" start-placeholder="开始日期"
                                 end-placeholder="结束日期">
@@ -47,7 +50,7 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="6">
+            <el-col :span="4">
               <el-form-item label="所在矿区">
                 <el-select v-model="form.region" placeholder="请选择矿区">
                   <el-option label="A矿区" value="A"></el-option>
@@ -55,11 +58,15 @@
                 </el-select>
               </el-form-item>
             </el-col>
+
+            <el-col :span="4">
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">搜索</el-button>
+              <el-button @click="resetForm">重置</el-button>
+            </el-form-item>
+            </el-col>
           </el-row>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">搜索</el-button>
-            <el-button @click="resetForm">重置</el-button>
-          </el-form-item>
+
         </el-form>
       </div>
 
@@ -130,7 +137,7 @@ export default {
         code: 'GB475-2008',
         granularity: '粒煤',
         number: 'C1201J05',
-        location: '朔州市',
+        location: '山西省忻州市',
         goal: '内蒙古棋盘井车站',
         height: '40',
         car: '辽B 926QB',
@@ -140,7 +147,7 @@ export default {
         code: 'GB475-2008',
         granularity: '粒煤',
         number: 'C1201J11',
-        location: '焦作市',
+        location: '山西省忻州市',
         goal: '朔州市平鲁车站',
         height: '40',
         car: '豫H SD52D',
@@ -150,7 +157,7 @@ export default {
         code: 'GB475-2008',
         granularity: '粉煤',
         number: 'C1201J20',
-        location: '包头市',
+        location: '山西省忻州市',
         goal: '河南焦作站',
         height: '40',
         car: '蒙B 356SD',
@@ -160,7 +167,7 @@ export default {
         code: 'GB475-2008',
         granularity: '小块',
         number: 'C1201J50',
-        location: '山西市',
+        location: '山西省忻州市',
         goal: '山西晋城站',
         height: '40',
         car: '晋E AS5D4',
@@ -200,10 +207,10 @@ export default {
         },
         toolbox: {
           feature: {
-            dataView: { show: true, readOnly: false },
+            /*dataView: { show: true, readOnly: false },
             magicType: { show: true, type: ['line', 'bar'] },
             restore: { show: true },
-            saveAsImage: { show: true }
+            saveAsImage: { show: true }*/
           }
         },
         legend: {
@@ -213,7 +220,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: ['一月', '二月', '三月', '四月', '五月', '六月'],
+            data: ['2023-04', '2023-05', '2023-06', '2023-07', '2023-08', '2023-09'],
             axisPointer: {
               type: 'shadow'
             }
@@ -222,6 +229,7 @@ export default {
         yAxis: [
           {
             type: 'value',
+            name:'千吨',
             min: 0,
             max: 100,
             interval: 20,
@@ -231,7 +239,7 @@ export default {
           }
         ],
         series: [
-          {
+         /* {
             name: '低热值煤',
             type: 'bar',
             tooltip: {
@@ -240,7 +248,7 @@ export default {
             data: [
               23.5,27.3,30.5,13.2,28.9,16.2
             ]
-          },
+          },*/
           {
             name: '中低热值煤',
             type: 'bar',
@@ -270,7 +278,7 @@ export default {
             data: [
               35.6,24.2,36.3,12.5,24.1,36.9
             ]
-          },
+          }/*,
           {
             name: '高热值煤',
             type: 'bar',
@@ -290,10 +298,10 @@ export default {
             data: [
               2.1,1.5,3.3,5.4,1.2,3.4
             ]
-          }
+          }*/
         ],
         title: {
-          text: '本年度煤种发运情况',
+          text: '近半年煤种发运情况',
           left: 'center'
         },
 
@@ -312,10 +320,10 @@ export default {
         },
         toolbox: {
           feature: {
-            dataView: { show: true, readOnly: false },
-            magicType: { show: true, type: ['line', 'bar'] },
-            restore: { show: true },
-            saveAsImage: { show: true }
+           // dataView: { show: true, readOnly: false },
+            //magicType: { show: true, type: ['line', 'bar'] },
+            //restore: { show: true },
+            //saveAsImage: { show: true }
           }
         },
         legend: {
@@ -325,7 +333,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: ['一月', '二月', '三月', '四月', '五月', '六月'],
+            data: ['2023-04', '2023-05', '2023-06', '2023-07', '2023-08', '2023-09'],
             axisPointer: {
               type: 'shadow'
             }
@@ -334,6 +342,7 @@ export default {
         yAxis: [
           {
             type: 'value',
+            name:'千吨',
             min: 0,
             max: 100,
             interval: 20,
@@ -343,7 +352,7 @@ export default {
           }
         ],
         series: [
-          {
+          /*{
             name: '特低灰煤',
             type: 'bar',
             tooltip: {
@@ -352,7 +361,7 @@ export default {
             data: [
               2.0,1.2,0.9,4.3,3.6,2.2
             ]
-          },
+          },*/
           {
             name: '低灰煤',
             type: 'bar',
@@ -382,7 +391,7 @@ export default {
             data: [
              13.4,25.3,24.6,19.6,32.1,17.6
             ]
-          },
+          }/*,
           {
             name: '特高灰煤',
             type: 'bar',
@@ -392,10 +401,10 @@ export default {
             data: [
               2.1,3.3,5.4,6.3,2.1,2.3
             ]
-          }
+          }*/
         ],
         title: {
-          text: '本年度煤种发运情况',
+          text: '近半年煤种发运情况',
           left: 'center'
         }
       };
@@ -412,10 +421,10 @@ export default {
         },
         toolbox: {
           feature: {
-            dataView: { show: true, readOnly: false },
+            /*dataView: { show: true, readOnly: false },
             magicType: { show: true, type: ['line', 'bar'] },
             restore: { show: true },
-            saveAsImage: { show: true }
+            saveAsImage: { show: true }*/
           }
         },
         legend: {
@@ -425,7 +434,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: ['一月', '二月', '三月', '四月', '五月', '六月'],
+            data: ['2023-04', '2023-05', '2023-06', '2023-07', '2023-08', '2023-09'],
             axisPointer: {
               type: 'shadow'
             }
@@ -434,6 +443,7 @@ export default {
         yAxis: [
           {
             type: 'value',
+            name:'千吨',
             min: 0,
             max: 100,
             interval: 20,
@@ -485,7 +495,7 @@ export default {
           }
         ],
         title: {
-          text: '本年度煤种发运情况',
+          text: '近半年煤种发运情况',
           left: 'center'
         }
       };
