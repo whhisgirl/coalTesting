@@ -2,6 +2,8 @@ package com.ruoyi.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.system.domain.CoalRegistration;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,4 +56,16 @@ public class CoalListController extends BaseController
     {
         return success(coalListService.selectCoalListByCoalNumber(coalNumber));
     }
+
+    /**
+     * 修改【请填写功能名称】
+     */
+    @PreAuthorize("@ss.hasPermi('test:coal:edit')")
+    @Log(title = "【请填写功能名称】", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@RequestBody CoalList coalList)
+    {
+        return toAjax(coalListService.updateCoalList(coalList));
+    }
+
 }

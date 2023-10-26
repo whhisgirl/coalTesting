@@ -18,6 +18,7 @@ public class CoalList extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 煤采样编号 */
+    @Excel(name = "煤采样编号")
     private String coalNumber;
 
     /** 煤采样时间 */
@@ -52,6 +53,12 @@ public class CoalList extends BaseEntity
     /** 采样照片（到达目的地） */
     @Excel(name = "矿区所在地")
     private String locationMiningArea;
+
+    @Excel(name = "批次编号")
+    private String batchNumber;
+
+    @Excel(name = "状态")
+    private String arrivalStatus;
 
     /** 报告生成时间 */
 
@@ -139,8 +146,21 @@ public class CoalList extends BaseEntity
     }
 
 
+    public void setBatchNumber(String batchNumber)
+    {
+        this.batchNumber = batchNumber;
+    }
 
+    public String getBatchNumber()
+    {
+        return batchNumber;
+    }
+    public void setArrivalStatus(String arrivalStatus)
+    {
+        this.arrivalStatus = arrivalStatus;
+    }
 
+    public String getArrivalStatus() {return arrivalStatus;}
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -153,6 +173,8 @@ public class CoalList extends BaseEntity
                 .append("sampler", getSampler())
                 .append("batchCoalWeight", getBatchCoalWeight())
                 .append("locationMiningArea", getLocationMiningArea())
+                .append("batchNumber", getBatchNumber())
+                .append("arrivalStatus", getArrivalStatus())
                 .toString();
     }
 }

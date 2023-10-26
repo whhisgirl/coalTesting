@@ -3,102 +3,82 @@
     <el-steps :active="current" align-center finish-status="success" style="height:100px; padding-top: 40px">
       <el-step v-for="item in steps" :key="item.title" :title="item.title"></el-step>
     </el-steps>
-    <el-form class="form" label-width="100px">
-      <el-row>
-        <el-col :span="8" :offset="1">
-          <el-form-item label="采样时间" prop="date">
-            <el-date-picker
-              v-model="form.date"
-              type="datetime"
-              placeholder="选择日期时间" style="width:100%;">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8" :offset="4">
-          <el-form-item label="采样标准号" prop="code">
-            <el-input v-model="form.code" width="100px"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="8" :offset="1">
-          <el-form-item label="样品粒度" prop="granularity">
-            <el-input v-model="form.granularity"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8" :offset="4">
-          <el-form-item label="采样方式" prop="way">
-            <el-input v-model="form.way"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="8" :offset="1">
-      <el-form-item label="矿区名称" prop="name">
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
-        </el-col>
-      <el-col :span="8" :offset="4">
-      <el-form-item label="采样人" prop="man">
-        <el-input v-model="form.man"></el-input>
-      </el-form-item>
+    <child v-if="change1"></child>
+    <Child2 v-if="change2"></Child2>
+    <el-row type="flex" :gutter="240" justify="space-around">
+      <el-col :span="8">
+        <el-button @click="last" v-if="current!=0?true:false">上一步</el-button>
       </el-col>
-      </el-row>
-    </el-form>
-<el-row>
-  <el-col :offset="18">
-    <el-button @click="before" v-if="current>0">上一步</el-button>
-    <el-button @click="next" v-if="current<steps.length-1">下一步</el-button>
-  </el-col>
-</el-row>
+      <el-col :span="8">
+        <el-button @click="next" v-if="current!=steps.length-1?true:false">下一步</el-button>
+        <el-button @click="complete">完成</el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
+
+import Child from '@/views/test/coal/step1.vue'
+import Child2 from '@/views/test/coal/step2.vue'
+
 export default {
+  components: {
+    Child, Child2
+
+  },
   data() {
     return {
       current: 0,
+      change1: false,
+      change2: false,
       steps: [
         {
           title: '采样信息录入',
-
         },
         {
           title: '煤炭批次记录',
-
+        },
+        {
+          title: '运输前6项',
+        },
+        {
+          title: '到达后6项',
+        },
+        {
+          title: '指标分析',
         },
       ],
 
-      form: {
-        date: '',
-        code: '',
-        granularity: '',
-        way: '',
-        name: '',
-        man: '',
-      }
+
     }
   },
-
+  mounted() {
+    this.change1 = true;
+  },
   methods: {
     next() {
       this.current++;
+      if (this.current == 0) {
+        this.change1 = true;
+        this.change2 = false;
+      } else if (this.current == 1) {
+        this.change1 = false;
+        this.change2 = true;
+      }
     },
-    before() {
+    last() {
       this.current--;
+      if (this.current == 0) {
+        this.change1 = true;
+        this.change2 = false;
+      } else if (this.current == 1) {
+        this.change1 = false;
+        this.change2 = true;
+      }
     },
-
-
+    complete() {
+    },
   }
 }
+
 </script>
-<style>
-.form {
-  margin-top: 5%;
-  margin-left: 80px;
-  margin-right: 80px;
-}
-.el-row{
-  margin-bottom: 30px;
-}
-</style>

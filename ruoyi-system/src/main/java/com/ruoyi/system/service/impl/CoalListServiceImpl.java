@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.CoalRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.CoalListMapper;
@@ -38,5 +40,17 @@ public class CoalListServiceImpl implements ICoalListService {
     public List<CoalList> selectCoalList(CoalList coalList) {
         return coalListMapper.selectCoalList(coalList);
     }
-}
 
+
+    /**
+     * 修改【请填写功能名称】
+     *
+     * @param coalList 【请填写功能名称】
+     * @return 结果
+     */
+    @Override
+    public int updateCoalList(CoalList coalList)
+    {
+        return coalListMapper.updateCoalList(coalList);
+    }
+}

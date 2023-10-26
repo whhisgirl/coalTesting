@@ -12,8 +12,16 @@ export function listCoal(query) {
 // 查询【请填写功能名称】详细
 export function getList(coalNumber) {
   return request({
-    url: '/test.coal/' + coalNumber,
+    url: '/test/coal/' + coalNumber,
     method: 'get'
+  })
+}
+
+export function updateList(data) {
+  return request({
+    url: '/test/coal/',
+    method: 'put',
+    data: data
   })
 }
 

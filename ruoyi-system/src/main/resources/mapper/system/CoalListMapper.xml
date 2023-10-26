@@ -5,33 +5,25 @@
 <mapper namespace="com.ruoyi.system.mapper.CoalListMapper">
 
     <resultMap type="CoalList" id="CoalListResult">
+        <result property="batchNumber"    column="batch_number"    />
         <result property="coalNumber"    column="coal_number"    />
         <result property="sampleTime"    column="sample_time"    />
-        <result property="standardNumber"    column="standard_number"    />
-        <result property="sampleStrength"    column="sample_strength"    />
-        <result property="samplingMethod"    column="sampling_method"    />
         <result property="miningAreaName"    column="mining_area_name"    />
-        <result property="sampler"    column="sampler"    />
-        <result property="batchCoalWeight"    column="batch_coal_weight"    />
         <result property="locationMiningArea"    column="location_mining_area"    />
+        <result property="arrivalStatus"    column="arrival_status"    />
     </resultMap>
-
     <sql id="selectCoalListVo">
-        select coal_registration.coal_number, batch.coal_number, coal_registration.sample_time, coal_registration.standard_number, coal_registration.sample_strength, coal_registration.sampling_method, coal_registration.mining_area_name, coal_registration.sampler, batch.batch_coal_weight, batch.location_mining_area from coal_registration INNER JOIN batch ON coal_registration.coal_number=batch.coal_number
+        select coal_registration.coal_number, batch.coal_number, batch.batch_number,coal_registration.sample_time, coal_registration.mining_area_name, batch.location_mining_area, batch.arrival_status from coal_registration INNER JOIN batch ON coal_registration.coal_number=batch.coal_number
     </sql>
-
-
     <select id="selectCoalList" parameterType="CoalList" resultMap="CoalListResult">
         <include refid="selectCoalListVo"/>
         <where>
+            <if test="batchNumber != null  and batchNumber != ''"> and batch_number = #{batchNumber}</if>
+            <if test="coalNumber != null  and coalNumber != ''"> and coal_number = #{coalNumber}</if>
             <if test="sampleTime != null "> and sample_time = #{sampleTime}</if>
-            <if test="standardNumber != null  and standardNumber != ''"> and standard_number = #{standardNumber}</if>
-            <if test="sampleStrength != null  and sampleStrength != ''"> and sample_strength = #{sampleStrength}</if>
-            <if test="samplingMethod != null  and samplingMethod != ''"> and sampling_method = #{samplingMethod}</if>
             <if test="miningAreaName != null  and miningAreaName != ''"> and mining_area_name like concat('%', #{miningAreaName}, '%')</if>
-            <if test="sampler != null  and sampler != ''"> and sampler = #{sampler}</if>
-            <if test="batchCoalWeight != null  and batchCoalWeight != ''"> and batch_coal_weight = #{batchCoalWeight}</if>
             <if test="locationMiningArea != null  and locationMiningArea != ''"> and location_mining_area = #{locationMiningArea}</if>
+            <if test="arrivalStatus != null  and arrivalStatus != ''"> and arrival_status = #{arrivalStatus}</if>
         </where>
     </select>
 
@@ -39,4 +31,11 @@
         <include refid="selectCoalListVo"/>
         where coal_number = #{coalNumber}
     </select>
+
+
+    <update id="updateCoalList" parameterType="CoalList">
+        update coal_registration
+        where coal_number = #{coalNumber}
+    </update>
+
 </mapper>

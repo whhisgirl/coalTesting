@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.CoalList;
+import com.ruoyi.system.domain.CoalRegistration;
 
 /**
  * 【请填写功能名称】Service接口
@@ -25,5 +26,13 @@ public interface ICoalListService {
      * @return 【请填写功能名称】集合
      */
     public List<CoalList> selectCoalList(CoalList coalList);
-}
 
+
+    /**
+     * 修改【请填写功能名称】
+     *
+     * @param coalList 【请填写功能名称】
+     * @return 结果
+     */
+    public int updateCoalList(CoalList coalList);
+}
