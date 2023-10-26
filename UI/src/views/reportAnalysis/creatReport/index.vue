@@ -1,7 +1,17 @@
 <template>
   <div>
     <el-card class="box-card">
-      <h2>检测报告生成记录</h2>
+      <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
+        <p style="
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 20px;
+          ">
+          检测报告生成记录
+        </p>
+      </div>
       <br>
       <el-tabs v-model="activeTab" ref="tabs" @tab-click="handleClick">
         <el-tab-pane label="按基低位发热量划分" name="first">
