@@ -86,7 +86,6 @@
                   矿区名称
                 </template>
                 {{ infoForm.miningAreaName }}
-
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
@@ -103,30 +102,10 @@
                 {{ infoForm.miningAreaName }}
               </el-descriptions-item>
             </el-descriptions>
-            <!-- <el-col :span="4" :offset="1">
-              <el-form-item label="批次编号:" prop="batchNumber" label-width="auto">
-                {{ infoForm.batchNumber }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="矿区名称:" prop="miningAreaName" label-width="auto">
-                {{ infoForm.miningAreaName }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="运输车辆车牌:" prop="licensePlate" label-width="auto">
-                {{ infoForm.licensePlate }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="矿区所在地:" prop="miningAreaName" label-width="auto">
-                {{ infoForm.miningAreaName }}
-              </el-form-item>
-            </el-col> -->
           </el-row>
           <el-divider></el-divider>
           <el-row>
-            <el-descriptions class="margin-top" title="批次信息" :column="6" :size="size" border>
+            <el-descriptions class="margin-top" title="成分对比" :column="6" :size="size" border>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-user"></i>
@@ -171,39 +150,9 @@
                 {{ infoForm.firstBaseLowCalorific }}
               </el-descriptions-item>
             </el-descriptions>
-            <!-- <el-col :span="3" :offset="1">
-              <el-form-item label="运输前水分:" label-width="auto">
-                {{ infoForm.firstWater }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输前灰分:" label-width="auto">
-                {{ infoForm.firstAshContent }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输前密度:" label-width="auto">
-                {{ infoForm.firstDensity }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输前挥发分:" label-width="auto">
-                {{ infoForm.firstCoalVolatile }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输前电阻率:" label-width="auto">
-                {{ infoForm.firstrResistivity }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输前基低位发热量:" label-width="auto">
-                {{ infoForm.firstBaseLowCalorific }}
-              </el-form-item>
-            </el-col> -->
           </el-row>
           <el-row>
-            <el-descriptions class="margin-top" title="批次信息" :column="6" :size="size" border>
+            <el-descriptions class="margin-top" :column="6" :size="size" border>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-user"></i>
@@ -248,36 +197,6 @@
                 {{ infoForm.secondBaseLowCalorific }}
               </el-descriptions-item>
             </el-descriptions>
-            <!-- <el-col :span="3" :offset="1">
-              <el-form-item label="运输后水分:" label-width="auto">
-                {{ infoForm.secondWater }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输后灰分:" label-width="auto">
-                {{ infoForm.secondAshContent }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输后密度:" label-width="auto">
-                {{ infoForm.secondDensity }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输后挥发分:" label-width="auto">
-                {{ infoForm.secondCoalVolatile }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输后电阻率:" label-width="auto">
-                {{ infoForm.secondrResistivity }}
-              </el-form-item>
-            </el-col>
-            <el-col :span="3">
-              <el-form-item label="运输后基低位发热量:" label-width="auto">
-                {{ infoForm.secondBaseLowCalorific }}
-              </el-form-item>
-            </el-col> -->
           </el-row>
         </el-form>
 
