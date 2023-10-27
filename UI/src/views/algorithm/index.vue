@@ -129,12 +129,12 @@ export default {
       this.algorithData = undefined;
       this.algorithData = new Array();
       this.algorithData.push({
-        waterContent: this.form.param1,
-        density: this.form.param2,
-        resistivity: this.form.param3,
-        ashContent: this.form.param1 * 2,
-        coalVolatile: this.form.param2 * 2,
-        baseLowCalorific: this.form.param3 * 2 + this.form.param2 * 2 + this.form.param1 * 2 + "KJ",
+        waterContent:this.form.param1,
+        density:this.form.param2,
+        resistivity:this.form.param3,
+        ashContent:-45.535-0.338*this.form.param1+49.032*this.form.param2,
+        coalVolatile:64.55-0.451*this.form.param1-21.878*this.form.param2,
+        baseLowCalorific:10192.095-64.378*this.form.param1-3166.731*this.form.param2+"KJ",
       })
     },
   }
