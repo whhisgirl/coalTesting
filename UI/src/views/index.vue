@@ -662,7 +662,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .bhover{
   cursor: pointer;
   color: white;
