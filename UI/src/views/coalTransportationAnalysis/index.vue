@@ -75,28 +75,28 @@
             <el-descriptions class="margin-top" title="批次信息" :column="4" :size="size" border>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-user"></i>
+                  <i class="el-icon-edit"></i>
                   批次编号
                 </template>
                 {{ infoForm.batchNumber }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-mobile-phone"></i>
+                  <i class="el-icon-coordinate"></i>
                   矿区名称
                 </template>
                 {{ infoForm.miningAreaName }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-location-outline"></i>
+                  <i class="el-icon-truck"></i>
                   运输车辆车牌
                 </template>
                 {{ infoForm.licensePlate }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-tickets"></i>
+                  <i class="el-icon-location-outline"></i>
                   矿区所在地
                 </template>
                 {{ infoForm.miningAreaName }}
@@ -108,14 +108,14 @@
             <el-descriptions class="margin-top" title="成分对比" :column="6" :size="size" border>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-user"></i>
+                  <i class="el-icon-tickets"></i>
                   运输前水分
                 </template>
                 {{ infoForm.firstWater }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-mobile-phone"></i>
+                  <i class="el-icon-tickets"></i>
                   运输前灰分
                 </template>
                 {{ infoForm.firstAshContent }}
@@ -123,7 +123,7 @@
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-location-outline"></i>
+                  <i class="el-icon-tickets"></i>
                   运输前密度
                 </template>
                 {{ infoForm.firstDensity }}
@@ -155,14 +155,14 @@
             <el-descriptions class="margin-top" :column="6" :size="size" border>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-user"></i>
+                  <i class="el-icon-tickets"></i>
                   运输后水分
                 </template>
                 {{ infoForm.secondWater }}
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-mobile-phone"></i>
+                  <i class="el-icon-tickets"></i>
                   运输后灰分
                 </template>
                 {{ infoForm.secondAshContent }}
@@ -170,7 +170,7 @@
               </el-descriptions-item>
               <el-descriptions-item>
                 <template slot="label">
-                  <i class="el-icon-location-outline"></i>
+                  <i class="el-icon-tickets"></i>
                   运输后密度
                 </template>
                 {{ infoForm.secondDensity }}
@@ -201,6 +201,7 @@
         </el-form>
 
         <div>
+          <div style="margin-top:10px"></div>
           <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
             <p style="
             font-family: Arial;
