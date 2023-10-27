@@ -69,14 +69,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             b.exception_flag='1'
             <if test="batchNumber != null  and batchNumber != ''"> and b.batch_number = #{batchNumber}</if>
-            <if test="sampleTime != null  and sampleTime != ''"> and sample_time = #{sampleTime}</if>
-            <if test="licensePlate != null  and licensePlate != ''"> and license_plate like "%"#{licensePlate}"%"</if>
-            <if test="miningAreaName != null  and miningAreaName != ''"> and mining_area_name = #{miningAreaName}</if>
+            <if test="coalNumber != null  and coalNumber != ''"> and a.coal_number = #{coalNumber}</if>
+            <if test="licensePlate != null  and licensePlate != ''"> and b.license_plate like "%"#{licensePlate}"%"</if>
+            <if test="miningAreaName != null  and miningAreaName != ''"> and b.mining_area_name = #{miningAreaName}</if>
             <if test="sampleTimeBegin != null and sampleTimeBegin != ''"><!-- 开始时间检索 -->
-                and date_format(sample_time,'%y%m%d') &gt;= date_format(#{sampleTimeBegin},'%y%m%d')
+                and date_format(c.sample_time,'%y%m%d') &gt;= date_format(#{sampleTimeBegin},'%y%m%d')
             </if>
             <if test="sampleTimeAfter != null and sampleTimeAfter != ''"><!-- 结束时间检索 -->
-                and date_format(sample_time,'%y%m%d') &lt;= date_format(#{sampleTimeAfter},'%y%m%d')
+                and date_format(c.sample_time,'%y%m%d') &lt;= date_format(#{sampleTimeAfter},'%y%m%d')
             </if>
         </where>
     </select>
