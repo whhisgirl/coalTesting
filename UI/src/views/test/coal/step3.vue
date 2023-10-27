@@ -2,10 +2,7 @@
   <template>
     <div>
       <el-form style="margin-top: 5%;margin-left: 80px;margin-right: 80px;" label-width="100px">
-        <el-form-item label="煤采样编号" prop="mobile">
-          <el-input v-model="formData.mobile" disabled="true" placeholder="请输入煤采样编号" :maxlength="11" show-word-limit clearable
-                    prefix-icon='el-icon-mobile' :style="{width: '100%'}"></el-input>
-        </el-form-item>
+
         <el-form-item label="水分" prop="field101">
           <el-input v-model="formData.field101" disabled="true" placeholder="请输入水分" clearable :style="{width: '100%'}">
           </el-input>
@@ -31,8 +28,6 @@
           </el-input>
         </el-form-item>
         <el-form-item size="large">
-          <el-button type="primary" @click="submitForm">提交</el-button>
-          <el-button @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
       <el-row type="flex" :gutter="280" justify="space-around">

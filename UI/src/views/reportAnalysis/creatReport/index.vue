@@ -301,7 +301,7 @@ export default {
           }*/
         ],
         title: {
-          text: '近半年煤种发运情况',
+          text: '近半年发运批次按发热量划分三大煤种运输情况',
           left: 'center'
         },
 
@@ -404,7 +404,7 @@ export default {
           }*/
         ],
         title: {
-          text: '近半年煤种发运情况',
+          text: '近半年发运批次按灰分划分三大煤种运输情况',
           left: 'center'
         }
       };
@@ -495,7 +495,7 @@ export default {
           }
         ],
         title: {
-          text: '近半年煤种发运情况',
+          text: '近半年发运批次按挥发分划分四大煤种运输情况',
           left: 'center'
         }
       };

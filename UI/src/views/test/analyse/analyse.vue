@@ -1,7 +1,9 @@
 <template>
 
 <el-card>
-    <div data-v-41eafe88="" style="width: 100%; background: rgb(210, 233, 255); border-radius: 10px;">
+    <div data-v-41eafe88="" style="width: 100%;
+     background: rgb(210, 233, 255);
+     border-radius: 10px;">
       <p data-v-41eafe88="" style="font-family: Arial;
       font-size: 24px; font-weight: 600;
        display: inline-block;

@@ -22,10 +22,16 @@ public class CoalList extends BaseEntity
     private String coalNumber;
 
     /** 煤采样时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "煤采样时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "煤采样时间", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
     private Date sampleTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
+    private Date beginTime;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
+    private Date endTime;
     /** 采样标准号 */
     @Excel(name = "采样标准号")
     private String standardNumber;
@@ -60,6 +66,12 @@ public class CoalList extends BaseEntity
     @Excel(name = "状态")
     private String arrivalStatus;
 
+    @Excel(name = "车牌")
+    private String licensePlate;
+
+    @Excel(name = "目的地")
+    private String destination;
+
     /** 报告生成时间 */
 
 
@@ -75,6 +87,24 @@ public class CoalList extends BaseEntity
     public void setSampleTime(Date sampleTime)
     {
         this.sampleTime = sampleTime;
+    }
+
+    public Date getBeginTime()
+    {
+        return beginTime;
+    }
+    public void setBeginTime(Date beginTime)
+    {
+        this.beginTime = beginTime;
+    }
+
+    public Date getEndTime()
+    {
+        return endTime;
+    }
+    public void setEndTime(Date endTime)
+    {
+        this.endTime = endTime;
     }
 
     public Date getSampleTime()
@@ -161,11 +191,25 @@ public class CoalList extends BaseEntity
     }
 
     public String getArrivalStatus() {return arrivalStatus;}
+    public void setLicensePlate(String licensePlate)
+    {
+        this.licensePlate = licensePlate;
+    }
+
+    public String getLicensePlate() {return licensePlate;}
+    public void setDestination(String destination)
+    {
+        this.destination = destination;
+    }
+
+    public String getDestination() {return destination;}
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("coalNumber", getCoalNumber())
                 .append("sampleTime", getSampleTime())
+                .append("beginTime", getBeginTime())
+                .append("endTime", getEndTime())
                 .append("standardNumber", getStandardNumber())
                 .append("sampleStrength", getSampleStrength())
                 .append("samplingMethod", getSamplingMethod())
@@ -175,6 +219,9 @@ public class CoalList extends BaseEntity
                 .append("locationMiningArea", getLocationMiningArea())
                 .append("batchNumber", getBatchNumber())
                 .append("arrivalStatus", getArrivalStatus())
+                .append("batchCoalWeight", getBatchCoalWeight())
+                .append("licensePlate", getLicensePlate())
+                .append("destination", getDestination())
                 .toString();
     }
 }

@@ -1,18 +1,28 @@
 <template>
   <el-main>
     <el-form :inline="true" :model="queryParams" class="demo-form-inline">
-      <el-form-item label="采样方式">
-        <el-input v-model="queryParams.samplingMethod"></el-input>
-      </el-form-item>
-      <el-form-item label="采样人">
-        <el-input v-model="queryParams.sampler">
+
+      <el-form-item label="矿区名称">
+        <el-input v-model="queryParams.miningAreaName">
         </el-input>
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="queryParams.arrivalStatus" clearable>
+          <el-option  v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="采样时间">
         <el-date-picker
-          v-model="queryParams.sampleTime"
-          type="date"
-          value-format="yyyy-MM-dd"
+          v-model="st"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          value-format="yyyy-MM-dd hh:mm:ss"
           placeholder="请选择煤采样时间">
         </el-date-picker>
       </el-form-item>
@@ -27,7 +37,7 @@
       <el-table-column label="煤采样编号" align="center" prop="coalNumber"/>
       <el-table-column label="煤采样时间" align="center" prop="sampleTime" width="180">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.sampleTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.sampleTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="矿区名称" align="center" prop="miningAreaName"/>
@@ -36,7 +46,7 @@
         <div slot-scope="scope">
           <el-button
             size="mini" :type="scope.row.arrivalStatus=='0'?'primary':''"
-            :disabled="scope.row.arrivalStatus=='1'?true:false">未出发
+            :disabled="scope.row.arrivalStatus=='1'?true:false">运输中
           </el-button>
           <el-button
             size="mini" :type="scope.row.arrivalStatus=='1'?'primary':''"
@@ -44,18 +54,21 @@
           </el-button>
         </div>
       </el-table-column>
-      <el-table-column label="操作" align="center" prop="arrivalStatus">
+      <el-table-column label="操作" align="center" >
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="primary"
-            class="el-icon-edit"
-            @click="dialog"></el-button>
+            class="el-icon-check"
+            v-if="scope.row.arrivalStatus==0"
+            @click="handleUpdate(scope.row.coalNumber)" v-hasPermi="['test:coal:edit']"></el-button>
           <el-button
             size="mini" type="success" class="el-icon-document"
             @click="handleEdit(scope.$index, scope.row)"></el-button>
+          <el-button v-if="scope.row.arrivalStatus==1"
+            size="mini" type="success" class="el-icon-document"
+            @click="handleEdit(scope.$index, scope.row)"></el-button>
         </template>
-
       </el-table-column>
     </el-table>
     <el-pagination
@@ -65,38 +78,37 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList">
     </el-pagination>
-    <el-dialog  title="登记详情" :visible.sync="dialogFormVisible" append-to-body>
-      <el-form :model="t">
-        <el-form-item label="活动名称" :label-width="formLabelWidth">
-          <el-input v-model="t.name" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域" :label-width="formLabelWidth">
-          <el-select v-model="t.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-      </div>
-    </el-dialog>
   </el-main>
 </template>
 <script>
-import {getAuthRole, updateAuthRole} from "@/api/system/user";
-import {listCoal, getList} from "@/api/test/in"
+import {addUser, getAuthRole, getUser, updateAuthRole, updateUser} from "@/api/system/user";
+import {listCoal, getList,updateList} from "@/api/test/CoalList"
   ;
 
 export default {
   data() {
     return {
+      options:[{
+        value: '0',
+        label: '运输中'
+      }, {
+        value: '1',
+        label: '已送达'
+
+    }],
+      st:[],
       t:{
-        name: '',
-        region: '',
+        // sampleTime: '',
+        // destination: '',
+        // sampleStrength:'',
+        // samplingMethod: '',
+        // miningAreaName: '',
+        // sampler: '',
+        // batchCoalWeight: '',
+        // locationMiningArea: '',
+         arrivalStatus: '',
+        // licensePlate: '',
       },
-      dialogFormVisible:false,
       formLabelWidth: '120px',
       loading: true,
       // 选中数组
@@ -118,26 +130,54 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 10,
-        sampleTime: null,
-        standardNumber: null,
+        batchNumber:null,
+        coalNumber:null,
+        beginTime: null,
+        endTime: null,
         sampleStrength: null,
         samplingMethod: null,
         miningAreaName: null,
         sampler: null,
         batchCoalWeight: null,
         locationMiningArea: null,
+        arrivalStatus:null,
       },
       form: {},
       // 表单校验
       rules: {}
     };
   },
-  created() {
+  mounted() {
     this.getList()
   },
   methods: {
-    getList() {
+    reload(){
+      this.t.arrivalStatus="1";
+
+    },
+    handleUpdate(val) {
+      const coalNumber = val;
+      getList(coalNumber).then(response => {
+        this.t=response.data;
+        this.open = true;
+        this.reload();
+        updateList(this.t).then(response => {
+          this.open = false;
+          this.getList();
+        });
+      });
+    },
+
+    getList(){
       this.loading = true;
+      if(this.st!=null){
+        this.queryParams.beginTime=this.st[0]
+        this.queryParams.endTime=this.st[1]
+      }
+      else{
+        this.queryParams.beginTime=null
+        this.queryParams.endTime=null
+      }
       listCoal(this.queryParams).then(response => {
         this.registrationList = response.rows;
         this.total = response.total;
@@ -152,8 +192,10 @@ export default {
       // this.$router.push({name: 'coal-abc'});
       this.$router.push({path: "coal-abc"})
     },
-    dialog(){
-      this.dialogFormVisible=true;
+    handleSelectionChange(selection) {
+      this.t = selection.map(item => item.row);
+      this.single = selection.length != 1;
+      this.multiple = !selection.length;
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
