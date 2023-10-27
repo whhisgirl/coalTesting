@@ -1,12 +1,19 @@
 <template>
   <el-main>
     <el-form :inline="true" :model="queryParams" class="demo-form-inline">
-      <el-form-item label="煤采样编号">
-        <el-input v-model="queryParams.coalNumber"></el-input>
-      </el-form-item>
+
       <el-form-item label="矿区名称">
         <el-input v-model="queryParams.miningAreaName">
         </el-input>
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="queryParams.arrivalStatus" clearable>
+          <el-option  v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="采样时间">
         <el-date-picker
@@ -81,6 +88,14 @@ import {listCoal, getList,updateList} from "@/api/test/CoalList"
 export default {
   data() {
     return {
+      options:[{
+        value: '0',
+        label: '运输中'
+      }, {
+        value: '1',
+        label: '已送达'
+
+    }],
       st:[],
       t:{
         // sampleTime: '',
