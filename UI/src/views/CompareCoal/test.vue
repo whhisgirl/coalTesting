@@ -1,20 +1,12 @@
 <template>
 	<div>
 		<el-card style="width: 95%; margin-left: 30px; margin-top: 10px">
-			<el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="68px">
-				<el-form-item label="煤炭批次编号" prop="batchNumber" label-width="100px">
-					<el-input v-model="queryParams.batchNumber" placeholder="请输入煤炭批次编号" clearable />
+			<el-form :model="queryParams" ref="queryForm" size="small" :inline="true" label-width="75px">
+				<el-form-item label="采样编号" prop="batchNumber" label-width="100px">
+					<el-input v-model="queryParams.batchNumber" placeholder="请输入采样编号"  clearable />
 				</el-form-item>
-				<el-form-item label="检测时间" prop="sampleTime">
-					<el-date-picker
-						v-model="dateRange"
-						style="width: 240px"
-						value-format="yyyy-MM-dd"
-						type="daterange"
-						range-separator="-"
-						start-placeholder="开始日期"
-						end-placeholder="结束日期"
-					></el-date-picker>
+				<el-form-item label="采样时间" prop="sampleTime">
+          <el-input v-model="queryParams.sampleTime" placeholder="请输入采样时间" clearable />
 				</el-form-item>
 
 				<el-form-item label="车牌号" prop="licensePlate">
@@ -33,7 +25,7 @@
 				<el-col :span="7" style="height: 20rem">
 					<el-card style="width: 95%; margin-right: 15px;margin-top: 10px">
 						分析结果
-						<h2 id="control-3414428">中高发热量煤</h2>
+						<h2 id="control-3414428" style="color: red;font-weight: bold;display: flex;justify-content: center;align-items: center;">中高发热量煤</h2>
 						<el-table :data="coalList">
 							<el-table-column label="类别名称" align="center" prop="typeName" />
 							<el-table-column label="发热量范围（MJ/kg）" align="center" prop="heatRange" />
@@ -55,12 +47,12 @@
 				// 遮罩层
 				loading: true,
 				barChartX: [
-					'水分',
-					'灰分',
-					'挥发分',
-					'电阻率',
-					'密度',
-					'基低位发热量KJ'
+					'水分M',
+          '密度kg/cm3',
+          '电阻率Ω·m',
+					'灰分A',
+					'挥发分V',
+					'基低位发热量MJ/kg'
 				],
 				barChart1Y: [10, 30, 15, 13, 40, 7],
 				barChart2Y: [15, 20, 3, 7, 28, 5],
@@ -80,7 +72,8 @@
 					pageSize: 5,
 					batchNumber: null,
 					licensePlate: null,
-					locationMiningArea: null
+					locationMiningArea: null,
+          sampleTime: null,
 				},
 				dateRange: [],
 				coalList: [
@@ -117,6 +110,10 @@
 		},
 		methods: {
 			initChart() {
+			  this.queryParams.batchNumber = "C1201G103"
+        this.queryParams.sampleTime = "2023-09-14 09:30:00"
+        this.queryParams.licensePlate = "辽B 926QB"
+        this.queryParams.locationMiningArea = "忻州矿区"
 				let getchart = echarts.init(document.getElementById('barChart'))
 				var option = {
 					title: {
@@ -129,7 +126,13 @@
 					color: this.color,
 					xAxis: {
 						type: 'category',
-						interval: 0,
+            axisLabel: {
+              show: true,
+              interval: 0,
+              // color: '#1e9fff',
+              width: 80,
+              // overflow: 'truncate'
+            },
 						data: this.barChartX
 					},
 					yAxis: {

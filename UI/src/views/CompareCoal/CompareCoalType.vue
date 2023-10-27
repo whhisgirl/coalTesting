@@ -9,7 +9,7 @@
 				v-show="showSearch"
 				label-width="68px"
 			>
-				<el-form-item label="煤炭批次编号" prop="batchNumber" label-width="100px">
+				<el-form-item label="煤采样编号" prop="batchNumber" label-width="100px">
 					<el-input v-model="queryParams.batchNumber" placeholder="请输入煤炭批次编号" clearable />
 				</el-form-item>
 				<el-form-item label="检测时间" prop="sampleTime">
@@ -39,10 +39,10 @@
 				<el-table-column type="selection" width="55" align="center" />
 				<el-table-column label="煤采样编号" align="center" prop="coalNumber" />
 				<el-table-column label="水分" align="center" prop="waterContent" />
+        <el-table-column label="密度" align="center" prop="density" />
+        <el-table-column label="电阻率" align="center" prop="resistivity" />
 				<el-table-column label="灰分" align="center" prop="ashContent" />
 				<el-table-column label="挥发分" align="center" prop="coalVolatile" />
-				<el-table-column label="密度" align="center" prop="density" />
-				<el-table-column label="电阻率" align="center" prop="resistivity" />
 				<el-table-column label="基低位发热量" align="center" prop="baseLowCalorific" />
 				<el-table-column label="操作" align="center" class-name="small-padding fixed-width">
 					<template slot-scope="scope">
