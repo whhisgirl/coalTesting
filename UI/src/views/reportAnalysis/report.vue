@@ -1,11 +1,11 @@
 <template>
-    <el-card v-if="show" class="card">
+    <el-card v-if="show" class="card1">
     <div   style="margin-left: 20px;margin-top: 20px;">
         <el-steps :active="active" finish-status="success"  style="margin-left: 250px;" align-center :space="400">
             <el-step title="信息导入"></el-step>
             <el-step title="预览"></el-step>
         </el-steps>
-        <el-button style="margin-top: 9px; margin-left: 1000px" @click="next">下一步</el-button>
+        
 
         <el-form :inline="true" :model="coal" class="demo-form-inline" style="margin-left: 400px;margin-top: 25px;">
             <el-form-item label=" 煤炭批次编号">
@@ -41,7 +41,7 @@
             </el-form-item></el-col><el-col span="6">
             <el-form-item label=" 采样人">
                 
-                <el-input v-model="cyMessage.person" placeholder="王强"></el-input>
+                <el-input v-model="cyMessage.person" placeholder="汤景"></el-input>
             </el-form-item></el-col>
         
         </el-form>
@@ -146,7 +146,7 @@
                 <el-input v-model="coal.standard" placeholder="GB475-2008-1"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit" style="margin-left: 95px">确认</el-button>
+                <el-button type="primary"@click="next" style="margin-left: 95px" >确认</el-button>
                 <el-button type="second" @click="onSubmit" style="margin-left: 40px">取消</el-button>
             </el-form-item>
 
@@ -159,22 +159,27 @@
             <el-step title="信息导入"></el-step>
             <el-step title="预览"></el-step>
         </el-steps>
-        <el-button style="margin-top: 9px; margin-left: 1020px" @click="next">下一步</el-button>
-   <table style="margin-top: 20px;">
-<caption>煤炭检测报告</caption>
+        
+
+
+<table style="margin-top: 20px;">
+
 <thead>
   <tr >
-    <th  colspan="6">采样信息</th>
+    <th  colspan="6" style="font-size: 25px;">煤炭检测报告</th>
   </tr>
 </thead>
 <tbody>
+    <tr >
+    <th  colspan="6">采样信息</th>
+  </tr>
   <tr>
     <th>采样时间</th>
     <th>2023-1-21</th>
     <th>采样地点</th>
     <th>山西忻州</th>
     <th>采样人</th>
-    <th>王强</th>
+    <th>汤景</th>
   </tr>
   <tr>
     <th>样品粒度</th>
@@ -224,7 +229,7 @@
    </table>
    <div>
    <el-button type="primary" @click="onSubmit" style="margin-left: 500px;margin-top: 50px">打印</el-button>
-                <el-button type="second" @click="onSubmit" style="margin-left: 40px">取消</el-button>
+                <el-button type="second" @click="next" style="margin-left: 40px">取消</el-button>
    </div>
  </el-card>
 
@@ -284,6 +289,7 @@ export default {
             this.show=!this.show
 
         },
+       
         onSubmit() {
             console.log('submit!');
         }
@@ -293,11 +299,18 @@ export default {
 <style scoped>
 .card {
     width: 1500px;
-    height:1000px;
+    height:1200px;
+    margin: 1% 5%;
+  }
+  .card1 {
+    width: 1500px;
+    height:900px;
     margin: 1% 5%;
   }
   table{
-    width: 100%;
+    width: 70%;
+     height: 800px;
+     margin-left: 200px;
     border-collapse: collapse;
   }
   table caption{
