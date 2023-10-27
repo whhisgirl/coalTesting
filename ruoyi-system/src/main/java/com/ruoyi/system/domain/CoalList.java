@@ -81,7 +81,7 @@ public class CoalList extends BaseEntity {
     @Excel(name = "批次编号")
     private String batchNumber;
 
-    @Excel(name = "状态")
+    @Excel(name = "到达状态")
     private String arrivalStatus;
 
     @Excel(name = "车牌")
@@ -89,8 +89,9 @@ public class CoalList extends BaseEntity {
 
     @Excel(name = "目的地")
     private String destination;
-    @Excel(name = "出发时间")
-    private String startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "出发时间", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss")
+    private Date startTime;
 
     /**
      * 报告生成时间
@@ -105,11 +106,11 @@ public class CoalList extends BaseEntity {
         return coalNumber;
     }
 
-    public void setStartTime(String startTime) {
-        this.coalNumber = startTime;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
@@ -245,7 +246,7 @@ public class CoalList extends BaseEntity {
                 .append("batchCoalWeight", getBatchCoalWeight())
                 .append("licensePlate", getLicensePlate())
                 .append("destination", getDestination())
-                .append("startTime ", getStartTime())
+                .append("startTime", getStartTime())
                 .toString();
     }
 }

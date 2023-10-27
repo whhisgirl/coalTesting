@@ -14,7 +14,8 @@ public interface ICoalListService {
     /**
      * 查询【请填写功能名称】
      *
-     * @param coalNumber 【请填写功能名称】主键
+     * @param coalNumber
+     *   【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
     public CoalList selectCoalListByCoalNumber(String coalNumber);

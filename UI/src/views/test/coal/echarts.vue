@@ -1,5 +1,17 @@
 <template>
-
+  <div style="margin-bottom: 20px">
+    <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
+      <p style="
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 20px;
+          ">
+        煤样登记
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
