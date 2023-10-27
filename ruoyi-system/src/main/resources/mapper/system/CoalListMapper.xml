@@ -17,9 +17,10 @@
         <result property="batchCoalWeight"    column="batch_coal_weight"    />
         <result property="licensePlate"    column="license_plate"    />
         <result property="destination"    column="destination"    />
+        <result property="startTime"    column="start_time"    />
     </resultMap>
     <sql id="selectCoalListVo">
-        select coal_registration.coal_number, batch.coal_number, batch.batch_number,coal_registration.sample_time, coal_registration.sample_strength, coal_registration.sampling_method, coal_registration.sampler,  coal_registration.mining_area_name, batch.location_mining_area, batch.arrival_status, batch.batch_coal_weight, batch.license_plate, batch.destination  from coal_registration INNER JOIN batch ON coal_registration.coal_number=batch.coal_number
+        select coal_registration.coal_number, batch.coal_number, batch.batch_number,coal_registration.sample_time, coal_registration.sample_strength, coal_registration.sampling_method, coal_registration.sampler,  coal_registration.mining_area_name, batch.location_mining_area, batch.arrival_status, batch.batch_coal_weight, batch.license_plate, batch.destination,batch.start_time  from coal_registration INNER JOIN batch ON coal_registration.coal_number=batch.coal_number
     </sql>
     <select id="selectCoalList" parameterType="CoalList" resultMap="CoalListResult">
         <include refid="selectCoalListVo"/>
@@ -36,6 +37,7 @@
             <if test="batchCoalWeight != null  and batchCoalWeight != ''"> and batch.coal_weight = #{batchCoalWeight}</if>
             <if test="licensePlate != null  and licensePlate != ''"> and batch.license_plate = #{licensePlate}</if>
             <if test="destination != null  and destination != ''"> and batch.destination = #{destination}</if>
+            <if test="startTime != null  and startTime != ''"> and batch.start_time = #{startTime}</if>
         </where>
     </select>
 

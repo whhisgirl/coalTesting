@@ -16,7 +16,7 @@
       <div class="el-card__body">
       <div class="divBox">
         <div class="top">
-          <div class="demo-input-suffix">
+          <div class="demo-input-suffix" style="height:50px">
             <el-input
               style="width: 150px"
               placeholder="请输入煤炭编号"
