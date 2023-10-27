@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">若依后台管理系统</h3>
+      <h3 class="title">快速煤质检测分析平台</h3>
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -56,7 +56,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>
+<!--      <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>-->
     </div>
   </div>
 </template>
@@ -64,7 +64,7 @@
 <script>
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
-import { encrypt, decrypt } from '@/utils/jsencrypt'
+import { encrypt, decrypt } from '@/utils/jsencrypt';
 
 export default {
   name: "Login",
@@ -161,8 +161,10 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/images/login-background.jpg");
-  background-size: cover;
+  background: #3A71A8;
+  //background-image: url("../assets/images/login-background.jpg");
+  background-color: #2a69b0;
+  //background-size: cover;
 }
 .title {
   margin: 0px auto 30px auto;
