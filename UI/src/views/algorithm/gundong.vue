@@ -135,7 +135,7 @@ mounted() {
 }
 </script>
 
-<style>
+<style scoped>
 
 .tr {
   overflow: hidden;
