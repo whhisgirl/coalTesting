@@ -34,7 +34,7 @@
       <div>
         <el-form ref="form" :model="form" label-width="80px">
           <el-row>
-            <el-col :span="4">
+            <el-col :span="5">
               <el-form-item label="批次编号">
                 <el-input v-model="form.batchNumber"></el-input>
               </el-form-item>
@@ -42,7 +42,7 @@
             &nbsp;
             &nbsp;
             &nbsp;
-            <el-col :span="7">
+            <el-col :span="8">
               <el-form-item label="检测时间">
                 <el-date-picker v-model="form.dateRange" type="daterange" range-separator="至" start-placeholder="开始日期"
                                 end-placeholder="结束日期">
@@ -50,7 +50,7 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="4">
+            <el-col :span="5">
               <el-form-item label="所在矿区">
                 <el-select v-model="form.region" placeholder="请选择矿区">
                   <el-option label="A矿区" value="A"></el-option>
