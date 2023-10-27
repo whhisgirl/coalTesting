@@ -31,7 +31,19 @@
         <el-button type="primary" @click="cl">新增</el-button>
       </el-form-item>
     </el-form>
-
+    <div style="margin-bottom: 20px">
+      <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
+        <p style="
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 20px;
+          ">
+          煤样登记
+        </p>
+      </div>
+    </div>
     <el-table v-loading="loading" :data=registrationList @selection-change="handleSelectionChange">
       <el-table-column label="批次编号" align="center" prop="batchNumber"/>
       <el-table-column label="煤采样编号" align="center" prop="coalNumber"/>
@@ -64,14 +76,58 @@
             @click="handleUpdate(scope.row.coalNumber)" v-hasPermi="['test:coal:edit']"></el-button>
           <el-button
             size="mini" type="success" class="el-icon-document"
-            @click="handleEdit(scope.$index, scope.row)"></el-button>
+            @click="handleLook(scope.row.coalNumber)"></el-button>
           <el-button v-if="scope.row.arrivalStatus==1"
-            size="mini" type="success" class="el-icon-document"
-            @click="handleEdit(scope.$index, scope.row)"></el-button>
+            size="mini" type="info" class="el-icon-view"
+            @click="handleJump(scope.$index, scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog  title="煤样登记详情" :visible.sync="dialogShow" append-to-body @selection-change="handleSelectionChange">
+      <el-form :model="t">
+        <el-form-item label="煤采样时间" :label-width="formLabelWidth" width="300px">
+          <el-date-picker v-model="t.sampleTime" type="date" autocomplete="off" value-format="yyyy-MM-dd"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="样品粒度" :label-width="formLabelWidth">
+          <el-input v-model="t.sampleStrength" ></el-input>
+        </el-form-item>
+        <el-form-item label="采样方法" :label-width="formLabelWidth">
+          <el-input v-model="t.samplingMethod" ></el-input>
+        </el-form-item>
+        <el-form-item label="矿区名称" :label-width="formLabelWidth">
+          <el-input v-model="t.miningAreaName"></el-input>
+        </el-form-item>
+        <el-form-item label="矿区所在地" :label-width="formLabelWidth">
+          <el-input v-model="t.locationMiningArea" ></el-input>
+        </el-form-item>
+        <el-form-item label="批次煤的重量" :label-width="formLabelWidth">
+          <el-input v-model="t.batchCoalWeight" ></el-input>
+        </el-form-item>
+        <el-form-item label="车牌号码" :label-width="formLabelWidth">
+          <el-input v-model="t.licensePlate" ></el-input>
+        </el-form-item>
+        <el-form-item label="出发时间" :label-width="formLabelWidth">
+          <el-input v-model="t.startTime" ></el-input>
+        </el-form-item>
+        <el-form-item label="目的地" :label-width="formLabelWidth">
+          <el-input v-model="t.destination"></el-input>
+        </el-form-item>
+        <el-form-item label="到达状态" :label-width="formLabelWidth">
+          <el-input v-model="t.arrivalStatus"></el-input>
+        </el-form-item>
+        <el-form-item label="采样人" :label-width="formLabelWidth">
+          <el-input v-model="t.sampler" ></el-input>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogShow = false">返回</el-button>
+      </div>
+    </el-dialog>
     <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :page-size="5"
       v-show="total>0"
       :total="total"
       :page.sync="queryParams.pageNum"
@@ -82,8 +138,7 @@
 </template>
 <script>
 import {addUser, getAuthRole, getUser, updateAuthRole, updateUser} from "@/api/system/user";
-import {listCoal, getList,updateList} from "@/api/test/CoalList"
-  ;
+import {listCoal, getList,updateList} from "@/api/test/CoalList";
 
 export default {
   data() {
@@ -96,6 +151,7 @@ export default {
         label: '已送达'
 
     }],
+      dialogShow:false,
       st:[],
       t:{
         // sampleTime: '',
@@ -129,7 +185,7 @@ export default {
       registrationList: [],
       queryParams: {
         pageNum: 1,
-        pageSize: 10,
+        pageSize: 5,
         batchNumber:null,
         coalNumber:null,
         beginTime: null,
@@ -184,6 +240,14 @@ export default {
         this.loading = false;
       });
     },
+    handleLook(val){
+      const coalNumber=val;
+      getList(coalNumber).then(response => {
+        this.t = response.data;
+        this.open = true;
+      })
+      this.dialogShow=true;
+    },
     onSubmit() {
       this.queryParams.pageNum = 1;
       this.getList();
@@ -198,10 +262,13 @@ export default {
       this.multiple = !selection.length;
     },
     handleSizeChange(val) {
+      this.currentPage=val;
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+      this.queryParams.pageNum=val;
+      this.getList();
     }
   },
 }
