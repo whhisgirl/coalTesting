@@ -1,51 +1,190 @@
+User
 <template>
     <div id="chart-section">
-        <!-- 统计图表标题 -->
-        <div class="chart-titles">
-            <h2>煤质对比</h2>
-            <br>
-        </div>
-        <div id="分页标签">
-            <!--分页-->
-            <div class="chart-partPage">
-                <div class="pagination">
-            <span @click="changePage(1)" :class="{ active: currentPage === 1 }">车型煤质对比</span>
-            <span @click="changePage(2)" :class="{ active: currentPage === 2 }">矿区煤质对比</span>
+      <!-- 统计图表标题 -->
+      <div class="chart-titles">
+        <h2>煤质对比</h2>
+        <br>
+      </div>
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="车型煤质对比" name="first"></el-tab-pane>
+        <el-tab-pane label="矿区煤质对比" name="second"></el-tab-pane>
+      </el-tabs>
   
-                </div> 
-
-              
-            </div>
-        </div>
-        <!-- 主统计图表 -->
-        <div ref="mainChart" style="width: 100%; height: 400px; clear: both;"></div>
-        <div class="sub-charts">
-            <!-- 左侧柱状图 -->
-            <div ref="leftChart" style="width: 50%; height: 400px; float: left;"></div>
-            <!-- 右侧柱状图 -->
-            <div ref="rightChart" style="width: 50%; height: 400px; float: left;"></div>
-        </div>
+      
+      <!-- 根据activeName的值判断要显示的图表 -->
+    <div v-if="activeName === 'first'" class="chart-container">
+      <div ref="upChart" style="width: 100%; height: 400px;"></div>
+      <div ref="bottomChart" style="width: 100%; height: 400px;"></div>
     </div>
-</template>
-
-<script>
-import * as echarts from 'echarts';
-
-export default {
-    name: "ChartSection",
+      
+      <div v-if="activeName === 'second'">
+        <div ref="mainChart" style="width: 100%; height: 400px;"></div>
+        <div class="sub-charts">
+          <div ref="leftChart" style="width: 50%; height: 400px; float: left;"></div>
+          <div ref="rightChart" style="width: 50%; height: 400px; float: left;"></div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import * as echarts from 'echarts';
+  
+  export default {
+    name: "CompareCoal",
     data() {
-        return {
-            mainChartInstance: null,
-            leftChartInstance: null,
-            rightChartInstance: null
-        };
+      return {
+        mainChartInstance: null,
+        leftChartInstance: null,
+        rightChartInstance: null,
+        activeName: 'second'
+      };
     },
     mounted() {
-        this.initMainChart();
-        this.initLeftChart();
-        this.initRightChart();
+      this.renderCharts();
     },
     methods: {
+        handleClick(tab, event) {
+   this.$nextTick(() => {
+      this.renderCharts();
+      // 这里我们不直接调用resize，因为renderCharts已经处理了图表的初始化和设置。
+   });
+}
+,
+
+
+renderCharts() {
+   if (this.activeName === 'first') {
+      this.otherChart1();
+      this.otherChart2();
+   } else {
+      this.initMainChart();
+      this.initLeftChart();
+      this.initRightChart();
+   }
+
+   // 确保所有图表都被调整到正确的尺寸
+   if (this.mainChartInstance) this.mainChartInstance.resize();
+   if (this.leftChartInstance) this.leftChartInstance.resize();
+   if (this.rightChartInstance) this.rightChartInstance.resize();
+   if (this.upChartInstance) this.upChartInstance.resize();
+   if (this.bottomChartInstance) this.bottomChartInstance.resize();
+},
+
+
+      // ... 其他方法 ...
+  
+      otherChart1(){
+        const chartDom = this.$refs.upChart;
+        this.upChartInstance = echarts.init(chartDom);
+        var upOption = {
+            
+        // ... 你的图表配置（上面提供的option）...
+        tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+        type: 'shadow'
+        }
+        },
+        legend: {},
+        grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+        },
+        xAxis: {
+        type: 'value',
+        min:0,
+        max:2000,
+        itemStyle:'red',    
+        boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+        type: 'category',
+        data: ['基底发热量',]
+        },
+        series: [
+          {
+            name: '样本检测数据',
+            type: 'bar',
+            barWidth: 25,
+            data: [1000, ],
+           
+        itemStyle: {
+            color: 'red'  // 设置为红色
+        }
+          },
+          {
+            name: '矿区样本数据',
+            type: 'bar',
+            data: [2000, ],
+            barWidth: 25,
+            itemStyle: {
+            color: 'blue'  // 设置为红色
+        }
+          }
+            ]
+         
+        };
+        this.upChartInstance.setOption(upOption);},
+  
+        otherChart2(){
+        const chartDom = this.$refs.bottomChart;
+        this.bottomChartInstance = echarts.init(chartDom);
+        var option = {
+ 
+        tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+        type: 'shadow'
+        }
+        },
+        legend: {},
+        grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+        },
+        xAxis: {
+        type: 'value',
+        min:0,
+        max:50,
+            
+        boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+        type: 'category',
+        data: ['灰分','挥发分','电阻率','水分',]
+        },
+        series: [
+        {
+                name: '样本检测数据',
+                barWidth:25,
+            
+                type: 'bar',
+                data: [10,20,30,40,],
+                itemStyle: {
+            color: 'red'  // 设置为红色
+        }
+        },
+        {
+                name: '矿区样本数据',
+                type: 'bar',
+                barWidth:25,
+                data: [20,25,50,48 ],
+                itemStyle: {
+            color: 'blue'  // 设置为红色
+        }
+        }
+        ]
+        };
+        this.bottomChartInstance.setOption(option);
+
+        },
+  
         initMainChart() {
             const chartDom = this.$refs.mainChart;
             this.mainChartInstance = echarts.init(chartDom);
@@ -76,6 +215,7 @@ export default {
             };
             this.mainChartInstance.setOption(mainOption);
         },
+      
         initLeftChart() {
             const chartDom = this.$refs.leftChart;
             this.leftChartInstance = echarts.init(chartDom);
@@ -108,6 +248,7 @@ export default {
             };
             this.leftChartInstance.setOption(leftOption);
         },
+      
         initRightChart() {
             const chartDom = this.$refs.rightChart;
             this.rightChartInstance = echarts.init(chartDom);
@@ -142,9 +283,12 @@ export default {
         }
     }
 };
+   
 </script>
 
 <style scoped>
+
+@import url("//unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css");
 /* ... 你之前的样式 ... */
 #chart-section {
  padding: 20px;
