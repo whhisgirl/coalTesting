@@ -214,7 +214,7 @@ export default {
           }
         },
         legend: {
-          data: ['低热值煤','中低热值煤','中热值煤','中高热值煤','高热值煤','超高热值煤'],
+          data: ['低热值煤','中热值煤','高热值煤'],
           bottom: 0
         },
         xAxis: [
@@ -250,7 +250,7 @@ export default {
             ]
           },*/
           {
-            name: '中低热值煤',
+            name: '低热值煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} '
@@ -270,7 +270,7 @@ export default {
             ]
           },
           {
-            name: '中高热值煤',
+            name: '高热值煤',
             type: 'bar',
             tooltip: {
               formatter: '{c} '
