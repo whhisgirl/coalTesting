@@ -37,37 +37,37 @@ export default {
       tableData: [{
         coalNumber: 'C1201G101',
         sampler: '汤景',
-        miningAreaName: '忻州矿区',
+        miningAreaName: '忻州宏远矿区',
         reportTime:'2023-10-10 15:30'
       },
         {
           coalNumber: 'C1201G303',
           sampler: '汤景',
-          miningAreaName: '忻州矿区',
+          miningAreaName: '忻州宏远矿区',
           reportTime:'2023-10-12 18:10'
         },
         {
           coalNumber: 'C1201G201',
           sampler: '汤景',
-          miningAreaName: '忻州矿区',
+          miningAreaName: '忻州宏远矿区',
           reportTime:'2023-10-13 12:25'
         },
         {
           coalNumber: 'C1201G301',
           sampler: '汤景',
-          miningAreaName: '忻州矿区',
+          miningAreaName: '忻州宏远矿区',
           reportTime:'2023-10-14 11:40'
         },
         {
           coalNumber: 'C1201G201',
           sampler: '汤景',
-          miningAreaName: '忻州矿区',
+          miningAreaName: '忻州宏远矿区',
           reportTime:'2023-10-18 14:10'
         },
         {
           coalNumber: 'C1201G201',
           sampler: '汤景',
-          miningAreaName: '忻州矿区',
+          miningAreaName: '忻州宏远矿区',
           reportTime:'2023-10-19 16:10'
         },]
     }

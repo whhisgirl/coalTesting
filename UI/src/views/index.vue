@@ -17,7 +17,7 @@
             <el-col :span="6">
               <div class="title_right">
                 <el-button class="bhover" style="margin-right: 100px;margin-left: 10px;" @click="handleReport()">检测报告分析</el-button>
-                <el-button class="bhover" style="margin-right: 100px;" @click="handleAlgorithm()">算法验证</el-button>
+                <el-button class="bhover" style="margin-right: 100px;" @click="handleAlgorithm()">算法介绍</el-button>
               </div>
             </el-col>
           </el-row>
@@ -27,7 +27,7 @@
           <el-row>
             <!-- 第一列 -->
             <el-col :span="7">
-              <el-card class="box-card" shadow="hover" style="height: 450px;background-color:#0a1863;">
+              <el-card class="box-card" shadow="hover" style="height: 450px;">
               <div
                 id="left1"
                 key="left1"
@@ -37,46 +37,46 @@
             </el-col>
             <!-- 第二列 -->
             <el-col :span="10">
-              <el-card class="box-card" style="height: 150px;background-color:#0a1863;">
-                <div>
+              <el-card class="box-card" style="height: 150px;background-color:rgb(48,65,86);">
+                <div class="oneRowTwoCol">
                   <p style="text-align: center;color: white;font-size: 20px;font-weight: 700; ">本年度矿区平均煤质情况</p>
-                  <el-card style="margin-top: 15px;padding: 0px;height: 45px">
+                  <el-card style="margin-top: 12px;padding: 0px;height: 40px">
                     <el-row >
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 400; "><b>4971</b></p>
+                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;padding: 0px;margin: 0px "><b>4971</b></p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(162,214,145) ;font-size: 22px;font-weight: 400; "><b>24.13</b></p>
+                        <p style="text-align: center;color: #009933 ;font-size: 22px;font-weight: 700; "><b>24.13</b></p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(244,210,121);font-size: 22px;font-weight: 400; "><b>28.69</b></p>
+                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700; "><b>28.69</b></p>
                       </el-col>
                     </el-row>
                   </el-card>
-                  <div style="margin-top: 15px">
+                  <div style="margin-top: 8px">
                     <el-row >
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 400;margin-left: 25px "><b>基低位发热量</b></p>
+                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;">基低位发热量</p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(162,214,145) ;font-size: 22px;font-weight: 400; "><b>灰分</b></p>
+                        <p style="text-align: center;color:  #009933 ;font-size: 22px;font-weight: 700; ">灰分</p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(244,210,121);font-size: 22px;font-weight: 400; margin-left: -25px"><b>挥发分</b></p>
+                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700;">挥发分</p>
                       </el-col>
                     </el-row>
                   </div>
                 </div>
 
               </el-card>
-              <el-card class="box-card" shadow="hover" style="height: 295px;background-color:#0a1863;margin-bottom: 15px;">
+              <el-card class="box-card" shadow="hover" style="height: 295px;background-color:rgb(48,65,86);margin-bottom: 15px;">
                 <center></center>
               </el-card>
 
             </el-col>
             <!-- 第三列 -->
             <el-col :span="7">
-              <el-card class="box-card" shadow="hover" style="height: 450px;background-color:#0a1863;margin-bottom: 15px;">
+              <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
                 <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年煤质指标所占百分比</p></div>
                 <div
                   id="right1"
@@ -90,7 +90,7 @@
         <el-row>
 <!--          第一列-->
           <el-col :span="7">
-            <el-card class="box-card" shadow="hover" style="height: 450px;background-color:#0a1863;margin-bottom: 15px;">
+            <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
             <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 10px">三大车型发运批次按水分划分的煤种占比情况</p>
             <div id="leftTitle" key="leftTitle" style="height: 30px"></div>
             </div>
@@ -120,7 +120,7 @@
           </el-col>
 <!--          第二列-->
           <el-col :span="10">
-            <el-card class="box-card" style="background-color:#0a1863;">
+            <el-card class="box-card" style="">
               <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年按挥发分划分的煤种基低位发热量检测均值情况</p></div>
               <div
                 id="center"
@@ -131,7 +131,7 @@
           </el-col>
 <!--          第三列-->
           <el-col :span="7">
-            <el-card class="box-card"   shadow="hover" style="height: 450px;background-color:#0a1863;margin-bottom: 15px;">
+            <el-card class="box-card"   shadow="hover" style="height: 450px;margin-bottom: 15px;">
               <div>
                 <p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 10px">三大车型发运批次按水分划分的煤种占比情况</p>
                 <right2></right2>
@@ -663,12 +663,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.oneRowTwoCol .el-card ::v-deep .el-card__body {
+  padding: 0px;
+  padding-top: 8px;
+}
 .bhover{
   cursor: pointer;
   color: white;
   background-color: rgba(0, 0, 0, 0);
   font-size: 14px;
   font-weight: 700;
+  height: 38px;
+  width: 100px;
+  margin-top: 0px;
   //border: 1px solid rgb(4, 114, 131);
 }
 .head {
@@ -699,14 +706,18 @@ export default {
   height: 100%;
   padding: 16px 16px 0 16px;
   //background-image: url("../assets/images/img.png"); //背景图
-  background-color: #0a1863;
+  //background-color: #0a1863;
+  background-color: rgb(48,65,86);
+
   background-size: cover; //背景尺寸
   background-position: center center; //背景位置
 }
 .box-card {
   padding: 10px;
   margin: 5px 10px;
-  border-color: rgba(29, 86, 153, 0.5);
+  //border-color: rgba(29, 86, 153, 0.5);
+  border-color: #0a1863;
+  background-color: rgb(48,65,86);
 }
 //全局样式部分！！！！
 * {
