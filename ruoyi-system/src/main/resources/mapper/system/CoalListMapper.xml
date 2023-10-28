@@ -18,9 +18,10 @@
         <result property="licensePlate"    column="license_plate"    />
         <result property="destination"    column="destination"    />
         <result property="startTime"    column="start_time"    />
+        <result property="standardNumber"    column="standard_number"    />
     </resultMap>
     <sql id="selectCoalListVo">
-        select coal_registration.coal_number, batch.coal_number, batch.batch_number,coal_registration.sample_time, coal_registration.sample_strength, coal_registration.sampling_method, coal_registration.sampler,  coal_registration.mining_area_name, batch.location_mining_area, batch.arrival_status, batch.batch_coal_weight, batch.license_plate, batch.destination,batch.start_time  from coal_registration INNER JOIN batch ON coal_registration.coal_number=batch.coal_number
+        select coal_registration.coal_number, batch.coal_number, batch.batch_number,coal_registration.sample_time, coal_registration.sample_strength, coal_registration.sampling_method, coal_registration.sampler,  coal_registration.mining_area_name, batch.location_mining_area, batch.arrival_status, batch.batch_coal_weight, batch.license_plate, batch.destination,batch.start_time ,coal_registration.standard_number from coal_registration INNER JOIN batch ON coal_registration.coal_number=batch.coal_number
     </sql>
     <select id="selectCoalList" parameterType="CoalList" resultMap="CoalListResult">
         <include refid="selectCoalListVo"/>
@@ -32,37 +33,25 @@
             <if test="locationMiningArea != null  and locationMiningArea != ''"> and batch.location_mining_area = #{locationMiningArea}</if>
             <if test="arrivalStatus != null  and arrivalStatus != ''"> and batch.arrival_status = #{arrivalStatus}</if>
             <if test="sampleStrength != null  and sampleStrength != ''"> and coal_registration.sample_strength = #{sampleStrength}</if>
-            <if test="samplingMethod != null">coal_registration.sampling_method = #{samplingMethod},</if>
-            <if test="sampler != null">coal_registration.sampler = #{sampler},</if>
+            <if test="samplingMethod != null and sampleMethod != ''"> and coal_registration.sampling_method = #{samplingMethod},</if>
+            <if test="sampler != null and sampler != ''"> and coal_registration.sampler = #{sampler},</if>
             <if test="batchCoalWeight != null  and batchCoalWeight != ''"> and batch.coal_weight = #{batchCoalWeight}</if>
             <if test="licensePlate != null  and licensePlate != ''"> and batch.license_plate = #{licensePlate}</if>
             <if test="destination != null  and destination != ''"> and batch.destination = #{destination}</if>
             <if test="startTime != null  and startTime != ''"> and batch.start_time = #{startTime}</if>
+            <if test="sampleTime != null  and sampleTime != ''"> and coal_registration.sample_time = #{sampleTime}</if>
+            <if test="standardNumber != null  and standardNumber != ''"> and coal_registration.standard_number = #{standardNumber}</if>
         </where>
     </select>
 
     <select id="selectCoalListByCoalNumber" parameterType="String" resultMap="CoalListResult">
         <include refid="selectCoalListVo"/>
-        where coal_registration.coal_number = #{coalNumber} and batch.batch_number = #{batchNumber}
+        where coal_registration.coal_number = #{coalNumber}
     </select>
 
-
     <update id="updateCoalList" parameterType="CoalList">
-        update coal_registration, batch
-        set  coal_registration.sample_strength=#{sampleStrength}, coal_registration.sampling_method=#{samplingMethod},
-            coal_registration.sample_time=#{sampleTime}, coal_registration.sampler=#{sampler},
-            coal_registration.mining_area_name = #{miningAreaName} , batch.mining_area_name = #{miningAreaName} ,
-            batch.location_mining_area=#{locationMiningArea}, batch.arrival_status=#{arrivalStatus},
-            batch.batch_coal_weight=#{batchCoalWeight}, batch.license_plate=#{licensePlate}, batch.destination=#{destination}
-         where coal_registration.coal_number=#{coalNumber} and batch.batch_number=#{batchNumber}
+        update batch
+        set  batch.arrival_status=#{arrivalStatus}
+         where coal_number = #{coalNumber}
          </update>
-    <update id="updateCoalList2" parameterType="CoalList">
-        update coal_registration, batch
-        set  coal_registration.sample_strength=#{sampleStrength}, coal_registration.sampling_method=#{samplingMethod},
-            coal_registration.sample_time=#{sampleTime}, coal_registration.sampler=#{sampler},
-            coal_registration.mining_area_name = #{miningAreaName} , batch.mining_area_name = #{miningAreaName} ,
-            batch.location_mining_area=#{locationMiningArea}, batch.arrival_status=#{arrivalStatus},
-            batch.batch_coal_weight=#{batchCoalWeight}, batch.license_plate=#{licensePlate}, batch.destination=#{destination}
-        where batch.batch_number=#{batchNumber}
-    </update>
 </mapper>

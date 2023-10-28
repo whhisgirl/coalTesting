@@ -8,10 +8,10 @@
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="queryParams.arrivalStatus" clearable>
-          <el-option  v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
+          <el-option v-for="item in options"
+                     :key="item.value"
+                     :label="item.label"
+                     :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
@@ -46,7 +46,11 @@
     </div>
     <el-table v-loading="loading" :data=registrationList @selection-change="handleSelectionChange">
       <el-table-column label="批次编号" align="center" prop="batchNumber"/>
-      <el-table-column label="煤采样编号" align="center" prop="coalNumber"/>
+      <el-table-column    label="煤采样编号" align="center" prop="coalNumber">
+      <template slot-scope="{row}">
+        <span   style="color:blue;cursor:pointer" @click="jump(row)">{{ row.coalNumber }}</span>
+      </template>
+      </el-table-column>
       <el-table-column label="煤采样时间" align="center" prop="sampleTime" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.sampleTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
@@ -66,7 +70,7 @@
           </el-button>
         </div>
       </el-table-column>
-      <el-table-column label="操作" align="center" >
+      <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -76,54 +80,11 @@
             @click="handleUpdate(scope.row.coalNumber)" v-hasPermi="['test:coal:edit']"></el-button>
           <el-button
             size="mini" type="success" class="el-icon-document"
-            @click="handleLook(scope.row.coalNumber)"></el-button>
-          <el-button v-if="scope.row.arrivalStatus==1"
-            size="mini" type="info" class="el-icon-view"
-            @click="handleJump(scope.$index, scope.row)"></el-button>
+            @click="handleLook(scope.row.coalNumber)" v-hasPermi="['test:coal:query']"></el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog  title="煤样登记详情" :visible.sync="dialogShow" append-to-body @selection-change="handleSelectionChange">
-      <el-form :model="t">
-        <el-form-item label="煤采样时间" :label-width="formLabelWidth" width="300px">
-          <el-date-picker v-model="t.sampleTime" type="date" autocomplete="off" value-format="yyyy-MM-dd"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="样品粒度" :label-width="formLabelWidth">
-          <el-input v-model="t.sampleStrength" ></el-input>
-        </el-form-item>
-        <el-form-item label="采样方法" :label-width="formLabelWidth">
-          <el-input v-model="t.samplingMethod" ></el-input>
-        </el-form-item>
-        <el-form-item label="矿区名称" :label-width="formLabelWidth">
-          <el-input v-model="t.miningAreaName"></el-input>
-        </el-form-item>
-        <el-form-item label="矿区所在地" :label-width="formLabelWidth">
-          <el-input v-model="t.locationMiningArea" ></el-input>
-        </el-form-item>
-        <el-form-item label="批次煤的重量" :label-width="formLabelWidth">
-          <el-input v-model="t.batchCoalWeight" ></el-input>
-        </el-form-item>
-        <el-form-item label="车牌号码" :label-width="formLabelWidth">
-          <el-input v-model="t.licensePlate" ></el-input>
-        </el-form-item>
-        <el-form-item label="出发时间" :label-width="formLabelWidth">
-          <el-input v-model="t.startTime" ></el-input>
-        </el-form-item>
-        <el-form-item label="目的地" :label-width="formLabelWidth">
-          <el-input v-model="t.destination"></el-input>
-        </el-form-item>
-        <el-form-item label="到达状态" :label-width="formLabelWidth">
-          <el-input v-model="t.arrivalStatus"></el-input>
-        </el-form-item>
-        <el-form-item label="采样人" :label-width="formLabelWidth">
-          <el-input v-model="t.sampler" ></el-input>
-        </el-form-item>
 
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogShow = false">返回</el-button>
-      </div>
-    </el-dialog>
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -134,37 +95,92 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList">
     </el-pagination>
+    <el-dialog  width=80% title="煤样登记详情" :visible.sync="dialogShow" append-to-body @selection-change="handleSelectionChange">
+      <el-form :model="form">
+        <el-row>
+          <el-col :span="8" :offset="1">
+        <el-form-item label="煤采样时间" :label-width="formLabelWidth" width="300px">
+          <el-date-picker v-model="form.sampleTime" type="datetime" autocomplete="off"
+                          value-format="yyyy-MM-dd hh:mm:ss"></el-date-picker>
+        </el-form-item>
+          </el-col>
+          <el-col :span="8" :offset="4">
+        <el-form-item label="样品粒度" :label-width="formLabelWidth">
+          <el-input v-model="form.sampleStrength"></el-input>
+        </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8" :offset="1">
+        <el-form-item label="采样方法" :label-width="formLabelWidth">
+          <el-input v-model="form.samplingMethod"></el-input>
+        </el-form-item>
+          </el-col>
+          <el-col :span="8" :offset="4">
+        <el-form-item label="矿区名称" :label-width="formLabelWidth">
+          <el-input v-model="form.miningAreaName"></el-input>
+        </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8" :offset="1">
+        <el-form-item label="矿区所在地" :label-width="formLabelWidth">
+          <el-input v-model="form.locationMiningArea"></el-input>
+        </el-form-item>
+          </el-col>
+          <el-col :span="8" :offset="4">
+        <el-form-item label="批次煤的重量" :label-width="formLabelWidth">
+          <el-input v-model="form.batchCoalWeight"></el-input>
+        </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8" :offset="1">
+        <el-form-item label="车牌号码" :label-width="formLabelWidth">
+          <el-input v-model="form.licensePlate"></el-input>
+        </el-form-item>
+          </el-col>
+          <el-col :span="8" :offset="4">
+        <el-form-item label="出发时间" :label-width="formLabelWidth">
+          <el-input v-model="form.startTime"></el-input>
+        </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="8" :offset="1">
+        <el-form-item label="目的地" :label-width="formLabelWidth">
+          <el-input v-model="form.destination"></el-input>
+        </el-form-item>
+          </el-col>
+          <el-col :span="8" :offset="4">
+        <el-form-item label="采样人" :label-width="formLabelWidth">
+          <el-input v-model="form.sampler"></el-input>
+        </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="closeShow">返回</el-button>
+      </div>
+    </el-dialog>
   </el-main>
 </template>
 <script>
-import {addUser, getAuthRole, getUser, updateAuthRole, updateUser} from "@/api/system/user";
-import {listCoal, getList,updateList} from "@/api/test/CoalList";
+import {listCoal, getList, updateList} from "@/api/test/CoalList";
 
 export default {
   data() {
     return {
-      options:[{
+      options: [{
         value: '0',
         label: '运输中'
       }, {
         value: '1',
         label: '已送达'
 
-    }],
-      dialogShow:false,
-      st:[],
-      t:{
-        // sampleTime: '',
-        // destination: '',
-        // sampleStrength:'',
-        // samplingMethod: '',
-        // miningAreaName: '',
-        // sampler: '',
-        // batchCoalWeight: '',
-        // locationMiningArea: '',
-         arrivalStatus: '',
-        // licensePlate: '',
-      },
+      }],
+      dialogShow: false,
+      st: [],
       formLabelWidth: '120px',
       loading: true,
       // 选中数组
@@ -186,19 +202,22 @@ export default {
       queryParams: {
         pageNum: 1,
         pageSize: 5,
-        batchNumber:null,
-        coalNumber:null,
+        batchNumber: null,
+        coalNumber: null,
         beginTime: null,
         endTime: null,
+        sampleTime: null,
         sampleStrength: null,
         samplingMethod: null,
         miningAreaName: null,
         sampler: null,
         batchCoalWeight: null,
         locationMiningArea: null,
-        arrivalStatus:null,
+        arrivalStatus: null,
       },
-      form: {},
+      form: {
+        arrivalStatus: '',
+      },
       // 表单校验
       rules: {}
     };
@@ -207,32 +226,38 @@ export default {
     this.getList()
   },
   methods: {
-    reload(){
-      this.t.arrivalStatus="1";
+    closeShow() {
+      this.dialogShow = false
+    },
+    remake() {
+      this.form.arrivalStatus = "1";
 
     },
     handleUpdate(val) {
       const coalNumber = val;
       getList(coalNumber).then(response => {
-        this.t=response.data;
+         this.form = response.data;
+         console.log(response.data);
         this.open = true;
-        this.reload();
-        updateList(this.t).then(response => {
+        this.remake();
+        updateList(this.form).then(response => {
           this.open = false;
           this.getList();
         });
       });
     },
-
-    getList(){
+    jump:function (row){
+      let coalNumber = row.coalNumber;
+      this.$router.push({path: "jump", query: {coalNumber: coalNumber}});
+    },
+    getList() {
       this.loading = true;
-      if(this.st!=null){
-        this.queryParams.beginTime=this.st[0]
-        this.queryParams.endTime=this.st[1]
-      }
-      else{
-        this.queryParams.beginTime=null
-        this.queryParams.endTime=null
+      if (this.st != null) {
+        this.queryParams.beginTime = this.st[0]
+        this.queryParams.endTime = this.st[1]
+      } else {
+        this.queryParams.beginTime = null
+        this.queryParams.endTime = null
       }
       listCoal(this.queryParams).then(response => {
         this.registrationList = response.rows;
@@ -240,13 +265,14 @@ export default {
         this.loading = false;
       });
     },
-    handleLook(val){
-      const coalNumber=val;
+    handleLook(val) {
+      const coalNumber = val;
       getList(coalNumber).then(response => {
-        this.t = response.data;
+        this.form = response.data;
         this.open = true;
       })
-      this.dialogShow=true;
+      this.dialogShow = true;
+      this.loading = false;
     },
     onSubmit() {
       this.queryParams.pageNum = 1;
@@ -257,24 +283,23 @@ export default {
       this.$router.push({path: "coal-abc"})
     },
     handleSelectionChange(selection) {
-      this.t = selection.map(item => item.row);
+      this.form.coalNumber = selection.map(item => item.coalNumber);
       this.single = selection.length != 1;
       this.multiple = !selection.length;
     },
     handleSizeChange(val) {
-      this.currentPage=val;
+      this.currentPage = val;
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-      this.queryParams.pageNum=val;
+      this.queryParams.pageNum = val;
       this.getList();
     }
   },
 }
 
 </script>
-
 
 
 

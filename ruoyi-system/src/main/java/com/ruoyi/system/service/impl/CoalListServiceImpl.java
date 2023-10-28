@@ -23,7 +23,8 @@ public class CoalListServiceImpl implements ICoalListService {
     /**
      * 查询【请填写功能名称】
      *
-     * @param coalNumber 【请填写功能名称】主键
+     * @param coalNumber
+     【请填写功能名称】主键
      * @return 【请填写功能名称】
      */
     @Override
