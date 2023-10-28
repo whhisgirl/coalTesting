@@ -1,6 +1,7 @@
 <template>
   <el-table
     :data="tableData"
+    :header-cell-style="{backgroundColor:'#4f81bd',color:'white'}"
     border
     style="width: 100%;margin-top: 30px">
     <el-table-column
@@ -71,6 +72,8 @@ export default {
           reportTime:'2023-10-19 16:10'
         },]
     }
-  }
+  },
 }
 </script>
+<style scoped>
+</style>
