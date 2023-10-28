@@ -311,7 +311,7 @@ export default {
         }
       ],
       chartData3: [
-        0.7, 0.4, 3.6, 0.6, 0.4, 2.3
+        1, 1, 0, 0, 1, 1
       ],
       chartData4: [
         0.7, 0.4, 3.6, 0.6, 0.4, -2.3
@@ -399,7 +399,7 @@ export default {
         this.infoForm.secondrResistivity = this.exceptionCompareList[1].resistivity
 
         //水分
-        let waterContentDiff = ((this.exceptionCompareList[0].waterContent - this.exceptionCompareList[1].waterContent) / this.exceptionCompareList[0].waterContent).toFixed(5)
+        let waterContentDiff = ((this.exceptionCompareList[1].waterContent - this.exceptionCompareList[0].waterContent) / this.exceptionCompareList[0].waterContent).toFixed(5)
         if (Math.abs(waterContentDiff) > 0.01) {
           this.chartData1.push({
             value: waterContentDiff,
@@ -530,7 +530,8 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: '次数'
+          name: '次数',
+          minInterval: 1,
         },
         series: [
           {
