@@ -72,7 +72,7 @@
       <el-dialog :title="title" :visible.sync="open" width="90%" style="padding-bottom: 0;" append-to-body>
         <el-form ref="infoForm" :model="infoForm" :rules="rules" label-width="80px">
           <el-row>
-            <el-descriptions class="margin-top" title="批次信息" :column="4" :size="size" border>
+            <el-descriptions class="margin-top" title="批次信息" :column="4" border>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-edit"></i>
@@ -105,7 +105,7 @@
           </el-row>
           <el-divider></el-divider>
           <el-row>
-            <el-descriptions class="margin-top" title="成分对比" :column="6" :size="size" border>
+            <el-descriptions class="margin-top" title="成分对比" :column="6"  border>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-tickets"></i>
@@ -152,7 +152,7 @@
             </el-descriptions>
           </el-row>
           <el-row>
-            <el-descriptions class="margin-top" :column="6" :size="size" border>
+            <el-descriptions class="margin-top" :column="6"  border>
               <el-descriptions-item>
                 <template slot="label">
                   <i class="el-icon-tickets"></i>
@@ -311,7 +311,7 @@ export default {
         }
       ],
       chartData3: [
-        1, 1, 0, 0, 1, 1
+        2, 1, 1, 0, 2, 1
       ],
       chartData4: [
         0.7, 0.4, 3.6, 0.6, 0.4, -2.3
@@ -341,6 +341,8 @@ export default {
     },
     cancel() {
       this.open = false
+      this.exceptionBarChart.dispose()
+      this.chartOption = null
     },
     reset() {
       this.searchForm = {}
@@ -402,14 +404,14 @@ export default {
         let waterContentDiff = ((this.exceptionCompareList[1].waterContent - this.exceptionCompareList[0].waterContent) / this.exceptionCompareList[0].waterContent).toFixed(5)
         if (Math.abs(waterContentDiff) > 0.01) {
           this.chartData1.push({
-            value: waterContentDiff,
+            value: waterContentDiff*100,
             itemStyle: {
               color: '#a90000'
             }
           })
         } else {
           this.chartData1.push({
-            value: waterContentDiff,
+            value: waterContentDiff*100,
             itemStyle: {
               color: '#5470C6'
             }
@@ -420,14 +422,14 @@ export default {
         let ashContentDiff = ((this.exceptionCompareList[1].ashContent - this.exceptionCompareList[0].ashContent) / this.exceptionCompareList[0].ashContent).toFixed(5)
         if (Math.abs(ashContentDiff) > 0.01) {
           this.chartData1.push({
-            value: ashContentDiff,
+            value: ashContentDiff*100,
             itemStyle: {
               color: '#a90000'
             }
           })
         } else {
           this.chartData1.push({
-            value: ashContentDiff,
+            value: ashContentDiff*100,
             itemStyle: {
               color: '#5470C6'
             }
@@ -439,14 +441,14 @@ export default {
         let densityDiff = ((this.exceptionCompareList[1].density - this.exceptionCompareList[0].density) / this.exceptionCompareList[0].density).toFixed(5)
         if (Math.abs(densityDiff) > 0.005) {
           this.chartData1.push({
-            value: densityDiff,
+            value: densityDiff*100,
             itemStyle: {
               color: '#a90000'
             }
           })
         } else {
           this.chartData1.push({
-            value: densityDiff,
+            value: densityDiff*100,
             itemStyle: {
               color: '#5470C6'
             }
@@ -454,17 +456,17 @@ export default {
         }
 
         //挥发分
-        let coalVolatileDiff = ((this.exceptionCompareList[1].coalVolatile - this.exceptionCompareList[0].coalVolatile) / this.exceptionCompareList[0].coalVolatile).toFixed(5)
+        let coalVolatileDiff = ((this.exceptionCompareList[1].coalVolatile - this.exceptionCompareList[0].coalVolatile) / this.exceptionCompareList[0].coalVolatile).toFixed(6)
         if (Math.abs(coalVolatileDiff) > 0.01) {
           this.chartData1.push({
-            value: coalVolatileDiff,
+            value: coalVolatileDiff*100,
             itemStyle: {
               color: '#a90000'
             }
           })
         } else {
           this.chartData1.push({
-            value: coalVolatileDiff,
+            value: coalVolatileDiff*100,
             itemStyle: {
               color: '#5470C6'
             }
@@ -475,14 +477,14 @@ export default {
         let resistivityDiff = ((this.exceptionCompareList[1].resistivity - this.exceptionCompareList[0].resistivity) / this.exceptionCompareList[0].resistivity).toFixed(5)
         if (Math.abs(resistivityDiff) > 0.01) {
           this.chartData1.push({
-            value: resistivityDiff,
+            value: resistivityDiff*100,
             itemStyle: {
               color: '#a90000'
             }
           })
         } else {
           this.chartData1.push({
-            value: resistivityDiff,
+            value: resistivityDiff*100,
             itemStyle: {
               color: '#5470C6'
             }
@@ -493,14 +495,14 @@ export default {
         let baseLowCalorificDiff = ((this.exceptionCompareList[1].baseLowCalorific - this.exceptionCompareList[0].baseLowCalorific) / this.exceptionCompareList[0].baseLowCalorific).toFixed(5)
         if (Math.abs(baseLowCalorificDiff) > 0.015) {
           this.chartData1.push({
-            value: baseLowCalorificDiff,
+            value: baseLowCalorificDiff*100,
             itemStyle: {
               color: '#a90000'
             }
           })
         } else {
           this.chartData1.push({
-            value: baseLowCalorificDiff,
+            value: baseLowCalorificDiff*100,
             itemStyle: {
               color: '#5470C6'
             }
