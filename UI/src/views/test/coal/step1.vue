@@ -2,21 +2,21 @@
   <div>
     <el-form style="margin-top: 5%;margin-left: 80px;margin-right: 80px;" label-width="100px">
       <el-row>
-        <el-col :span="8" :offset="1">
-          <el-form-item label="煤采样编号" prop="coalNumber">
-            <el-input v-model="form1.coalNumber" width="100px"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8" :offset="4">
-          <el-form-item label="采样时间" prop="sampleTime">
-            <el-date-picker
-              v-model="form1.sampleTime"
-              type="datetime"
-              placeholder="选择日期时间" style="width:100%;"
-              value-format="yyyy-MM-dd hh:mm:ss">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
+<!--        <el-col :span="8" :offset="1">-->
+<!--          <el-form-item label="煤采样编号" prop="coalNumber">-->
+<!--            <el-input v-model="form1.coalNumber" width="100px"></el-input>-->
+<!--          </el-form-item>-->
+<!--        </el-col>-->
+<!--        <el-col :span="8" :offset="4">-->
+<!--          <el-form-item label="采样时间" prop="sampleTime">-->
+<!--            <el-date-picker-->
+<!--              v-model="form1.sampleTime"-->
+<!--              type="datetime"-->
+<!--              placeholder="选择日期时间" style="width:100%;"-->
+<!--              value-format="yyyy-MM-dd hh:mm:ss">-->
+<!--            </el-date-picker>-->
+<!--          </el-form-item>-->
+<!--        </el-col>-->
       </el-row>
       <el-row>
         <el-col :span="8" :offset="1">
@@ -49,10 +49,20 @@
           </el-form-item>
         </el-col>
         <el-col :span="8" :offset="4">
-            <el-form-item label="到达状态" prop="status">
-              <el-input  disabled v-model="status"></el-input>
-            </el-form-item>
+          <el-form-item label="采样时间" prop="sampleTime">
+            <el-date-picker
+              v-model="form1.sampleTime"
+              type="datetime"
+              placeholder="选择日期时间" style="width:100%;"
+              value-format="yyyy-MM-dd hh:mm:ss">
+            </el-date-picker>
+          </el-form-item>
         </el-col>
+<!--        <el-col :span="8" :offset="4">-->
+<!--            <el-form-item label="到达状态" prop="status">-->
+<!--              <el-input  disabled v-model="status"></el-input>-->
+<!--            </el-form-item>-->
+<!--        </el-col>-->
       </el-row>
     </el-form>
   </div>
