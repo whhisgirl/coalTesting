@@ -226,9 +226,9 @@
           <th colspan="6">其它信息</th>
         </tr>
         <tr>
-          <th colspan="2">报告生成时间</th>
+          <th colspan="2" class="color">报告生成时间</th>
           <th>2023-10-19 11:02</th>
-          <th colspan="2">检测标准号</th>
+          <th colspan="2" class="color">检测标准号</th>
           <th>GB475-2008-1</th>
         </tr>
       </tbody>
