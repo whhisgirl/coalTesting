@@ -44,7 +44,7 @@
         </p>
       </div>
     </div>
-    <el-table v-loading="loading" :data=registrationList @selection-change="handleSelectionChange">
+    <el-table v-loading="loading" :data=registrationList :default-sort="{prop: 'sampleTime', order: 'descending'}" @selection-change="handleSelectionChange">
       <el-table-column label="批次编号" align="center" prop="batchNumber"/>
       <el-table-column    label="煤采样编号" align="center" prop="coalNumber">
       <template slot-scope="{row}">
