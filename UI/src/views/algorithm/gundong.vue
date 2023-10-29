@@ -69,10 +69,10 @@ export default {
       // 表单校验
       rules: {
       },
-      visibleSize: 6, //容器内可视最大完整行数
+      visibleSize: 4, //容器内可视最大完整行数
       tableTimer: null,
       lineHeight: 49, //每行的实际高度（包含margin-top/bottom,border等）
-      componentTimerInterval: 3600, //刷新数据的时间间隔
+      componentTimerInterval: 360000, //刷新数据的时间间隔
       tableTimerInterval: 100 ,//向上滚动 1px 所需要的时间，越小越快，推荐值 100
       tableTop: 0,
       tableListSize: 0,
@@ -106,7 +106,9 @@ mounted() {
       this.tableListSize = this.batchList.length;
       //下面的visibleSize是可视范围内能够显示的最大完整数据条数
       if (this.tableListSize > this.visibleSize) {
-        this.tableList = this.tableList.concat(this.tableList);
+        this.batchList = this.batchList.concat(this.batchList);
+        this.batchList = this.batchList.concat(this.batchList);
+        this.batchList = this.batchList.concat(this.batchList);
         this.tableTimerFun();  //列表滚动方法
       }
     },
