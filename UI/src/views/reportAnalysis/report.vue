@@ -9,7 +9,7 @@
 
       <el-form :inline="true" :model="formInline" class="demo-form-inline" style="margin-left: 400px;margin-top: 25px;">
         <el-form-item label=" 煤炭批次编号">
-          <el-input v-model="formInline.user" placeholder="C120J145"></el-input>
+          <el-input v-model="formInline.user" placeholder="请输入煤炭批次编号"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="cyInsert">采样信息导入</el-button>
