@@ -139,7 +139,12 @@
 
       <el-form :inline="true" :model="coal" class="demo-form-inline" style="margin-left: 95px;margin-top: 30px;">
         <el-form-item label=" 报告生成时间">
-          <el-date-picker v-model="value1" type="datetime" placeholder="选择日期时间">
+          <el-date-picker
+            v-model="value1"
+            type="datetime"
+            placeholder="选择日期时间"
+            value-format="yyyy-MM-dd HH:mm"
+            format="yyyy-MM-dd HH:mm">
           </el-date-picker>
         </el-form-item>
         <el-form-item label=" 检测标准号">
