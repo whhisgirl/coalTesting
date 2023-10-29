@@ -318,6 +318,8 @@ export default {
       ],
       exceptionBarChart: null,
       chartOption: {},
+      exceptionCompareBarChart: null,
+      exceptionCompareBarChartOption: {}
     };
   },
   methods: {
@@ -340,9 +342,9 @@ export default {
       });
     },
     cancel() {
+      this.exceptionCompareBarChart.dispose()
+      this.exceptionCompareBarChartOption = null
       this.open = false
-      this.exceptionBarChart.dispose()
-      this.chartOption = null
     },
     reset() {
       this.searchForm = {}
@@ -545,9 +547,9 @@ export default {
       this.exceptionBarChart.setOption(this.chartOption)
     },
     initExceptionCompareChart() {
-      this.exceptionBarChart = echarts.init(this.$refs.exceptionCompareChart);
+      this.exceptionCompareBarChart = echarts.init(this.$refs.exceptionCompareChart);
       // 配置图表
-      this.chartOption = {
+      this.exceptionCompareBarChartOption = {
         //笛卡尔坐标系的底板
         grid: {
           left: '3%',
@@ -574,7 +576,7 @@ export default {
           },
         ]
       }
-      this.exceptionBarChart.setOption(this.chartOption)
+      this.exceptionCompareBarChart.setOption(this.exceptionCompareBarChartOption)
     },
   },
   mounted() {
