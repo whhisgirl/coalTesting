@@ -8,6 +8,7 @@
       <Child2 ref="myChild2" v-if="change2"></Child2>
       <Child3 v-if="change3"></Child3>
       <Child4 v-if="change4"></Child4>
+      <Child5 v-if="change5"></Child5>
       <el-row type="flex" :gutter="260" justify="space-around">
         <el-col :span="8">
           <el-button @click="last" v-if="current!=0?true:false">上一步</el-button>
@@ -26,13 +27,13 @@ import Child from '@/views/test/coal/step1.vue'
 import Child2 from '@/views/test/coal/step2.vue'
 import Child3 from '@/views/test/coal/step3.vue'
 import Child4 from '@/views/test/coal/step4.vue'
+import Child5 from '@/views/test/coal/step5.vue'
 import {listRegistration, getRegistration, updateRegistration, addRegistration} from "@/api/system/registration";
 import {listBatch, getBatch, addBatch, updateBatch} from "@/api/system/batch";
 
 export default {
   components: {
-    Child, Child2, Child3, Child4
-
+    Child, Child2, Child3, Child4, Child5
   },
   data() {
     return {
@@ -78,21 +79,31 @@ export default {
         this.change2 = false;
         this.change3 = false;
         this.change4 = false;
+        this.change5 = false;
       } else if (this.current == 1) {
         this.change1 = false;
         this.change2 = true;
         this.change3 = false;
         this.change4 = false;
+        this.change5 = false;
       } else if (this.current == 2) {
         this.change1 = false;
         this.change2 = false;
         this.change3 = true;
         this.change4 = false;
+        this.change5 = false;
       } else if (this.current == 3) {
         this.change1 = false;
         this.change2 = false;
         this.change3 = false;
         this.change4 = true;
+        this.change5 = false;
+      } else if (this.current == 4) {
+        this.change1 = false;
+        this.change2 = false;
+        this.change3 = false;
+        this.change4 = false;
+        this.change5 = true;
       }
     },
     last() {
@@ -102,21 +113,31 @@ export default {
         this.change2 = false;
         this.change3 = false;
         this.change4 = false;
+        this.change5 = false;
       } else if (this.current == 1) {
         this.change1 = false;
         this.change2 = true;
         this.change3 = false;
         this.change4 = false;
+        this.change5 = false;
       } else if (this.current == 2) {
         this.change1 = false;
         this.change2 = false;
         this.change3 = true;
         this.change4 = false;
+        this.change5 = false;
       } else if (this.current == 3) {
         this.change1 = false;
         this.change2 = false;
         this.change3 = false;
         this.change4 = true;
+        this.change5 = false;
+      } else if (this.current == 4) {
+        this.change1 = false;
+        this.change2 = false;
+        this.change3 = false;
+        this.change4 = false;
+        this.change5 = true;
       }
     },
     complete() {
