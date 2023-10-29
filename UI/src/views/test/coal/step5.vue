@@ -1,15 +1,6 @@
 <template>
   <div style="margin-bottom: 20px;height: 500px;width: 100%;">
-    <div ref="step5Chart" style="width: 100%; height:500px; border-radius: 10px">
-      <p style="
-            font-family: Arial;
-            font-size: 16px;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 20px;
-          ">
-        煤样登记
-      </p>
+    <div ref="step5Chart" style="width: 100%; height:500px;">
     </div>
   </div>
 </template>
@@ -32,7 +23,7 @@ export default {
             trigger: 'axis'
           },
           legend: {
-            data: ['第一次检测', '第二次检测']
+            data: ['运输前检测', '运输后检测']
           },
           calculable: true,
           xAxis: [
@@ -48,14 +39,14 @@ export default {
           ],
           series: [
             {
-              name: '第一次检测',
+              name: '运输前检测',
               type: 'bar',
               data: [
                 8.13,3.97,3.77,23.28,28.30,52.35
               ],
             },
             {
-              name: '第二次检测',
+              name: '运输后检测',
               type: 'bar',
               data: [
                 9.10,4.13,3.81,23.92,28.11,44.00

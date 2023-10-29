@@ -16,6 +16,7 @@
         <el-col :span="8">
           <el-button @click="next" v-if="current!=steps.length-1?true:false">下一步</el-button>
           <el-button @click="complete" v-if="[0,1].includes(current)">保存</el-button>
+          <el-button @click="backToHome" v-if="current===4">返回</el-button>
         </el-col>
       </el-row>
     </el-card>
@@ -139,6 +140,10 @@ export default {
         this.change4 = false;
         this.change5 = true;
       }
+    },
+
+    backToHome(){
+      this.$router.push({path: "coal" });
     },
     complete() {
       if (this.current == 0) {
