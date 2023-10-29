@@ -7,11 +7,14 @@
       </el-steps>
 
 
-      <el-form :inline="true" :model="coal" class="demo-form-inline" style="margin-left: 400px;margin-top: 25px;">
+      <el-form :inline="true" :model="formInline" class="demo-form-inline" style="margin-left: 400px;margin-top: 25px;">
         <el-form-item label=" 煤炭批次编号">
-          <el-input v-model="coal.number" placeholder="请输入批次编号"></el-input>
+          <el-input v-model="formInline.user" placeholder="C120J145"></el-input>
         </el-form-item>
-
+        <el-form-item>
+          <el-button type="primary" @click="cyInsert">采样信息导入</el-button>
+          <el-button type="primary" @click="zbInsert">指标结果导入</el-button>
+        </el-form-item>
       </el-form>
 
 
@@ -62,10 +65,7 @@
               <el-input v-model="cyMessage.methods" placeholder="" :disabled="true"></el-input>
             </el-form-item>
           </el-col><el-col span="6">
-            <el-form-item>
-              <el-button type="primary" @click="cyInsert">采样信息导入</el-button>
-
-            </el-form-item></el-col>
+          </el-col>
         </el-form>
       </el-row>
       <div style="width: 100%; background: #d2e9ff; border-radius: 10px">
@@ -121,10 +121,7 @@
           <el-col span="6">
           </el-col>
           <el-col span="6">
-            <el-form-item>
-              <el-button type="primary" @click="zbInsert">指标结果导入</el-button>
-
-            </el-form-item></el-col>
+          </el-col>
         </el-row>
 
       </el-form>
@@ -142,7 +139,7 @@
 
       <el-form :inline="true" :model="coal" class="demo-form-inline" style="margin-left: 95px;margin-top: 30px;">
         <el-form-item label=" 报告生成时间">
-          <el-date-picker v-model="date1" type="date" placeholder="2023-1-21" style="width: 200px;">
+          <el-date-picker v-model="value1" type="datetime" placeholder="选择日期时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label=" 检测标准号">
@@ -190,7 +187,7 @@
           <th>粒煤</th>
           <th class="color">采样标准号</th>
           <th>GB475-2008</th>
-          <th> class="color"采样方式</th>
+          <th class="color"> 采样方式</th>
           <th>连续采样法</th>
         </tr>
         <tr>
@@ -200,23 +197,23 @@
           <th class="color">煤炭批次编号</th>
           <th>C120J145</th>
           <th class="color">水分</th>
-          <th>9.33</th>
+          <th>8.13</th>
           <th class="color">密度</th>
-          <th>4.10</th>
+          <th>3.97</th>
         </tr>
         <tr>
           <th class="color">基低位发热量</th>
-          <th>4982</th>
+          <th>5235</th>
           <th class="color">挥发分</th>
-          <th>28.45</th>
+          <th>28.30</th>
           <th class="color">灰分</th>
-          <th>23.26</th>
+          <th>23.28</th>
         </tr>
         <tr>
           <th class="color">电阻率</th>
-          <th>391</th>
+          <th>377</th>
           <th class="color">检测时间</th>
-          <th>2023-10-19 11:02</th>
+          <th>2023-1-21 11:02</th>
           <th class="color">检测地</th>
           <th>山西忻州</th>
         </tr>
@@ -225,15 +222,16 @@
         </tr>
         <tr>
           <th colspan="2">报告生成时间</th>
-          <th>2023-10-19</th>
+          <th>2023-10-19 11:02</th>
           <th colspan="2">检测标准号</th>
           <th>GB475-2008-1</th>
         </tr>
       </tbody>
     </table>
     <div>
-      <el-button type="primary" @click="open" style="margin-left: 600px;margin-top: 50px">打印</el-button>
-      <el-button type="second" @click="next" style="margin-left: 40px">上一步</el-button>
+      <el-button type="primary" @click="open" style="margin-left: 550px;margin-top: 50px">打印</el-button>
+      <el-button type="second" @click="next()" style="margin-left: 40px">上一步</el-button>
+      <el-button type="second" @click="back()" style="margin-left: 40px">返回首页</el-button>
     </div>
   </el-card>
 </template>
@@ -245,6 +243,7 @@ export default {
       active: 0,
       show: true,
       test: '',
+      value1: '',
       formInline: {
         user: '',
         region: ''
@@ -290,6 +289,7 @@ export default {
   methods: {
     open() {
       this.$message('打印成功');
+      window.print();
     },
     next() {
       if (this.active++ > 2) this.active = 0;
@@ -319,17 +319,21 @@ export default {
       this.$forceUpdate()
     },
     zbInsert() {
-      this.zbResult.water = "9.33";
-      this.zbResult.density = "4.10";
-      this.zbResult.heat = "4392";
-      this.zbResult.volatilize = "28.45";
-      this.zbResult.grey = "23.26";
-      this.zbResult.resistance = "391";
+      this.zbResult.water = "8.13";
+      this.zbResult.density = "3.97";
+      this.zbResult.heat = "5235";
+      this.zbResult.volatilize = "28.30";
+      this.zbResult.grey = "23.28";
+      this.zbResult.resistance = "377";
       this.zbResult.time = "2023-1-21 11:02";
       this.zbResult.location = "山西忻州";
 
       this.$forceUpdate()
-    }
+    },
+    back() {
+      this.$router.push({ path: "/index" });
+    },
+
   }
 }
 </script>
