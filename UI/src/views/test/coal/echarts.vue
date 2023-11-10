@@ -29,7 +29,7 @@ export default {
   },
   mounted() {
     this.getEchartData();
-    this.initChart()
+    // this.initChart()
     window.addEventListener('resize', this.resizeCharts)
   },
   methods: {

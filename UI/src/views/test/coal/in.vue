@@ -1,4 +1,4 @@
-<template>
+ <template>
   <el-main>
     <el-form :inline="true" :model="queryParams" class="demo-form-inline">
 
@@ -46,9 +46,9 @@
     </div>
     <el-table v-loading="loading" :data=registrationList :default-sort="{prop: 'sampleTime', order: 'descending'}" @selection-change="handleSelectionChange">
       <el-table-column label="批次编号" align="center" prop="batchNumber"/>
-      <el-table-column    label="煤采样编号" align="center" prop="coalNumber">
+      <el-table-column label="煤采样编号" align="center" prop="coalNumber">
       <template slot-scope="{row}">
-        <span   style="color:blue;cursor:pointer" @click="jump(row)">{{ row.coalNumber }}</span>
+        <span   style="color:blue;cursor:pointer" @click="jump3(row)">{{ row.coalNumber }}</span>
       </template>
       </el-table-column>
       <el-table-column label="煤采样时间" align="center" prop="sampleTime" width="180">
@@ -75,12 +75,11 @@
           <el-button
             size="mini"
             type="primary"
-            class="el-icon-check"
             v-if="scope.row.arrivalStatus==0"
-            @click="handleUpdate(scope.row.coalNumber)" v-hasPermi="['test:coal:edit']"></el-button>
+            @click="handleUpdate(scope.row.coalNumber)" v-hasPermi="['test:coal:edit']">送达</el-button>
           <el-button
-            size="mini" type="success" class="el-icon-document"
-            @click="handleLook(scope.row.coalNumber)" v-hasPermi="['test:coal:query']"></el-button>
+            size="mini" type="success"
+            @click="handleLook(scope.row.coalNumber)" v-hasPermi="['test:coal:query']">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -226,6 +225,10 @@ export default {
     this.getList()
   },
   methods: {
+    //设置按钮不能点击
+    setButton(){
+      $('myButton').attr('disabled',true);
+    },
     closeShow() {
       this.dialogShow = false
     },
@@ -246,9 +249,25 @@ export default {
         });
       });
     },
-    jump:function (row){
-      let coalNumber = row.coalNumber;
+    jump3(val){
+      // let coalNumber = row.coalNumber;
+      console.log("val",val);
+      const coalNumber = val.coalNumber;
+      console.log("arrivalStatus",val.arrivalStatus);
+      if(val.arrivalStatus==='0'){
+        this.$router.push({path: "coalClassification", query: {coalNumber: coalNumber}});
+      }else if(val.arrivalStatus==='1'){
+        this.$router.push({path: "jump", query: {coalNumber: coalNumber}});
+      }
+    },
+    jump(val){
+      // let coalNumber = row.coalNumber;
+      const coalNumber = val;
       this.$router.push({path: "jump", query: {coalNumber: coalNumber}});
+    },
+    jump2(val){
+      let coalNumber = val.coalNumber;
+      this.$router.push({path: "coalClassification", query: {coalNumber: coalNumber}});
     },
     getList() {
       this.loading = true;
@@ -260,6 +279,12 @@ export default {
         this.queryParams.endTime = null
       }
       listCoal(this.queryParams).then(response => {
+        console.log('response',response);
+        for(let i in response.rows){
+          if(i.arrivalStatus=='0'){
+            $('myButton').attr('disabled',true);
+          }
+        }
         this.registrationList = response.rows;
         this.total = response.total;
         this.loading = false;

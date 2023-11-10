@@ -18,12 +18,8 @@
         </el-col>
         <el-col :span="12" style="height: 20rem">
           <el-card style="width: 95%; margin-right: 15px;margin-top: 10px">
-            运输前煤种分类结果
+            煤种分类结果
             <h2 style="color: red;font-weight: bold;display: flex;justify-content: center;align-items: center;">高热值煤</h2>
-          </el-card>
-          <el-card style="width: 95%; margin-right: 15px;margin-top: 10px">
-            运输后煤种分类结果
-            <h2 style="color: red;font-weight: bold;display: flex;justify-content: center;align-items: center;">中热值煤</h2>
           </el-card>
         </el-col>
       </el-row>
@@ -35,11 +31,10 @@
   // import * as echarts from 'echarts'
 
   export default {
-    name: 'CoalType',
-    props:['CoalType'],
+    name: 'CoalType2',
+    props:['CoalType2'],
     data() {
       return {
-        // 遮罩层
         loading: true,
         myCoalList: [
           {
