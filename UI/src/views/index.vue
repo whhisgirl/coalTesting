@@ -1,5 +1,5 @@
 <template>
-  <div id="index" ref="appRef">
+  <div id="index" ref="appRef" class="all" :style="defaultHeight">
     <div class="bg">
       <dv-loading v-show="loading">Loading...</dv-loading>
       <div class="host-body">
@@ -39,30 +39,30 @@
             <el-col :span="10">
               <el-card class="box-card" style="height: 150px;background-color:rgb(48,65,86);">
                 <div class="oneRowTwoCol">
-                  <p style="text-align: center;color: white;font-size: 20px;font-weight: 700; ">本年度矿区平均煤质情况</p>
+                  <p style="text-align: center;color: white;font-size: 20px;font-weight: 700; ">本年度发运异常情况</p>
                   <el-card style="margin-top: 12px;padding: 0px;height: 40px">
                     <el-row >
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;padding: 0px;margin: 0px "><b>4971</b></p>
+                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;padding: 0px;margin: 0px "><b>379</b></p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: #009933 ;font-size: 22px;font-weight: 700; "><b>24.13</b></p>
+                        <p style="text-align: center;color: red ;font-size: 22px;font-weight: 700; "><b>62</b></p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700; "><b>28.69</b></p>
+                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700; "><b>317</b></p>
                       </el-col>
                     </el-row>
                   </el-card>
                   <div style="margin-top: 8px">
                     <el-row >
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;">基低位发热量</p>
+                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;">批次总数</p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color:  #009933 ;font-size: 22px;font-weight: 700; ">灰分</p>
+                        <p style="text-align: center;color: red ;font-size: 22px;font-weight: 700; ">异常批次</p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700;">挥发分</p>
+                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700;">正常批次</p>
                       </el-col>
                     </el-row>
                   </div>
@@ -133,7 +133,7 @@
           <el-col :span="7">
             <el-card class="box-card"   shadow="hover" style="height: 450px;margin-bottom: 15px;">
               <div>
-                <p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 10px">三大车型发运批次按水分划分的煤种占比情况</p>
+                <p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 10px">煤质检测报告记录</p>
                 <right2></right2>
               </div>
             </el-card>
@@ -158,6 +158,7 @@ export default {
   },
   data() {
     return {
+
     };
   },
   // created() {
