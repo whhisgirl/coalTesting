@@ -39,7 +39,7 @@
             <el-col :span="10">
               <el-card class="box-card" style="height: 150px;background-color:rgb(48,65,86);">
                 <div class="oneRowTwoCol">
-                  <p style="text-align: center;color: white;font-size: 20px;font-weight: 700; ">本年度发运异常情况</p>
+                  <p style="text-align: center;color: white;font-size: 20px;font-weight: 700; ">本年度发运异常批次情况</p>
                   <el-card style="margin-top: 12px;padding: 0px;height: 40px">
                     <el-row >
                       <el-col span="8">
