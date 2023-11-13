@@ -247,7 +247,7 @@
     </el-card>
   </div>
 </template>
-  
+
 <script>
 import * as echarts from 'echarts';
 import { listBatchAndIndicators } from "@/api/system/indicators";
@@ -372,8 +372,8 @@ export default {
           let newList = arr.reduce((pre, cur) => pre.some(item => item[id] === cur[id]) ? pre : [...pre, cur], [])
           return newList;
         }
-        this.exceptionList = filterList(list, 'batchNumber')
-        this.total = response.data.total
+        this.exceptionList = filterList(list, 'batchNhumber')
+        this.total = filterList.length
       });
     },
     handleInfo(row) {
@@ -585,12 +585,11 @@ export default {
   }
 };
 </script>
-  
+
 <style scoped lang="scss">
 .box-card {
   margin: 1% 1%;
   width: 98%;
 }
 </style>
-  
-  
+

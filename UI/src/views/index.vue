@@ -7,7 +7,7 @@
           <el-row>
             <el-col :span="6">
               <div class="title_left">
-                <el-button class="bhover" style="margin-left: 100px;" @click="handletest()">煤样快速检测</el-button>
+                <el-button class="bhover" style="margin-left: 100px;" @click="handletest()">煤质快速检测</el-button>
                 <el-button class="bhover"  style="margin-left: 100px;margin-right: 10px;"@click="handleContrast()">煤质对比分析</el-button>
               </div>
             </el-col>
@@ -16,7 +16,7 @@
             </el-col>
             <el-col :span="6">
               <div class="title_right">
-                <el-button class="bhover" style="margin-right: 100px;margin-left: 10px;" @click="handleReport()">检测报告分析</el-button>
+                <el-button class="bhover" style="margin-right: 100px;margin-left: 10px;" @click="handleReport()">检测报告生成</el-button>
                 <el-button class="bhover" style="margin-right: 100px;" @click="handleAlgorithm()">算法介绍</el-button>
               </div>
             </el-col>

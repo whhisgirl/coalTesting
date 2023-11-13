@@ -27,7 +27,7 @@
               <h3 style="font-weight: 600; "> SSA-CNN-LSTM模型 </h3>
               <p style="font-family: Arial; font-size: 16px; font-weight: 400; ">
                 <span
-                  style="margin-left: 2rem;"></span>算法是一种综合利用麻雀搜索算法、卷积神经网络和长短时记忆网络的深度学习模型，旨在解决静态数据中的特征提取和预测问题，通过检测煤炭中的水分、密度和电阻率计算灰分值、挥发分值和基低位发热量。
+                  style="margin-left: 2rem;"></span>算法是一种综合利用麻雀搜索算法、卷积神经网络和长短时记忆网络的深度学习模型，旨在解决静态数据中的特征提取和预测问题，通过检测煤炭中的水分和电阻率计算灰分值、挥发分值和基低位发热量。
               </p>
               <p style="font-family: Arial; font-size: 16px; font-weight: 400; ">
                 <span
@@ -48,17 +48,17 @@
       <el-divider></el-divider>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px" style="margin-top: 10px;">
         <el-row>
-          <el-col :span="6">
+          <el-col :span="8">
             <el-form-item label="水分">
               <el-input placeholder="请输入水分" v-model="form.param1" style="width: 150px"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
-            <el-form-item label="密度">
-              <el-input placeholder="请输入密度" v-model="form.param2" style="width: 150px"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
+          <!--<el-col :span="6">-->
+            <!--<el-form-item label="密度">-->
+              <!--<el-input placeholder="请输入密度" v-model="form.param2" style="width: 150px"></el-input>-->
+            <!--</el-form-item>-->
+          <!--</el-col>-->
+          <el-col :span="12">
             <el-form-item label="电阻率">
               <el-input placeholder="请输入电阻率" v-model="form.param3" style="width: 150px"></el-input>
             </el-form-item>
@@ -87,7 +87,7 @@
   height: '20',
 }" :data="algorithData" style="margin-top: 20px; width:97%;margin-left: 1%">
         <el-table-column label="水分" align="center" prop="waterContent" />
-        <el-table-column label="密度" align="center" prop="density" />
+        <!--<el-table-column label="密度" align="center" prop="density" />-->
         <el-table-column label="电阻率" align="center" prop="resistivity" />
         <el-table-column label="灰分" align="center" prop="ashContent" />
         <el-table-column label="挥发分" align="center" prop="coalVolatile" />
@@ -115,9 +115,9 @@ export default {
         param1: [
           { required: true, message: "水分值不能为空", trigger: "blur" }
         ],
-        param2: [
-          { required: true, message: "密度值不能为空", trigger: "blur" }
-        ],
+        // param2: [
+        //   { required: true, message: "密度值不能为空", trigger: "blur" }
+        // ],
         param3: [
           { required: true, message: "电阻率值不能为空", trigger: "blur" }
         ],
@@ -132,9 +132,9 @@ export default {
         waterContent:this.form.param1,
         density:this.form.param2,
         resistivity:this.form.param3,
-        ashContent:-45.535-0.338*this.form.param1+49.032*this.form.param2,
-        coalVolatile:64.55-0.451*this.form.param1-21.878*this.form.param2,
-        baseLowCalorific:10192.095-64.378*this.form.param1-3166.731*this.form.param2+"KJ",
+        ashContent: -0.698*this.form.param1+28.972,
+        coalVolatile:-0.26*this.form.param1+30.946,
+        baseLowCalorific:-38.046*this.form.param1+5341.673,
       })
     },
   }
