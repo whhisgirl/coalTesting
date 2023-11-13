@@ -373,7 +373,7 @@ export default {
           return newList;
         }
         this.exceptionList = filterList(list, 'batchNhumber')
-        this.total = filterList.length
+        this.total = this.exceptionList.length
       });
     },
     handleInfo(row) {
