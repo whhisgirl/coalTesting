@@ -7,7 +7,7 @@
           <el-row>
             <el-col :span="6">
               <div class="title_left">
-                <el-button class="bhover" style="margin-left: 100px;" @click="handletest()">煤质快速检测</el-button>
+                <el-button class="bhover"  style="margin-left: 100px;" @click="handletest()">煤质快速检测</el-button>
                 <el-button class="bhover"  style="margin-left: 100px;margin-right: 10px;"@click="handleContrast()">煤质对比分析</el-button>
               </div>
             </el-col>
@@ -16,7 +16,7 @@
             </el-col>
             <el-col :span="6">
               <div class="title_right">
-                <el-button class="bhover" style="margin-right: 100px;margin-left: 10px;" @click="handleReport()">检测报告生成</el-button>
+                <el-button class="bhover" style="margin-right: 100px;." @click="handleReport()">检测报告生成</el-button>
                 <el-button class="bhover" style="margin-right: 100px;" @click="handleAlgorithm()">算法介绍</el-button>
               </div>
             </el-col>
@@ -39,50 +39,52 @@
             <el-col :span="10">
               <el-card class="box-card" style="height: 150px;background-color:rgb(48,65,86);">
                 <div class="oneRowTwoCol">
-                  <p style="text-align: center;color: white;font-size: 20px;font-weight: 700; ">本年度发运异常批次情况</p>
-                  <el-card style="margin-top: 12px;padding: 0px;height: 40px">
-                    <el-row >
+                  <p style="text-align: center;color: white;font-size: 20px; ">本年度发运异常批次情况</p>
+                  <!--<el-card style="margin-top: 12px;padding: 0px;height: 100px;background-color:rgb(48,65,86);">-->
+                    <el-row style="margin-top: 0px;height: 5px;margin-top: 10px;">
                       <el-col span="8">
-                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;padding: 0px;margin: 0px "><b>379</b></p>
+                        <!--<p style="text-align: center;color: rgb(112,137,212);font-size:22px;max-height: 5px"><b><scroll-number :val="caseNum" style="color: rgb(112,137,212);"></scroll-number></b></p>-->
+                        <p style="text-align: center;color: rgb(112,137,212);font-size:22px;max-height: 5px"><b>379</b></p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: red ;font-size: 22px;font-weight: 700; "><b>62</b></p>
+                        <!--<p style="text-align: center;color: red ;font-size: 22px;"><b><scroll-number :val="faultNum" style="text-align: center;color: red"></scroll-number></b></p>-->
+                        <p style="text-align: center;color: red;font-size:22px;max-height: 5px"><b>62</b></p>
                       </el-col>
                       <el-col span="8">
-                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700; "><b>317</b></p>
-                      </el-col>
-                    </el-row>
-                  </el-card>
-                  <div style="margin-top: 8px">
-                    <el-row >
-                      <el-col span="8">
-                        <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;">批次总数</p>
-                      </el-col>
-                      <el-col span="8">
-                        <p style="text-align: center;color: red ;font-size: 22px;font-weight: 700; ">异常批次</p>
-                      </el-col>
-                      <el-col span="8">
-                        <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700;">正常批次</p>
+                        <!--<p style="text-align: center;color: #97694F ;font-size: 22px;"><b><scroll-number :val="typeNum" style="text-align: center;color: #97694F"></scroll-number></b></p>-->
+                        <p style="text-align: center;color: #97694F ;font-size: 22px;"><b>317</b></p>
                       </el-col>
                     </el-row>
-                  </div>
+                    <el-row>
+                      <!--<div style="margin-top: 8px">-->
+                        <!--<el-row >-->
+                          <el-col span="8">
+                            <p style="text-align: center;color: rgb(112,137,212);font-size: 22px;font-weight: 700;">批次总数</p>
+                          </el-col>
+                          <el-col span="8">
+                            <p style="text-align: center;color: red ;font-size: 22px;font-weight: 700; ">异常批次</p>
+                          </el-col>
+                          <el-col span="8">
+                            <p style="text-align: center;color: #97694F ;font-size: 22px;font-weight: 700;">正常批次</p>
+                          </el-col>
+                        <!--</el-row>-->
+                      <!--</div>-->
+                    </el-row>
+                  <!--</el-card>-->
+
                 </div>
 
               </el-card>
-              <el-card class="box-card" shadow="hover" style="height: 295px;background-color:rgb(48,65,86);margin-bottom: 15px;">
-                <center></center>
+              <el-card class="box-card-center" shadow="hover" style="height:295px;background-color:rgb(48,65,86);margin-bottom: 15px;">
+
               </el-card>
 
             </el-col>
             <!-- 第三列 -->
             <el-col :span="7">
               <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
-                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年煤质指标所占百分比</p></div>
-                <div
-                  id="right1"
-                  key="right1"
-                  style=" height: 445px;"
-                ></div>
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 30px;">近半年煤种运输情况</p></div>
+                <center></center>
               </el-card>
             </el-col>
           </el-row>
@@ -91,36 +93,6 @@
 <!--          第一列-->
           <el-col :span="7">
             <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
-            <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 10px">三大车型发运批次按水分划分的煤种占比情况</p>
-            <div id="leftTitle" key="leftTitle" style="height: 30px"></div>
-            </div>
-              <el-row>
-              <el-col span="12">
-                <div
-                  id="left2"
-                  key="left2"
-                  style=" height: 180px;width: 200px"
-                >
-                </div>
-              </el-col>
-              <el-col span="12">
-                <div
-                  id="left21"
-                  key="left21"
-                  style=" height: 180px;"
-                ></div>
-              </el-col>
-            </el-row>
-              <div
-                id="left22"
-                key="left22"
-                style="height: 180px; padding: 0px;margin: 0px">
-              </div>
-            </el-card>
-          </el-col>
-<!--          第二列-->
-          <el-col :span="10">
-            <el-card class="box-card" style="">
               <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年按挥发分划分的煤种基低位发热量检测均值情况</p></div>
               <div
                 id="center"
@@ -129,13 +101,21 @@
               ></div>
             </el-card>
           </el-col>
+<!--          第二列-->
+          <el-col :span="10">
+            <el-card class="box-card-center" style="">
+
+            </el-card>
+          </el-col>
 <!--          第三列-->
           <el-col :span="7">
             <el-card class="box-card"   shadow="hover" style="height: 450px;margin-bottom: 15px;">
-              <div>
-                <p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 10px">煤质检测报告记录</p>
-                <right2></right2>
-              </div>
+              <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年煤质指标所占百分比</p></div>
+              <div
+                id="right1"
+                key="right1"
+                style=" height: 445px;"
+              ></div>
             </el-card>
           </el-col>
         </el-row>
@@ -148,16 +128,21 @@
 import drawMixin from "../utils/drawMixin"; //自适应缩放
 import { formatTime } from "../utils/index.js"; //日期格式转换
 import * as echarts from "echarts";
-import right2 from "./algorithm/shouyeTable.vue";
+// import right2 from "./algorithm/shouyeTable.vue";
+import scrollNumber from "@/components/scrollNumber/scrollNumber";
 import center from "./algorithm/gundong.vue"
 export default {
   mixins: [drawMixin],
   components:{
-    right2,
+    // right2,
+    scrollNumber,
     center
   },
   data() {
     return {
+      caseNum: '379',
+      typeNum: '317',
+      faultNum: '62',
 
     };
   },
@@ -166,10 +151,6 @@ export default {
   // },
   mounted() {
     this.getChartleft1();
-    this.getChartTitle ();
-    this.getChartleft2();
-    this.getChartleft21();
-    this.getChartleft22();
     this.getChartright1();
     this.getChartCenter();
   },
@@ -287,246 +268,6 @@ export default {
             color:'white'
           }
         },
-      };
-      myChart.setOption(option)
-      window.addEventListener('resize', function() {
-        myChart.resize()
-      })
-    },
-    getChartTitle(){
-      var myChart = echarts.init(document.getElementById('leftTitle'))
-      const option = {
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '3%',
-          left: 'center',
-          textStyle:{
-            color:'white'
-          }
-        },
-        series: [
-          {
-            name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              { name: '中高全水煤' },
-              { name: '中全水煤' },
-              { name: '低全水煤' },
-              {},
-            ]
-          }
-        ],
-        grid:{
-          top:'5%',
-          left:'10%',
-          right:'5%',
-          bottom: '3%',
-          containLabel:true
-        }
-      };
-      myChart.setOption(option)
-      window.addEventListener('resize', function() {
-        myChart.resize()
-      })
-    },
-    getChartleft2(){
-      var myChart = echarts.init(document.getElementById('left2'))
-      const option = {
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '3%',
-          left: 'center',
-          textStyle:{
-            color:'white'
-          }
-        },
-        series: [
-          {
-            // name: '中国搞',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              { value: 700,  },
-              { value: 735,  },
-              { value: 400,  },
-
-            ]
-          }
-        ],
-        title: {
-          text:'中国重汽HOWO',
-          top:'center',
-          left:'center',
-          textStyle:{
-            color:'white',
-            fontSize:13
-          }
-        }
-      };
-      myChart.setOption(option)
-      window.addEventListener('resize', function() {
-        myChart.resize()
-      })
-    },
-    getChartleft21(){
-      var myChart = echarts.init(document.getElementById('left21'))
-      const option = {
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '20%',
-          left: 'center',
-          textStyle:{
-            color:'white'
-          }
-        },
-        series: [
-          {
-            // name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              { value: 748,  },
-              { value: 300,  },
-              { value: 600,  },
-            ]
-          }
-        ],
-        title: {
-          text:'福田欧曼GTL',
-          top:'center',
-          left:'center',
-          textStyle:{
-            color:'white',
-            fontSize:13
-          }
-        }
-      };
-      myChart.setOption(option)
-      window.addEventListener('resize', function() {
-        myChart.resize()
-      })
-    },
-    getChartleft22(){
-      var myChart = echarts.init(document.getElementById('left22'))
-      const option = {
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '2%',
-          left: 'center',
-          textStyle:{
-            color:'white'
-          }
-        },
-        series: [
-          {
-            // name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              { value: 848,  },
-              { value: 500,  },
-              { value: 600,  },
-            ]
-          }
-        ],
-        title: {
-          text:'东风天龙KL',
-          top:'center',
-          left:'center',
-          textStyle:{
-            color:'white',
-            fontSize:13
-          }
-        }
       };
       myChart.setOption(option)
       window.addEventListener('resize', function() {
@@ -672,10 +413,10 @@ export default {
   cursor: pointer;
   color: white;
   background-color: rgba(0, 0, 0, 0);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   height: 38px;
-  width: 100px;
+  width: 130px;
   margin-top: 0px;
   //border: 1px solid rgb(4, 114, 131);
 }
@@ -718,6 +459,13 @@ export default {
   margin: 5px 10px;
   //border-color: rgba(29, 86, 153, 0.5);
   border-color: #0a1863;
+  background-color: rgb(48,65,86);
+}
+.box-card-center {
+  padding: 10px;
+  margin: 5px 10px;
+  //border-color: rgba(29, 86, 153, 0.5);
+  border-color: rgb(48,65,86);
   background-color: rgb(48,65,86);
 }
 //全局样式部分！！！！

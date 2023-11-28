@@ -2,9 +2,10 @@
   <div class="table_body">
     <div class="table_th">
     <div class="tr1 th_style">批次编号</div>
-    <div class="tr2 th_style">煤采样编号</div>
     <div class="tr3 th_style">矿区名称</div>
     <div class="tr4 th_style">到达状态</div>
+    <div class="tr2 th_style">出发时间</div>
+
     </div>
 <!--    <el-table v-loading="loading" :data="batchList" @selection-change="handleSelectionChange">-->
 <!--      <el-table-column min-width="25%" label="批次编号" align="center" prop="batchNumber" />-->
@@ -16,10 +17,10 @@
       <div class="table_inner_body" :style="{top: tableTop + 'px'}">
         <div class="table_tr" v-for="(item,index) in batchList" :key="index">
           <div class="tr1 tr">{{item.batchNumber}}</div>
-          <div class="tr2 tr">{{item.coalNumber}}</div>
           <div class="tr3 tr">{{item.miningAreaName}}</div>
           <div class="tr4 tr" v-if="item.arrivalStatus=='1'">已送达</div>
           <div class="tr4 tr" v-else="item.arrivalStatus=='0'">运输中</div>
+          <div class="tr2 tr">{{item.startTime}}</div>
         </div>
       </div>
     </div>
@@ -95,6 +96,7 @@ mounted() {
       this.tableTop = 0;
       listBatch(this.queryParams).then(response => {
         this.batchList = response.rows;
+        this.batchList.sort((a, b) => a.startTime.localeCompare(b.startTime));
         console.log(this.batchList)
         this.total = response.total;
         this.tableActionFun();
