@@ -10,22 +10,22 @@ export default {
         Name: '忻州宏远矿区',
         address: '',
         phoneNumber: '',
-        bdLNG: 112.74286015132837,
-        bdLAT: 38.42148871204489
+        bdLNG: 111.7,
+        bdLAT: 38.3,
       },
       position_NKYYDS: {
         Name: '红池矿区',
         address: '',
         phoneNumber: '',
-        bdLNG: 112.74286015132837,
-        bdLAT: 38.42148871204489
+        bdLNG: 111.74286015132837,
+        bdLAT: 39.42148871204489
       },
       position_NKYYFS: {
         Name: '南岭矿区',
         address: '',
         phoneNumber: '',
-        bdLNG: 112.74286015132837,
-        bdLAT: 38.42148871204489
+        bdLNG: 110.74286015132837,
+        bdLAT: 37.42148871204489
       }
     };
   },
@@ -60,7 +60,7 @@ export default {
       var point = new BMap.Point(this.position_NKYYGS.bdLNG, this.position_NKYYGS.bdLAT); // 创建点坐标
       var marker = new BMap.Marker(point);
       map.addOverlay(marker);
-      map.centerAndZoom(point, 10); // 初始化地图，设置中心点坐标和地图级别
+      map.centerAndZoom(point, 8); // 初始化地图，设置中心点坐标和地图级别
       // //点击图标时候调用信息窗口
       var infoWindow = new BMap.InfoWindow(sContent);
       marker.addEventListener('click', function() {
@@ -81,10 +81,9 @@ export default {
       var point2 = new BMap.Point(this.position_NKYYDS.bdLNG, this.position_NKYYDS.bdLAT); // 创建点坐标
       var marker2 = new BMap.Marker(point2);
       map.addOverlay(marker2);
-      map.centerAndZoom(point2, 10); // 初始化地图，设置中心点坐标和地图级别
       // //点击图标时候调用信息窗口
       var infoWindow2 = new BMap.InfoWindow(sContent2);
-      marker.addEventListener('click', function() {
+      marker2.addEventListener('click', function() {
         this.openInfoWindow(infoWindow2);
       });
       var sContent3 =
@@ -102,10 +101,9 @@ export default {
       var point3 = new BMap.Point(this.position_NKYYFS.bdLNG, this.position_NKYYFS.bdLAT); // 创建点坐标
       var marker3 = new BMap.Marker(point3);
       map.addOverlay(marker3);
-      map.centerAndZoom(point3, 10); // 初始化地图，设置中心点坐标和地图级别
       // //点击图标时候调用信息窗口
       var infoWindow3 = new BMap.InfoWindow(sContent3);
-      marker.addEventListener('click', function() {
+      marker3.addEventListener('click', function() {
         this.openInfoWindow(infoWindow3);
       });
     }
