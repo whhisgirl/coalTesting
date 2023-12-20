@@ -3,8 +3,8 @@
     <div class="table_th">
     <div class="tr1 th_style">批次编号</div>
     <div class="tr3 th_style">矿区名称</div>
-    <div class="tr4 th_style">到达状态</div>
-    <div class="tr2 th_style">出发时间</div>
+    <div class="tr4 th_style">状态</div>
+    <div class="tr2 th_style">出发/到达时间</div>
 
     </div>
 <!--    <el-table v-loading="loading" :data="batchList" @selection-change="handleSelectionChange">-->
@@ -13,7 +13,7 @@
 <!--      <el-table-column min-width="25%" label="矿区名称" align="center" prop="miningAreaName" />-->
 <!--      <el-table-column min-width="25%" label="到达状态" align="center" prop="arrivalStatus" />-->
 <!--    </el-table>-->
-    <div class="table_main_body">
+   <div class="table_main_body">
       <div class="table_inner_body" :style="{top: tableTop + 'px'}">
         <div class="table_tr" v-for="(item,index) in batchList" :key="index">
           <div class="tr1 tr">{{item.batchNumber}}</div>

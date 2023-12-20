@@ -8,11 +8,11 @@
             <el-col :span="6">
               <div class="title_left">
                 <el-button class="bhover"  style="margin-left: 100px;" @click="handletest()">煤质快速检测</el-button>
-                <el-button class="bhover"  style="margin-left: 100px;margin-right: 10px;"@click="handleContrast()">煤质对比分析</el-button>
+                <el-button class="bhover"  style="margin-left: 100px;margin-right: 10px;" @click="handleContrast()">煤质对比分析</el-button>
               </div>
             </el-col>
             <el-col :span="12"
-            > <h1 style=" font-size: 22px; color: white; font-weight: 700; margin-top: 30px; background-color: rgba(0, 0, 0, 0);">快速煤质检测分析平台</h1>
+            > <h1 style=" font-size: 22px; color: white; font-weight: 700; margin-top: 30px; background-color: rgba(0, 0, 0, 0);">煤质智能检测分析平台</h1>
             </el-col>
             <el-col :span="6">
               <div class="title_right">
@@ -27,16 +27,26 @@
           <el-row>
             <!-- 第一列 -->
             <el-col :span="7">
-              <el-card class="box-card" shadow="hover" style="height: 450px;">
+              <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年发运批次按发热量划分三大煤种情况</p></div>
               <div
                 id="left1"
                 key="left1"
         style="height: 445px"
               ></div>
+
+              </el-card>
+              <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;float: bottom">
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年按挥发分划分的煤种基低位发热量检测均值情况</p></div>
+                <div
+                  id="center"
+                  key="center"
+                  style="height: 445px;"
+                ></div>
               </el-card>
             </el-col>
             <!-- 第二列 -->
-            <el-col :span="10">
+            <el-col :span="10" aria-colspan="2">
               <el-card class="box-card" style="height: 150px;background-color:rgb(48,65,86);">
                 <div class="oneRowTwoCol">
                   <p style="text-align: center;color: white;font-size: 20px; ">本年度发运异常批次情况</p>
@@ -75,8 +85,8 @@
                 </div>
 
               </el-card>
-              <el-card class="box-card-center" shadow="hover" style="height:295px;background-color:rgb(48,65,86);margin-bottom: 15px;">
-
+              <el-card class="box-card-center" shadow="hover" style="height:auto;background-color:rgb(48,65,86);margin-bottom: 15px;">
+                 <graph></graph>
               </el-card>
 
             </el-col>
@@ -84,41 +94,15 @@
             <el-col :span="7">
               <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
                 <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 30px;">近半年煤种运输情况</p></div>
-                <center></center>
+                <right1></right1>
+              </el-card>
+              <el-card class="box-card"   shadow="hover" style="height: 450px;margin-bottom: 15px; float: bottom">
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 30px;">近半年忻州宏远矿区产量榜</p></div>
+<!--                   <gundong-down></gundong-down>-->
               </el-card>
             </el-col>
           </el-row>
 <!--        第二行-->
-        <el-row>
-<!--          第一列-->
-          <el-col :span="7">
-            <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
-              <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年按挥发分划分的煤种基低位发热量检测均值情况</p></div>
-              <div
-                id="center"
-                key="center"
-                style=" height: 445px;"
-              ></div>
-            </el-card>
-          </el-col>
-<!--          第二列-->
-          <el-col :span="10">
-            <el-card class="box-card-center" style="">
-
-            </el-card>
-          </el-col>
-<!--          第三列-->
-          <el-col :span="7">
-            <el-card class="box-card"   shadow="hover" style="height: 450px;margin-bottom: 15px;">
-              <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年煤质指标所占百分比</p></div>
-              <div
-                id="right1"
-                key="right1"
-                style=" height: 445px;"
-              ></div>
-            </el-card>
-          </el-col>
-        </el-row>
         </div>
       </div>
     </div>
@@ -130,13 +114,18 @@ import { formatTime } from "../utils/index.js"; //日期格式转换
 import * as echarts from "echarts";
 // import right2 from "./algorithm/shouyeTable.vue";
 import scrollNumber from "@/components/scrollNumber/scrollNumber";
-import center from "./algorithm/gundong.vue"
+import right1 from "./algorithm/gundong.vue"
+import gundongDown from "./algorithm/gundongDown.vue"
+import graph from "./algorithm/graph.vue";
 export default {
   mixins: [drawMixin],
   components:{
     // right2,
-    scrollNumber,
-    center
+    // scrollNumber,
+    // center,
+    // gundongDown,
+    right1,
+    graph
   },
   data() {
     return {
@@ -146,12 +135,9 @@ export default {
 
     };
   },
-  // created() {
-  //   this.getChartleft1();
-  // },
   mounted() {
     this.getChartleft1();
-    this.getChartright1();
+    // this.getChartright1();
     this.getChartCenter();
   },
   methods: {
@@ -261,12 +247,10 @@ export default {
             ]
           },
         ],
-        title: {
-          text: '近半年发运批次按发热量划分三大煤种运输情况',
-          left: 'center',
-          textStyle:{
-            color:'white'
-          }
+        grid:{
+          // top:200,
+          // left:50
+          bottom:100
         },
       };
       myChart.setOption(option)
@@ -277,45 +261,35 @@ export default {
     getChartright1(){
       var myChart = echarts.init(document.getElementById('right1'))
       const option = {
-        xAxis: {
-          max: 60,
-          axisLine: {
-            lineStyle: {
-              color: '#fff',
-            },
-          },
+        legend: {
+          top: 'bottom'
         },
-        yAxis: {
-          type: 'category',
-          data: ['水分(%)', '密度(%)', '电阻率(%)', '灰分(%)', '挥发分(%)','基低位发热量(%)'],
-          max: 5, // only the largest 3 bars will be displayed
-          axisLine: {
-            lineStyle: {
-              color: '#fff',
-            },
-          },
+        toolbox: {
+          show: true,
         },
         series: [
           {
-            type: 'bar',
-            data: [ 18, 12, 23, 25, 21, 53],
-            label: {
-              show: true,
-              position: 'right',
-            }
+            type: 'pie',
+            radius: [50, 250],
+            center: ['50%', '50%'],
+            roseType: 'area',
+            itemStyle: {
+              borderRadius: 8
+            },
+            data: [
+              { value: 60, name: '无烟煤' },
+              { value: 20, name: '焦煤' },
+              { value: 42, name: '烟煤' },
+              { value: 30, name: '褐煤' },
+              { value: 48, name: '动力煤' },
+            ]
           }
         ],
-        legend: {
-          show: true,
-          textStyle:{
-            color:'white'
-          }
-        },
         grid:{
-          left:100,
-          top:50,
-          bottom:100
-        }
+          top:'86%',
+          left:'56%',
+          bottom:'56%'
+        },
       };
       myChart.setOption(option)
       window.addEventListener('resize', function() {
@@ -393,7 +367,8 @@ export default {
           // top:200,
           // left:50
           bottom:100
-        }
+        },
+
       };
       myChart.setOption(option)
       window.addEventListener('resize', function() {
