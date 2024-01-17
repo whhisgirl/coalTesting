@@ -76,6 +76,28 @@ export default {
           //   }else {
           //     if(i<border){
           listEnd.push({
+            "id":'姓名',
+            "value": '姓名',
+            "num": '',
+            "size": 30,
+            "style": {
+              "stroke": that.strokeColorList[item],
+              "fill": that.colorList[item],
+              "cursor" : "pointer"
+
+              // "shadowColor": "skyBlue",
+              // "shadowBlur":20,
+            },
+            "labelCfg": {
+              "style": {
+                fill: "#000000",
+                fontSize: 12
+              },
+              "position": 'bottom',
+              "offset": 0,
+            },
+            "level": 2
+          },{
             "id":'车牌',
             "value": '车牌',
             "num": '',
@@ -721,12 +743,11 @@ export default {
         if (model.level === 2) {
           // alert(model.value)
           let value = model.value;
-          that.$router.push({
-            path:'/graphManage/defineLayout',
+
             // query: {
             //   value: value
             // }
-          })
+
 
           // that.$router.push({
           //   name: '/casedata',
