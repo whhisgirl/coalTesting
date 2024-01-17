@@ -24,8 +24,9 @@
           <el-col :span="6">
             <el-form-item label="所在矿区">
               <el-select v-model="searchForm.miningAreaName" placeholder="请选择矿区">
-                <el-option label="大同矿区" value="大同矿区"></el-option>
-                <el-option label="忻州矿区" value="忻州矿区"></el-option>
+                <el-option label="红池矿区" value="红池矿区"></el-option>
+                <el-option label="忻州宏远矿区" value="忻州宏远矿区"></el-option>
+                <el-option label="南岭矿区" value="南岭矿区"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -99,7 +100,7 @@
                   <i class="el-icon-location-outline"></i>
                   矿区所在地
                 </template>
-                {{ infoForm.miningAreaName }}
+                {{ infoForm.locationMiningArea }}
               </el-descriptions-item>
             </el-descriptions>
           </el-row>
@@ -386,7 +387,7 @@ export default {
         this.infoForm.batchNumber = this.exceptionCompareList[0].batchNumber
         this.infoForm.miningAreaName = this.exceptionCompareList[0].miningAreaName
         this.infoForm.licensePlate = this.exceptionCompareList[0].licensePlate
-        this.infoForm.miningAreaName = this.exceptionCompareList[0].miningAreaName
+        this.infoForm.locationMiningArea = this.exceptionCompareList[0].locationMiningArea
 
         this.infoForm.firstWater = this.exceptionCompareList[0].waterContent
         this.infoForm.firstAshContent = this.exceptionCompareList[0].ashContent
