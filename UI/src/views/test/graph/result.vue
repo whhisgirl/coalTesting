@@ -61,7 +61,7 @@ export default {
         const node = evt.item; // 获取被点击的节点
         const model = node.getModel(); // 获取节点的数据模型
         if (model.label == '异常批次') {
-          this.$router.push({path: '/comAnalysis/coalTransportationAnalysis'});
+          this.$router.push({path: '/comAnalysis/CompareCoal/dealMore'});
         }
       });
 
@@ -76,9 +76,9 @@ export default {
   data() {
     return {
       nodes: [
-        {id: 'node0', size: 60, type: 'rect', color: '#f9f65b', label: '车牌', style: {fill: '#fff4c6'}},
-        {id: 'node1', size: 60, type: 'rect', color: '#f9f65b', label: '信用记录', style: {fill: '#fff4c6'}},
-        {id: 'node2', size: 60, type: 'rect', color: '#f9f65b', label: '行程记录', style: {fill: '#fff4c6'}},
+        {id: 'node0', size: 70, type: 'rect', color: '#f9f65b', label: '忻州宏远矿区', style: {fill: '#fff4c6'}},
+        {id: 'node1', size: 70, type: 'rect', color: '#f9f65b', label: '信用记录', style: {fill: '#fff4c6'}},
+        {id: 'node2', size: 70, type: 'rect', color: '#f9f65b', label: '行程记录', style: {fill: '#fff4c6'}},
         {
           id: 'node3', size: 150, label: '煤质异常记录', labelCfg: {
             position: 'center',
@@ -88,10 +88,9 @@ export default {
             }
           }
         },
-        {id: 'node4', size: 60, type: 'rect', color: '#f9f65b',  style: {fill: '#fff4c6'},label: '姓名'},
 
-        {id: 'node5', size: 90, isLeaf: true, label: '司机信用'},
-        {id: 'node6', size: 90, isLeaf: true, label: '异常批次'},
+        {id: 'node4', size: 90, isLeaf: true, label: '司机信用'},
+        {id: 'node5', size: 90, isLeaf: true, label: '异常批次'},
 
       ],
       edges: [
@@ -100,14 +99,10 @@ export default {
         {source: 'node0', target: 'node3'},
         {source: 'node1', target: 'node3'},
         {source: 'node2', target: 'node3'},
-        {source: 'node3', target: 'node6'},
         {source: 'node3', target: 'node5'},
-        {source: 'node0', target: 'node4'},
-        {source: 'node1', target: 'node4'},
-        {source: 'node2', target: 'node4'},
-        {source: 'node4', target: 'node3'},
+        {source: 'node3', target: 'node4'},
         {source: 'node1', target: 'node2'},
-        {source: 'node2', target: 'node4'},
+
       ],
     };
   },
