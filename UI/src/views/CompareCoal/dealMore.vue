@@ -281,9 +281,7 @@ export default {
       });
     },
     cancel() {
-      this.exceptionCompareBarChart.dispose()
-      this.exceptionCompareBarChartOption = null
-      this.open = false
+
     },
     reset() {
       this.searchForm = {}

@@ -63,6 +63,9 @@ export default {
         if (model.label == '异常批次') {
           this.$router.push({path: '/comAnalysis/CompareCoal/dealMore'});
         }
+        if(model.label=='司机信用'){
+          this.$router.push({path: '/comAnalysis/CompareCoal/driverCredit'});
+        }
       });
 
       if (typeof window !== 'undefined')
@@ -75,6 +78,8 @@ export default {
   },
   data() {
     return {
+      show1:false,
+      show2:false,
       nodes: [
         {id: 'node0', size: 70, type: 'rect', color: '#f9f65b', label: '忻州宏远矿区', style: {fill: '#fff4c6'}},
         {id: 'node1', size: 70, type: 'rect', color: '#f9f65b', label: '信用记录', style: {fill: '#fff4c6'}},
@@ -90,7 +95,7 @@ export default {
         },
 
         {id: 'node4', size: 90, isLeaf: true, label: '司机信用'},
-        {id: 'node5', size: 90, isLeaf: true, label: '异常批次'},
+        {id: 'node5', size: 90, isLeaf: true,label: '异常批次'},
 
       ],
       edges: [
