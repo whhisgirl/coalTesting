@@ -1,4 +1,5 @@
-<template>
+
+ ui<template>
   <el-card v-if="show" class="card1">
     <div style="margin-left: 20px;margin-top: 20px;">
       <el-steps :active="active" finish-status="success" style="margin-left: 250px;" align-center :space="400">
@@ -177,7 +178,7 @@
       </thead>
       <tbody>
         <tr>
-          <th colspan="6">采样信息</th>
+          <th colspan="6" style="font-size: 20px;">采样信息</th>
         </tr>
         <tr>
           <th class="color">采样时间</th>
@@ -196,7 +197,7 @@
           <th>连续采样法</th>
         </tr>
         <tr>
-          <th colspan="6">指标结果</th>
+          <th colspan="6" style="font-size: 20px;">指标结果</th>
         </tr>
         <tr>
           <th class="color">煤炭批次编号</th>
@@ -223,7 +224,7 @@
           <th>山西忻州</th>
         </tr>
         <tr>
-          <th colspan="6">其它信息</th>
+          <th colspan="6" style="font-size: 20px;">其它信息</th>
         </tr>
         <tr>
           <th colspan="2" class="color">报告生成时间</th>
