@@ -17,7 +17,7 @@
             <el-col :span="6">
               <div class="title_right">
                 <el-button class="bhover" style="margin-right: 100px;." @click="handleReport()">检测报告生成</el-button>
-                <el-button class="bhover" style="margin-right: 100px;" @click="handleAlgorithm()">算法介绍</el-button>
+                <el-button class="bhover" style="margin-right: 100px;" @click="handleAlgorithm()">图谱管理</el-button>
               </div>
             </el-col>
           </el-row>
@@ -28,17 +28,14 @@
             <!-- 第一列 -->
             <el-col :span="7">
               <el-card class="map-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
-                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">忻州矿区产矿分布</p></div>
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">矿产分布</p></div>
               <div><map-view></map-view></div>
 
               </el-card>
               <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;float: bottom">
-                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年按挥发分划分的煤种基低位发热量检测均值情况</p></div>
-                <div
-                  id="center"
-                  key="center"
-                  style="height: 445px;"
-                ></div>
+                <div><p style="margin-bottom:20px;text-align: center;color: white;font-size: 18px;font-weight: 700;">货车司机运输行程</p></div>
+                <truck-driver></truck-driver>
+                <b-driver></b-driver>
               </el-card>
             </el-col>
             <!-- 第二列 -->
@@ -93,7 +90,9 @@
                 <right1></right1>
               </el-card>
               <el-card class="box-card"   shadow="hover" style="height: 450px;margin-bottom: 15px; float: bottom">
-                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 30px;">近半年忻州宏远矿区产量榜</p></div>
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;margin-bottom: 30px;">近半年忻州宏远矿区产量榜</p>
+                </div>
+                <pai-ming></pai-ming>
 <!--                   <gundong-down></gundong-down>-->
               </el-card>
             </el-col>
@@ -108,20 +107,26 @@
 import drawMixin from "../utils/drawMixin"; //自适应缩放
 import { formatTime } from "../utils/index.js"; //日期格式转换
 import * as echarts from "echarts";
+import truckDriver from "../views/test/graph/driver.vue"
 // import right2 from "./algorithm/shouyeTable.vue";
 import scrollNumber from "@/components/scrollNumber/scrollNumber";
 import right1 from "./algorithm/gundong.vue"
 import mapView from "./test/graph/map.vue"
 import graph from "./algorithm/graph.vue";
+import paiMing from "../views/test/graph/paiming.vue"
+import bDriver from "../views/test/graph/bDriver.vue"
 export default {
   mixins: [drawMixin],
   components:{
     // right2,
     // scrollNumber,
     // center,
+    truckDriver,
     mapView,
     right1,
-    graph
+    graph,
+    paiMing,
+    bDriver,
   },
   data() {
     return {
@@ -158,7 +163,7 @@ export default {
     // 跳转到算法库页面
     handleAlgorithm(){
       this.$router.push({
-        path:"/algorithm"
+        path:"/graph/deal"
       })
     },
     getChartleft1(){
