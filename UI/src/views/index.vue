@@ -27,13 +27,9 @@
           <el-row>
             <!-- 第一列 -->
             <el-col :span="7">
-              <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
-                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">近半年发运批次按发热量划分三大煤种情况</p></div>
-              <div
-                id="left1"
-                key="left1"
-        style="height: 445px"
-              ></div>
+              <el-card class="map-card" shadow="hover" style="height: 450px;margin-bottom: 15px;">
+                <div><p style="text-align: center;color: white;font-size: 18px;font-weight: 700;">忻州矿区产矿分布</p></div>
+              <div><map-view></map-view></div>
 
               </el-card>
               <el-card class="box-card" shadow="hover" style="height: 450px;margin-bottom: 15px;float: bottom">
@@ -115,7 +111,7 @@ import * as echarts from "echarts";
 // import right2 from "./algorithm/shouyeTable.vue";
 import scrollNumber from "@/components/scrollNumber/scrollNumber";
 import right1 from "./algorithm/gundong.vue"
-import gundongDown from "./algorithm/gundongDown.vue"
+import mapView from "./test/graph/map.vue"
 import graph from "./algorithm/graph.vue";
 export default {
   mixins: [drawMixin],
@@ -123,7 +119,7 @@ export default {
     // right2,
     // scrollNumber,
     // center,
-    // gundongDown,
+    mapView,
     right1,
     graph
   },
@@ -431,6 +427,13 @@ export default {
 }
 .box-card {
   padding: 10px;
+  margin: 5px 10px;
+  //border-color: rgba(29, 86, 153, 0.5);
+  border-color: #0a1863;
+  background-color: rgb(48,65,86);
+}
+.map-card {
+  padding: 10px ;
   margin: 5px 10px;
   //border-color: rgba(29, 86, 153, 0.5);
   border-color: #0a1863;
