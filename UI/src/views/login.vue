@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">快速煤质检测分析平台</h3>
+      <h3 class="title">一体化煤质智能检测分析平台</h3>
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"

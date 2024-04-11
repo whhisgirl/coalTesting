@@ -66,10 +66,11 @@ export default {
     width: 100%;
 
     & .sidebar-logo {
-      width: 32px;
-      height: 32px;
+      width: 15px;
+      height: 26px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 8px;
+      margin-bottom: 2px;
     }
 
     & .sidebar-title {

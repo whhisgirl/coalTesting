@@ -9,7 +9,7 @@
       >
         <div>{{ item.content }}</div>
         <i
-          class="el-icon-truck" style="margin-top:20px; color:orange;margin-left: 305px;margin-bottom:10px"
+          class="el-icon-truck" style="margin-top:20px; color:orange;margin-left: 335px;margin-bottom:10px"
           slot="reference"
           @mouseover="changeStatus(item, true)"
           @mouseleave="changeStatus(item, false)"

@@ -142,7 +142,7 @@
         <el-form-item label=" 报告生成时间">
           <el-date-picker
             v-model="value1"
-            type="datetime"
+            type="date"
             placeholder="选择日期时间"
             value-format="yyyy-MM-dd HH:mm"
             format="yyyy-MM-dd HH:mm">
@@ -182,7 +182,7 @@
         </tr>
         <tr>
           <th class="color">采样时间</th>
-          <th>2023-1-21 14:03</th>
+          <th>2023-10-09 14:24</th>
           <th class="color">采样地点</th>
           <th>山西忻州</th>
           <th class="color">采样人</th>
@@ -201,7 +201,7 @@
         </tr>
         <tr>
           <th class="color">煤炭批次编号</th>
-          <th>C120J145</th>
+          <th>C1009G2</th>
           <th class="color">水分</th>
           <th>8.13</th>
           <th class="color">密度</th>
@@ -219,7 +219,7 @@
           <th class="color">电阻率</th>
           <th>377</th>
           <th class="color">检测时间</th>
-          <th>2023-1-21 11:02</th>
+          <th>2023-10-18 11:02</th>
           <th class="color">检测地</th>
           <th>山西忻州</th>
         </tr>
@@ -228,9 +228,9 @@
         </tr>
         <tr>
           <th colspan="2" class="color">报告生成时间</th>
-          <th>2023-10-19 11:02</th>
+          <th slot="time">{{time2}}</th>
           <th colspan="2" class="color">检测标准号</th>
-          <th>GB475-2008-1</th>
+          <th>GB475-2008</th>
         </tr>
       </tbody>
     </table>
@@ -245,11 +245,12 @@
 export default {
   data() {
     return {
+      time2:this.parseTime(new Date()),
       name: "report",
       active: 0,
       show: true,
       test: '',
-      value1: '',
+      value1: this.parseTime(new Date()),
       formInline: {
         user: '',
         region: ''
@@ -316,7 +317,7 @@ export default {
       console.log('submit!');
     },
     cyInsert() {
-      this.cyMessage.time = "2023-08-09 14:24"
+      this.cyMessage.time = "2023-10-09 14:24"
       this.cyMessage.location = "山西忻州";
       this.cyMessage.person = "汤景";
       this.cyMessage.SampleSize = "粒煤";
@@ -331,7 +332,7 @@ export default {
       this.zbResult.volatilize = "28.30";
       this.zbResult.grey = "23.28";
       this.zbResult.resistance = "377";
-      this.zbResult.time = "2023-1-21 11:02";
+      this.zbResult.time = "2023-10-18 11:02";
       this.zbResult.location = "山西忻州";
 
       this.$forceUpdate()
@@ -350,13 +351,13 @@ export default {
 .card {
   width: 1500px;
   height: 1200px;
-  margin: 1% 5%;
+  margin: 1% 1%;
 }
 
 .card1 {
   width: 1500px;
   height: 900px;
-  margin: 1% 5%;
+  margin: 1% 1%;
 }
 
 .color {

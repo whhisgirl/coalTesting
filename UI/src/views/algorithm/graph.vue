@@ -643,7 +643,7 @@ export default {
       const container = document.getElementById('container');
       const width = container.scrollWidth;
       // const width = this.defaultWidth;
-      const height = container.scrollHeight;
+      const height = container.scrollHeight+135;
       // const height = container.scrollHeight || 500;
       // const height = this.defaultHeight;
 
