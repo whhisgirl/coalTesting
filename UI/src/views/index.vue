@@ -12,7 +12,7 @@
               </div>
             </el-col>
             <el-col :span="12"
-            > <h1 style=" font-size: 22px; color: white; font-weight: 700; margin-top: 30px; background-color: rgba(0, 0, 0, 0);">煤质智能检测分析平台</h1>
+            > <h1 style=" font-size: 22px; color: white; font-weight: 700; margin-top: 30px; background-color: rgba(0, 0, 0, 0);">一体化煤质智能检测分析平台</h1>
             </el-col>
             <el-col :span="6">
               <div class="title_right">
@@ -78,7 +78,7 @@
                 </div>
 
               </el-card>
-              <el-card class="box-card-center" shadow="hover" style="height:auto;background-color:rgb(48,65,86);margin-bottom: 15px;">
+              <el-card class="box-card-center" shadow="hover" style="height:700px;background-color:rgb(48,65,86);margin-bottom: 15px;">
                  <graph></graph>
               </el-card>
 
@@ -479,8 +479,8 @@ a {
 //页面样式部分！！！！
 #index {
   color: #d3d6dd;
-  width: 1920px;
-  height: 1080px;
+  width: 2050px;
+  height: 1050px;
   position: absolute;
   top: 50%;
   left: 50%;

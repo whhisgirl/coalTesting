@@ -10,7 +10,7 @@
 
     <name>ruoyi</name>
     <url>http://www.ruoyi.vip</url>
-    <description>快速煤质检测分析平台</description>
+    <description>一体化煤质智能检测分析平台</description>
 
     <properties>
         <ruoyi.version>3.8.6</ruoyi.version>

@@ -21,7 +21,7 @@
             </el-form-item>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :span="6" :offset="1">
             <el-form-item label="所在矿区">
               <el-select v-model="searchForm.miningAreaName" placeholder="请选择矿区">
                 <el-option label="红池矿区" value="红池矿区"></el-option>

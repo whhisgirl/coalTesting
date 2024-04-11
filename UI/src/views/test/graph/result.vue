@@ -12,7 +12,7 @@ export default {
     createTree() {
       const container = document.getElementById('container1');
       const width = container.scrollWidth;
-      const height = container.scrollHeight;
+      const height = container.scrollHeight-330;
       const graph = new G6.Graph({
         container: container,
         width: width,
